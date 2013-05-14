@@ -1,0 +1,30 @@
+extranet_portada:
+    pattern: /
+    defaults: { _controller:BackendBundle:Extranet:portada }
+extranet_activitat_nova:
+    pattern: /activitat/nova
+    defaults: { _controller:BackendBundle:Extranet:ActivitatNova }
+extranet_activitat:
+    pattern: /activitat
+    defaults: { _controller:BackendBundle:Extranet:Activitat }
+_extranet_activitat:
+    pattern: /activitat/
+    defaults: { _controller:BackendBundle:Extranet:Activitat }
+extranet_activitat_editar:
+    pattern: /activitat/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:ActivitatEditar }
+extranet_perfil:
+   pattern: /perfil
+   defaults: { _controller:BackendBundle:Extranet:perfil }
+extranet_calendari:
+    pattern: /calendari
+    defaults: { _controller:BackendBundle:Extranet:Calendari }
+extranet_calendari_nou:
+    pattern: /calendari/nou
+    defaults: { _controller:BackendBundle:Extranet:CalendariNou }
+extranet_calendari_editar:
+    pattern: /calendari/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:CalendariEditar }
+extranet_calendari_activitat_visualitzar:
+    pattern: /calendari/visualitzar/{id}
+    defaults: { _controller:BackendBundle:Extranet:CalendariActivitatVisualitzar }

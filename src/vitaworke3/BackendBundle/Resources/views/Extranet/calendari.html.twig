@@ -1,0 +1,37 @@
+
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="content">
+<h1>Calendari activitats</h1>
+<table>
+<thead>
+<tr>
+<th>Data</th>
+<th>Client</th>
+<th>Activitat</th>
+</tr>
+</thead>
+<tbody>
+{% for calendari in calendaris %}
+<tr>
+<td><a href="{{ path('extranet_calendari_editar', { 'id': calendari.id })}}">{{ calendari.DiaActivitat| date()   }}</td>
+
+<td><a href="{{ path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}">{{ calendari.Client.Nom}}</td>
+<td>{{ calendari.Activitat.Activitat}}"<td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<INPUT type="button" value="Afegir activitat a calendari" onClick="location.href='{{ path('extranet_calendari_nou')}}'">
+	<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
+
+
+</div>
+</body>
+</html> 

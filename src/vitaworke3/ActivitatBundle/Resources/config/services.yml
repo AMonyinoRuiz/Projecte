@@ -1,0 +1,65 @@
+parameters:
+#    activitat.example.class: vitaworke3\ActivitatBundle\Example
+
+services:
+#    activitat.example:
+#        class: %activitat.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+# ...
+    sonata.vitaworke3.admin.format:
+        class: vitaworke3\ActivitatBundle\Admin\FormatAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Format }
+        arguments:
+            - null
+            - vitaworke3\ActivitatBundle\Entity\Format
+            - ActivitatBundle:Admin
+    sonata.vitaworke3.admin.tipologia:
+        class: vitaworke3\ActivitatBundle\Admin\TipologiaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Tipologia }
+        arguments:
+            - null
+            - vitaworke3\ActivitatBundle\Entity\Tipologia
+            - ActivitatBundle:Admin
+    sonata.vitaworke3.admin.tipusclient:
+        class: vitaworke3\ClientBundle\Admin\TipusClientAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Tipus client }
+        arguments:
+            - null
+            - vitaworke3\ClientBundle\Entity\TipusClient
+            - ClientBundle:Admin
+    sonata.vitaworke3.admin.client:
+        class: vitaworke3\ClientBundle\Admin\ClientAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Clients', label: client }
+        arguments:
+            - null
+            - vitaworke3\ClientBundle\Entity\Client
+            - ClientBundle:Admin
+    sonata.vitaworke3.admin.activitat:
+        class: vitaworke3\ActivitatBundle\Admin\ActivitatAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Activitats', label: activitat }
+        arguments:
+            - null
+            - vitaworke3\ActivitatBundle\Entity\Activitat
+            - ActivitatBundle:Admin
+    sonata.vitaworke3.admin.campanya:
+        class: vitaworke3\ClientBundle\Admin\CampanyaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Clients', label: campanya }
+        arguments:
+            - null
+            - vitaworke3\ClientBundle\Entity\Campanya
+            - ClientBundle:Admin
+    sonata.vitaworke3.admin.calendari:
+        class: vitaworke3\CalendariBundle\Admin\CalendariAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Calendari', label: calendari }
+        arguments:
+            - null
+            - vitaworke3\CalendariBundle\Entity\Calendari
+            - CalendariBundle:Admin
+    

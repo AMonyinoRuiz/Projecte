@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: vitaworke3
+    database_user: vitaworke3
+    database_password: vitaworke3
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: es
+    secret: 5e677c08e0b0910bd99c99aeb33d6cd5
+    database_path: null

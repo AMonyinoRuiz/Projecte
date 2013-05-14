@@ -1,0 +1,3 @@
+usuaris_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: UsuarisBundle:Default:index }

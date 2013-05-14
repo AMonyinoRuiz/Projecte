@@ -1,0 +1,89 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="content">
+<h1>TÍTULO DE LA ACTIVIDAD</h1>
+<form action="{{ accion == 'crear' ? path('extranet_activitat_nova') :
+path('extranet_activitat_editar', { 'id': activitat.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div>
+{{ form_errors(formulario) }}
+<div>
+{{ form_label(formulario.Activitat, 'Activitat') }}
+{{ form_errors(formulario.Activitat) }}
+{{ form_widget(formulario.Activitat) }}
+</div>
+<div>
+{{ form_label(formulario.Activitat, 'Presentació activitat') }}
+{{ form_row(formulario.Presentacio) }}
+<p class="ayuda">Aquest texte es el que utilitzarem a l'enviar el mail per descriure l'activitat a l'usuari.</p>
+</div>
+<div>
+{{ form_row(formulario.Tipologia) }}
+</div>
+<div>
+{{ form_row(formulario.Format) }}
+</div>
+<div>
+{{ form_row(formulario.Comite) }}
+</div>
+<div>
+{{ form_row(formulario.Formador) }}
+</div>
+<div>
+{{ form_row(formulario.Formador) }}
+</div>
+
+<div>
+{{ form_label(formulario.imatge, 'imatge') }}
+{{ form_errors(formulario.imatge) }}
+{% if accion == 'editar' %}
+	<div>
+	<td><img witdh='20px' height='20px' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/><td>
+	</div>
+	<div>
+	{{ form_label(formulario.imatge, 'Modificar foto') }}
+    </div>
+{% endif %}
+{{ form_widget(formulario.imatge)}} 	
+<p class="ayuda">Tamany maxim: 1200 KB. Format preferit: JPEG.</p>
+</div>
+<div>
+{{ form_label(formulario.multimedia, 'Audio i video') }}
+{{ form_errors(formulario.multimedia) }}
+{% if accion == 'editar' %}
+	<div>
+	<td>{{activitat.pathMultimedia}}/><td>
+	</div>
+	<div>
+	{{ form_label(formulario.multimedia, 'Modificar arxiu') }}
+    </div>
+{% endif %}
+{{ form_widget(formulario.multimedia)}} 	
+<p class="ayuda">Tamany maxim: 100MB. Format preferit: MP4/MP3.</p>
+</div>
+
+<div>
+{{ form_row(formulario.Activada) }}
+</div>
+<div>
+{{ form_row(formulario.Baixa) }}
+</div>
+{{ form_rest(formulario) }}
+<input class="boton" type="submit" value="Afegir activitat" />
+<INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_activitat')}}'">
+	<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
+
+
+
+</div>
+</form>
+</div>
+</body>
+</html>

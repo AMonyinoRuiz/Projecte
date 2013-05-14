@@ -1,0 +1,92 @@
+
+ 	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    <HEAD>
+ 	<META HTTP-EQUIV='Content-TYPE' CONTENT='text/HTML/' charset='iso8859-1'>
+	<link rel='stylesheet' href='/scripts/xima.css' type='text/css'>
+ 	<style type='text/css' media='screen'>
+ 	.td {background: #E6E6E6;font-size: 100%;text-align: center;color:#000000;border: 3px solid #E6E6E6}
+ 	.tdCapçalera {background: #E6E6E6;font-size: 100%;text-align: center;color:#E27704;}
+ 	.tdNoInc {background: #FFFFFF;font-size: 100%;text-align: center;color:#FFFFFF;}
+ 	.tdNoIncGris{background:#AEAEAE;font-size: 60%;text-align: center;color:#000000;}
+ 	.PreContracte {background: #04B4AE;font-size: 100%;text-align: center;color:#FFFFFF;}
+ 	.tdSeleccio {background: #F5BCA9;font-size: 50%;text-align: center;color:#000000}
+ 	.tdavuiSel {background: #FF8000;font-size: 50%;text-align: center;color:#FFFFFF}
+ 	.tdavuiSelF {background: #FF8000;font-size: 50%;text-align: center;color:#FFFFFF}
+ 	.tddescripciogfh  {background: #AEAEAE;font-size: 60%;color:#000000}
+ 	.tddescripciotorn  {background: #AEAEAE;font-size: 60%;color:#000000}
+ 	.tddescripciotorndies  {background: #FFFFFF;font-size: 60%;color:#000000;border: 1px solid #AEAEAE}
+ 	.tddescripcionota {background: #FFFFFF;font-size: 100%;text-align: center;color:#E27704;border-style:outset;border-width:2px;border-color:#E27704}
+ 	.Positiu  {background: #FFFFFFF;font-size: 60%;color:green;border: 1px solid green}
+ 	.Negatiu  {background: #FFFFFFF;font-size: 60%;color:red;border: 1px solid red}
+ 	.tddescripciocat {background: #AEAEAE;font-size: 60%;color:#000000}
+ 	.tddescripciocatdies  {background: #FFFFFF;font-size: 60%;color:#000000;border:1px solid #AEAEAE}
+ 	.tddescripciohores {background: #FFFFFF;font-size: 40%;color:#000000;border:1px solid #AEAEAE}
+ 	.tddescripcioemp {background: #FFFFFF;font-size: 40%;color:#000000;border:1px solid #AEAEAE}
+    .tddescripcioempsup {background: #FFFFFF;font-size: 40%;color:blue;border:1px solid #AEAEAE}
+    .tdavui {background: #FF8000;font-size: 60%;text-align: center;color:#FFFFFF}
+ 	.tdavuiF {background: #FF8000;font-size: 60%;text-align: center;color:#FFFFFF}
+    .tdplantilla {background: #AEAEAE;font-size: 60%;text-align: center;color:#FFFFFF}
+ 	.tdplantillaF {background: #C6C6C6;font-size: 60%;text-align: center;color:#FFFFFF}
+ 	.caption {background: #08088A;margin: 0;border: 1px solid #333333;border-bottom: none;padding: 6px 16px;font-weight: bold;color:#FFFFFF;}
+ 	.tdia {background: #FFFFFF;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaA {background: #FCF38F;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaV {background: #AAEEAA;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaB {background: #FF6666;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaP {background: #FF8000;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaF {background: #CCCCFF;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaC {background: #CCCCFF;font-size: 60%;text-align: center;color:#000000;}
+ 	.tdiaSolV {background:#150567;font-size: 60%;text-align: center;color:#FFFFFF;}
+ 	.tdiaSolVRRHH {background:#ff00ff;font-size: 60%;text-align: center;color:#FFFFFF;}
+    .body{width: 100%;height:100% ;background: #F9F6F6;margin: 0;padding: 20px;line-height: 3em;font-family: tahoma, arial, sans-serif;}
+ 	.BotoO {background: #FFFFFF;font-size: 60%;text-align: center;color:#000000;border-style:outset;border-width:2px;border-color:#000000}
+ 	</STYLE>
+ 	 <SCRIPT LANGUAGE='JavaScript' >
+ 	
+	function OnClickOrdre(Cela)
+	{
+		Cela.style.background='#E6E6E6';
+ 		Cela.style.fontSize='10px';
+ 		
+	}
+   
+
+ 		
+   	</SCRIPT>
+ 	</HEAD>
+
+	<BODY Class=body>
+	<TABLE width=1360px>
+	<TD COLSPAN=99 WIDTH=16.5% class=td  onmouseover='Tip("TIP")' onmouseout='UnTip()' ALIGN=LEFT><B>PLANNING</B></TD>
+	<TR>
+	<TD COLSPAN=99 WIDTH=16.5% class=tdCapçalera ALIGN=LEFT>
+	<SELECT NAME="GFH" Class=BotoO MULTIPLE Size=3> 
+   	<OPTION VALUE=1>Prova 1</OPTION> 
+    <OPTION VALUE=2>Prova 2</OPTION> 
+    <OPTION VALUE=3>Prova 3</OPTION> 
+	</SELECT>
+    <INPUT TYPE=BUTTON CLASS=BotoO VALUE='Aplicar filtre seleccionat' ONCLICK='OnClickOrdre(this)'>
+    </TR>
+    <TR>
+    <TD CLASS=tdplantilla  WIDTH=2%  ALIGN=CENTER STYLE=cursor:hand ONCLICK='OnClickOrdre(this)'></TD>
+    <TD CLASS=tdplantilla  WIDTH=16% ALIGN=LEFT ONCLICK='OnClickOrdre(this)'></TD>
+    <TD WIDTH=2% CLASS=tdplantilla ONCLICK='OnClickOrdre(this)' ></TD>
+    <TD CLASS=tdplantilla WIDTH=2% ALIGN=CENTER ONCLICK='OnClickOrdre(this)'></TD>
+    <TD CLASS=tdplantilla WIDTH=2% ALIGN=CENTER ONCLICK='OnClickOrdre(this)'></TD>
+	</TR>
+    </TABLE>
+    <DIV STYLE='position:absolute;top=125px;left:20px' STYLE='overflow:scroll; height:80%;width:100%' TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 MARGINHEIGHT=0 MARGINWIDTH=0>
+    <TABLE  WIDTH=1360px>
+    <TR>  
+    <TD CLASS=tdSeleccio  WIDTH=2%  ALIGN=CENTER STYLE='cursor:hand'></TD>
+    <TD STYLE='background: #F5BCA9;font-size: 70%;text-align: center;color:#FFFFFF'  WIDTH=16% ALIGN=LEFT>Total de la selecció</TD>
+    <TD WIDTH=2% CLASS=tdSeleccio ></TD>
+    <TD CLASS=tdSeleccio WIDTH=2% ALIGN=CENTER></TD>
+    <TD CLASS=tdSeleccio WIDTH=2% ALIGN=CENTER></TD>
+ 	<td  WIDTH=20px  Height=20px CLASS=tdSeleccio ONCLICK='OnClickOrdre(this)' ALIGN=right>prova</td>
+	</TR>
+	</TABLE>
+	</DIV>
+	</BODY>
+ 	</HTML>
+	

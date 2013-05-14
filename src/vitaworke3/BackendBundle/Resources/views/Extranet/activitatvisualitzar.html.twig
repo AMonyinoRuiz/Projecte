@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+</head>
+
+<body>
+<div id="content">
+<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
+<table>
+<thead>
+<tr>
+<th>Activitat</th>
+<th>Presentació</th>
+<th>Formador</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<h1>Activitat diaria</h1>
+<td>{{ activitat.activitat }}</td>
+<td>{{ activitat.presentacio}}</td>
+{% if activitat.pathImatge is not empty %}
+<td><img witdh='20px' height='20px' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/><td>
+{% endif %}
+{% if activitat.pathMultimedia is not empty %}
+<video width="80" height="80" controls autoplay>
+  <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia}}' type="video/mp4">
+  <object data='{{'/uploads/multimedia/' ~ activitat.pathMultimedia }}' width="320" height="240">
+    <embed width="80" height="80" src="movie.swf">
+  </object>
+</video>
+{% endif %}
+
+</tr>
+</tbody>
+</table>
+</div>
+</article>
+</body>
+<div id="footer"><img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion" />
+ <p>Vitawork E3</p></div>
+</div>
+</body>
+</html>
+
