@@ -22,7 +22,9 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "sonata-project/admin-bundle": "2.1.x",
         "sonata-project/cache-bundle": "2.1.x",
-        "sonata-project/doctrine-orm-admin-bundle": "2.1.x"
+        "sonata-project/doctrine-orm-admin-bundle": "2.1",
+        "friendsofsymfony/user-bundle": "*",
+        "sonata-project/user-bundle": "2.1"
     },
 
     "minimum-stability": "dev",

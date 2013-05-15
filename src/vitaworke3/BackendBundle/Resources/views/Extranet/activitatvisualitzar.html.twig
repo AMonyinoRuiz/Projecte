@@ -2,47 +2,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+<title>Visualització activitats</title>
+<link href="{{asset('css/stylevisuact.css')}}" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
 <div id="content">
-<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
-<table>
-<thead>
-<tr>
-<th>Activitat</th>
-<th>Presentació</th>
-<th>Formador</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<h1>Activitat diaria</h1>
-<td>{{ activitat.activitat }}</td>
-<td>{{ activitat.presentacio}}</td>
-{% if activitat.pathImatge is not empty %}
-<td><img witdh='20px' height='20px' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/><td>
-{% endif %}
-{% if activitat.pathMultimedia is not empty %}
-<video width="80" height="80" controls autoplay>
-  <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia}}' type="video/mp4">
-  <object data='{{'/uploads/multimedia/' ~ activitat.pathMultimedia }}' width="320" height="240">
-    <embed width="80" height="80" src="movie.swf">
-  </object>
-</video>
-{% endif %}
+<form action="{{path('extranet_calendari_activitat_visualitzar', { 'id': calendari.id })}}" method="post">
 
-</tr>
-</tbody>
-</table>
+  <div id="shadow"><img src="{{asset('uploads/images/shadow.png')}}" width="8" height="89" alt="shadow" /></div>
+  <div id="maincontent">
+  <div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="181" height="77" alt="logo" /></div>
+  <div id="maintext">
+  <div id="text"><h1>VITAWORKE3</h1><h2>{{ activitat.activitat }}</h2><p>L{{ activitat.presentacio}}</div>
+  <div id="text">
+  {% if activitat.pathImatge is not empty %}
+  <img witdh='150' height='150' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/>
+  {% endif %}
+  </div>
+  <div id ="text">
+  <iframe src="http://player.vimeo.com/video/62087625" width="300" height="150" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+  </div>
 </div>
-</article>
-</body>
-<div id="footer"><img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion" />
- <p>Vitawork E3</p></div>
+  <div id="sidebar">
+  <div id="draw"><img src="{{asset('uploads/images/draw.png')}}" width="170" height="312" alt="draw" /></div>
+  </div>
+  </div>
+  <div>
+  {{ form_row(formulario.Valoracio) }}
+
+  </div>
+  <input class="boton" type="submit" value="Valorar activitat" />
+
+</form>
+  <div id="footer"><p>TM y copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+  </div>
 </div>
 </body>
 </html>
-

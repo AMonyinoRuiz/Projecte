@@ -38,6 +38,14 @@ class Tipologia
 
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
+     */
+    private $Baixa;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -95,12 +103,44 @@ class Tipologia
         return $this->slug;
     }
     
-    public function __toString()
+    
+
+  public function __toString()
     {
-        return $this->getTipologia();
-    }    
+        $var= $this->getTipologia();
+        if ($var==null)
+        {
+            $var=' ';
+        }
 
+        return $var;
 
+    }
+   
+   
+
+     /**
+     * Set Baixa
+     *
+     * @param boolean $baixa
+     * @return Tipologia
+     */
+    public function setBaixa($baixa)
+    {
+        $this->Baixa = $baixa;
+    
+        return $this;
+    }
+
+    /**
+     * Get Baixa
+     *
+     * @return boolean 
+     */
+    public function getBaixa()
+    {
+        return $this->Baixa;
+    }
 
 
 

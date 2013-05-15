@@ -12,9 +12,15 @@ class CampanyaAdmin extends Admin
 	{	
 		$mapper
 		->add('Client')
-		->add('slug')
 		->add('DataInicial')
 		->add('DataFinal')
+		->add('Baixa')
+        ->add('_action', 'actions', array(
+                'actions' => array(
+                    'view' => array(),
+                    'edit' => array(),
+                         )
+            ))
         
 		;
 	}
@@ -22,18 +28,19 @@ class CampanyaAdmin extends Admin
 	{
 		$mapper
 		->add('Client')
-		->add('slug')
 		->add('DataInicial')
 		->add('DataFinal')
-        ;
+		->add('Baixa')
+		;
+        
 	}
 	protected function configureFormFields(FormMapper $mapper)
 	{
 		$mapper
 		->add('Client')
-		->add('slug')
 		->add('DataInicial')
 		->add('DataFinal')
+		->add('Baixa')
         ;
 	}
 }

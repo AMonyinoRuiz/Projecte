@@ -1,3 +1,9 @@
 usuaris_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: UsuarisBundle:Default:index }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout

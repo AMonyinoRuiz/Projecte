@@ -8,6 +8,8 @@ use vitaworke3\ActivitatBundle\Entity\Activitat;
 use vitaworke3\CalendariBundle\Entity\Calendari;
 use vitaworke3\BackendBundle\Form\Extranet\CalendariType;
 use vitaworke3\ClientBundle\Entity\Client;
+use vitaworke3\BackendBundle\Form\Extranet\CalendariValorarType;
+use vitaworke3\BackendBundle\Form\Extranet\TestInicialType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 class ExtranetController extends Controller
@@ -50,7 +52,6 @@ class ExtranetController extends Controller
         $peticion = $this->getRequest();
         $activitat = new Activitat();
         $formulario = $this->createForm(new ActivitatType(), $activitat);
-        //$formador = $em->getRepository('ClientBundle:Client')->findBy(array('TipusClient' => 'Formador'));
         $em = $this->getDoctrine()->getEntityManager();
         if ($peticion->getMethod() == 'POST') {
 				$formulario->bind($peticion);
@@ -91,12 +92,10 @@ class ExtranetController extends Controller
 					$calendari->setDiaActivitat($dataActivitat);
 			    	$em->persist($calendari);
 					$em->flush();
-			
 					$host = 'dev' == 'env' ?
 					'http://vitaworke3.local' :
 					'http://vitaworke3.com';
 					$activitatdeldia=$calendari->getActivitat();
-					
 					$texto = $this->renderView(
 					'BackendBundle:Activitat:email.html.twig',array('usuari' => $client,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendari)
 					);
@@ -116,56 +115,12 @@ class ExtranetController extends Controller
 				{						
 					$dataActivitat=$formulario->getData()->getDiaActivitat();
 					$calendari->setDiaActivitat($dataActivitat);
-			    	$em->persist($calendari);
+			    	
+			    }
+					$em->persist($calendari);
 					$em->flush();
 			
-			    }
-			 
-			    if ($associatsCalendari=='true')
-			    {
-			    	 $CalendariActivitat=$formulario->getData()->getActivitat();
-
-			    	 $LlistaAssociats = $em->getRepository('ClientBundle:Client')
-					->findBy(
-	array('Associat' =>$nomClient));
-					foreach ($LlistaAssociats as $AssociatClient) 
-					{	
-								
-						$calendariAfegit = new Calendari();
-						$calendariAfegit->setClient($AssociatClient);
-						$calendariAfegit->setActivitat($CalendariActivitat);
-						$calendariAfegit->setDiaActivitat($dataActivitat);
-						if ($enviar='true')
-						{
-								$host = 'dev' == 'env' ?
-								'http://vitaworke3.local' :
-								'http://vitaworke3.com';
-							
-								
-								$activitatdeldia=$calendariAfegit->getActivitat();
-								$texto = $this->renderView(
-								'BackendBundle:Activitat:email.html.twig',array('usuari' => $AssociatClient,'activitat'=>$CalendariActivitat,'host'=>$host,'calendari'=>$calendariAfegit)
-								);
-				
-									$mailclient=$AssociatClient->getMail();
-								if (!empty($mailclient)) 
-								{
-									$mensaje = \Swift_Message::newInstance()
-									->setSubject($nomClient)
-									->setFrom('mailing@vitaworke3.com')
-									->setTo('92877@parcdesalutmar.cat')
-									->setBody($texto,'text/html');
-									$this->get('mailer')->send($mensaje);
-								}
-								$calendariAfegit->setEnviada(true);	
-						}
-	
-						$em->persist($calendariAfegit);
-						$em->flush();
-						
-			 		 }
-				}
-				$this->get('session')->setFlash('info',
+			  	$this->get('session')->setFlash('info',
 				'Los datos de tu perfil se han actualizado correctamente'
 				);
 				return $this->redirect(
@@ -183,8 +138,8 @@ class ExtranetController extends Controller
 		if (!$activitat) {
 			throw $this->createNotFoundException('Activitat inexistent');
 			}
-		$peticion = $this->getRequest();
 		$formulario = $this->createForm(new ActivitatType(), $activitat);
+		$peticion = $this->getRequest();
 		if ($peticion->getMethod() == 'POST') {
 			$imatgeOriginal = $formulario->getData()->getImatge();
 			$multimediaOriginal = $formulario->getData()->getMultimedia();
@@ -204,7 +159,6 @@ class ExtranetController extends Controller
 				$activitat->uploadMultimedia();
 				//unlink($directoriFotografies.$fotoOriginal);
 				}
-				$em = $this->getDoctrine()->getEntityManager();
 				$em->persist($activitat);
 				$em->flush();
 				return $this->redirect(
@@ -228,18 +182,76 @@ public function CalendariActivitatVisualitzarAction($id)
 			throw $this->createNotFoundException('Activitat per aquest dia no assignada al calendari');
 			}
 		
-        $calendari->setRealitzada(true);	
-		$peticion = $this->getRequest();
-		$activitat=$calendari->getActivitat();
-		$em->persist($activitat);
-		$em->flush();
-				
-		$formulario = $this->createForm(new ActivitatType(), $activitat);
-		return $this->render('BackendBundle:Extranet:activitatvisualitzar.html.twig',
-		array(
-		'activitat' => $activitat,
-		'formulario' => $formulario->createView()
-		));
+        // em de revisar si el fet de que la valoració estigui feta, invalida el tornar a fer i valorar la activitat, per altra banda, tambe hem de veure perque
+		// el diescaducitat es modifica al modificar el diacomparar.
+		// ens queda tambe realitzar un template per el error invocar aquest error.html.twig en el cas que no trobi activitat assignada per aquest dia.
+
+        $activitat=$calendari->getActivitat();
+		$diescaducitat=$activitat->getDiesCaducitat();
+		$diaactivitat=$calendari->getDiaActivitat();
+		$valoracio=$calendari->getValoracio();
+		$date1 = new \DateTime("now");
+		$diacomparar=$diaactivitat;
+		if ($diescaducitat>0)
+		{
+			$interval="P".$diescaducitat."D";
+        	$diacomparar->add(new \DateInterval($interval));
+        }	
+		if (($diescaducitat>0) and ($date1>$diacomparar))
+		{	
+			return $this->render('BackendBundle:Extranet:error.html.twig',array('diaactivitat'=>$diaactivitat,'ara'=>$date1,'diainterval'=>$diacomparar,'valoracio'=>$valoracio));
+		}else
+        {
+			$peticion = $this->getRequest();
+			$tipologia=$activitat->getTipologia();
+			if ($tipologia='Tipologia 1')
+			{
+				$formulario=$this->createForm(new TestInicialType(),$calendari);
+				if ($peticion->getMethod() == 'POST') 
+				{
+					$formulario->bind($peticion);
+					$calendari->setRealitzada(true);	
+					$em->persist($calendari);
+					$em->flush();
+					return $this->render('BackendBundle:Extranet:valorattestinicial.html.twig',array('formulario' => $formulario->createView()));
+					
+				}
+
+					
+				return $this->render('BackendBundle:Extranet:testinicial.html.twig',
+				array(
+				'calendari'=>$calendari,
+				'activitat' => $activitat,
+				'formulario' => $formulario->createView()
+				));
+
+			}else
+			{
+				$formulario = $this->createForm(new CalendariValorarType());
+				if ($peticion->getMethod() == 'POST') 
+				{
+					$formulario->bind($peticion);
+					$calendari->setRealitzada(true);	
+					$valoracio = $formulario->getData()->getValoracio();
+					$calendari->setValoracio($valoracio);
+					$em->persist($calendari);
+					$em->flush();
+					return $this->render('BackendBundle:Extranet:valorat.html.twig',array('formulario' => $formulario->createView()));
+					
+				}
+			
+
+				return $this->render('BackendBundle:Extranet:activitatvisualitzar.html.twig',
+				array(
+				'calendari'=>$calendari,
+				'activitat' => $activitat,
+				'formulario' => $formulario->createView()
+				));
+	
+			}
+			
+			
+		}
 	}
 public function CalendariEditarAction($id)
 	{

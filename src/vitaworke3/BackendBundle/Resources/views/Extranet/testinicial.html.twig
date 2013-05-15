@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Test inicial</title>
+<link href="{{asset('css/stylevisuact.css')}}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+<div id="content">
+<form action="{{path('extranet_calendari_activitat_visualitzar', { 'id': calendari.id })}}" method="post">
+
+  <div id="shadow"><img src="{{asset('uploads/images/shadow.png')}}" width="8" height="89" alt="shadow" /></div>
+  <div id="maincontent">
+  <div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="181" height="77" alt="logo" /></div>
+  <div id="maintext">
+  <div id="text"><h1>VITAWORKE3</h1><h2>{{ activitat.activitat }}</h2><p>L{{ activitat.presentacio}}</div>
+  <div id="text">
+  </div>
+  <div id ="text">
+ {{ form_row(formulario.Pregunta1) }}
+{{ form_row(formulario.Pregunta2) }}
+{{ form_row(formulario.Pregunta3) }}
+{{ form_row(formulario.Pregunta4) }}
+{{ form_row(formulario.Pregunta5) }}
+
+ 
+  </div>
+</div>
+  <div id="sidebar">
+  <div id="draw"><img src="{{asset('uploads/images/draw.png')}}" width="170" height="312" alt="draw" /></div>
+  </div>
+  </div>
+  <input class="boton" type="submit" value="Enviar test" />
+
+</form>
+  <div id="footer"><p>TM y copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+  </div>
+</div>
+</body>
+</html>

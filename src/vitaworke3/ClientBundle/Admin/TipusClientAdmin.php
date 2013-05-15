@@ -11,18 +11,27 @@ class TipusClientAdmin extends Admin
 	{	
 		$mapper
 		->add('TipusClient')
-		;
+		->add('Baixa')
+		 ->add('_action', 'actions', array(
+                'actions' => array(
+                    'view' => array(),
+                    'edit' => array(),
+                         )
+            ))
+        ;
 	}
 	protected function configureDatagridFilters(DatagridMapper $mapper)
 	{
 		$mapper
 		->add('TipusClient')
+		->add('Baixa')
 		;
 	}
 	protected function configureFormFields(FormMapper $mapper)
 	{
 		$mapper
 		->add('TipusClient')
+		->add('Baixa')
 		;
 	}
 }

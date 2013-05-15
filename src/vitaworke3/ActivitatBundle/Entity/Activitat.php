@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use vitaworke3\ClientBundle\Util\Util;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -85,9 +86,9 @@ class Activitat
     private $Audio;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="DataCreacio", type="datetime", nullable=true)
+     * @ORM\Column(name="DataCreacio", type="date", nullable=true)
      */
     private $DataCreacio;
 
@@ -120,7 +121,6 @@ class Activitat
     private $DiesCaducitat;
 
     
-    
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -139,11 +139,13 @@ class Activitat
     */
     private $multimedia;
 
-    /**
+   
+   /**
      * Sets multimedia.
      *
      * @param UploadedFile $multimedia
      */
+   
     public function setMultimedia(UploadedFile $multimedia = null)
     {
         $this->multimedia = $multimedia;
@@ -381,6 +383,9 @@ class Activitat
         return $this->DiesCaducitat;
     }
 
+   
+   
+
     /**
      * Set Tipologia
      *
@@ -522,7 +527,7 @@ class Activitat
     /**
      * Set DataCreacio
      *
-     * @param \DateTime $dataCreacio
+     * @param \Date $dataCreacio
      * @return Activitat
      */
     public function setDataCreacio($dataCreacio)
@@ -535,11 +540,12 @@ class Activitat
     /**
      * Get DataCreacio
      *
-     * @return \DateTime 
+     * @return \Date
      */
     public function getDataCreacio()
     {
-        return $this->DataCreacio;
+        $data=new \Date('today');
+        return $this->data;
     }
 
     /**
@@ -627,6 +633,6 @@ class Activitat
         $this->imatge->getPath();
         $this->imatge->move($directoriDesti, $nomArxiuimatge);
     }
-
+ 
   
 }

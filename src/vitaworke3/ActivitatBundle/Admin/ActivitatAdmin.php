@@ -17,7 +17,6 @@ class ActivitatAdmin extends Admin
         ->add('Comite')
         ->add('Formador')
         ->add('Presentacio')
-		->add('DataCreacio')
         ->add('Baixa')
 		->add('Activada')
 		->add('_action', 'actions', array(
@@ -40,7 +39,7 @@ class ActivitatAdmin extends Admin
         ->add('Formador')
         ->add('Presentacio')
 		->add('DataCreacio')
-        ->add('Baixa')
+		->add('Baixa')
 		->add('Activada')
 		;
 	}
@@ -53,7 +52,7 @@ class ActivitatAdmin extends Admin
         ->add('Comite')
         ->add('Formador')
         ->add('Presentacio')
-		->add('DataCreacio')
+		->add('DiesCaducitat')
         ->add('Baixa')
 		->add('Activada')
 		;

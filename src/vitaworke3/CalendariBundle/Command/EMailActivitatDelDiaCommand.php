@@ -8,6 +8,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use vitaworke3\ActivitatBundle\Entity\Activitat;
+use vitaworke3\CalendariBundle\Entity\Calendari;
+use vitaworke3\BackendBundle\Form\Extranet\CalendariType;
+use vitaworke3\ClientBundle\Entity\Client;
+
 
 class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 {
@@ -15,13 +20,6 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 	{
 		$this
 		->setName('email:activitat-del-dia')
-		->setDefinition(array(
-		new InputArgument('client', InputArgument::OPTIONAL,
-		'El slug de client pel que es genera la activitat'),
-		new InputOption('accion', null, InputOption::VALUE_OPTIONAL,
-		'Indica si los emails nomes es generan o tambe se envían',
-		'enviar'),
-))
 		->setDescription('Genera i envia a cada usuari la activitat diaria');
 				
 	}
@@ -29,30 +27,8 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 	
 	protected function interact(InputInterface $input, OutputInterface $output)
 	{
-		$output->writeln(array(
-		'Benvingut al generador de emails',
-		'',
-		'Per continuar, has de contestar algunes preguntes...'
-		));
-		$dialog = $this->getHelperSet()->get('dialog');
-		$client = $dialog->ask($output,
-		'¿Per a quin client vols generar els emails? ',
-		'danone'
-		);
-		$input->setArgument('client', $client);
-		
-		$accion = $dialog->askAndValidate($output,
-		'¿Qué vols fer amb els emails? (generar o enviar) ',
-		function($valor) {
-			if (!in_array($valor, array('generar', 'enviar'))) {
-			throw new \InvalidArgumentException(
-			'La acció nomes pot ser "generar" o "enviar"'
-			);
-			}
-		return $valor;
-		});
-		$input->setOption('accion', $accion);
-
+	
+	
 
 		
 	}
@@ -61,56 +37,57 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 	{
 			$output->writeln('inici proces <fg=magenta> generacio de emails</>...');
 			
-			$host = 'dev' == $input->getOption('env') ?
-			'http://vitaworke3.local' :
-			'http://vitaworke3.com';
-			$accion = $input->getOption('accion');
-			$associat = $input->getArgument('client');
+			$host ='http://vitaworke3.local/app.php' ;
 			$contenedor = $this->getContainer();
 			$em = $contenedor->get('doctrine')->getEntityManager();	
-  			//$usuaris=$em->getRepository('ClientBundle:Client')
-  			//->findAll();
-			//$activitats = array();
-			//$activitats = $em->getRepository('ActivitatBundle:Activitat')->findAll();
 			$Calendari = array();
 			$DataEnviament = new \DateTime('today');
 			$Calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array('DiaActivitat' => $DataEnviament));
 			foreach ($Calendaris as $Calendari)
 			{
 				$clientoriginal=$Calendari->getClient();
-				$associatclient = $clientoriginal->getAssociat();
+				$associatsCalendari=$Calendari->getAssociats();
+				if ($associatsCalendari==true)
+			    {
+					$activitatdeldia=$Calendari->getActivitat();
+					$LlistaAssociats = $em->getRepository('ClientBundle:Client')
+					->findBy(
+						array('Associat' =>$clientoriginal));
 					
-						if ($associatclient==$associat)
-						{
-							
-							$activitatdeldia=$Calendari->getActivitat();
-							$texto = $this->render(
-							'BackendBundle:Activitat:email.html.twig',array('usuari' => $clientoriginal,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$Calendari)
+					foreach ($LlistaAssociats as $AssociatClient) 
+					{	
+								
+						$calendariAfegit = new Calendari();
+						$calendariAfegit->setClient($AssociatClient);
+						$calendariAfegit->setActivitat($activitatdeldia);
+						$calendariAfegit->setDiaActivitat($DataEnviament);
+						$texto = $contenedor->get('twig')->render(
+							'BackendBundle:Activitat:email.html.twig',array('usuari' => $AssociatClient,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendariAfegit)
 							);
 				
-							$mailclient=$clientoriginal->getMail();
-							if (!empty($mailclient)) 
-							{
-								$mensaje = \Swift_Message::newInstance()
-								->setSubject('Vitawork E3: Tu dosis de bienestar.')
-								->setFrom('mailing@vitaworke3.com')
-								->setTo('92877@parcdesalutmar.cat')
-								->setBody($texto,'text/html');
-								$contenedor->get('mailer')->send($mensaje);
-				
-							}	
+						$mailclient=$AssociatClient->getMail();
+						if (!empty($mailclient)) 
+						{
+							$mensaje = \Swift_Message::newInstance()
+							->setSubject('Vitawork E3: Tu dosis de bienestar.')
+							->setFrom('mailing@vitaworke3.com')
+							->setTo('92877@parcdesalutmar.cat')
+							->setBody($texto,'text/html');
+							$contenedor->get('mailer')->send($mensaje);
+							$calendariAfegit->setEnviada(true);
 						}
+						$em->persist($calendariAfegit);
+						$em->flush();
+								
+					}
+	
+						
+			  	}
 
-					
+
 			}
 
-
-			
-			
-			
-			
-			
-			$output->writeln('fi proces  generacio de emails...');
+		$output->writeln('fi proces  generacio de emails...');
 			
 	}
 

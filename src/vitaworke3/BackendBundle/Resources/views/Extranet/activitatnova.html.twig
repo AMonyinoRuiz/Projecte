@@ -3,26 +3,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="{{asset('css/activitatnova.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+
 <title>Template 1</title>
-<link href="{{asset('css/style.css')}}" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 <div id="content">
-<h1>TÍTULO DE LA ACTIVIDAD</h1>
 <form action="{{ accion == 'crear' ? path('extranet_activitat_nova') :
 path('extranet_activitat_editar', { 'id': activitat.id }) }}" method="post" {{
 form_enctype(formulario) }}>
+
+<h1>REGISTRE ACTIVITAT</h1>
+<div>
+{{ form_row(formulario.Activitat) }}
+</div>
 <div>
 {{ form_errors(formulario) }}
 <div>
-{{ form_label(formulario.Activitat, 'Activitat') }}
-{{ form_errors(formulario.Activitat) }}
-{{ form_widget(formulario.Activitat) }}
-</div>
-<div>
+<p class="ayuda">Aquest texte es el que utilitzarem a l'enviar el mail per descriure l'activitat a l'usuari.</p>
+
 {{ form_label(formulario.Activitat, 'Presentació activitat') }}
 {{ form_row(formulario.Presentacio) }}
-<p class="ayuda">Aquest texte es el que utilitzarem a l'enviar el mail per descriure l'activitat a l'usuari.</p>
 </div>
 <div>
 {{ form_row(formulario.Tipologia) }}
@@ -68,20 +71,15 @@ form_enctype(formulario) }}>
 {{ form_widget(formulario.multimedia)}} 	
 <p class="ayuda">Tamany maxim: 100MB. Format preferit: MP4/MP3.</p>
 </div>
-
 <div>
 {{ form_row(formulario.Activada) }}
 </div>
 <div>
 {{ form_row(formulario.Baixa) }}
 </div>
-{{ form_rest(formulario) }}
 <input class="boton" type="submit" value="Afegir activitat" />
 <INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_activitat')}}'">
-	<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
-
-
-
+<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
 </div>
 </form>
 </div>

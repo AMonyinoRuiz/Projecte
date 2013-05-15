@@ -5,3 +5,8 @@ services:
 #    usuaris.example:
 #        class: %usuaris.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+     vitaworke3_usuaris.registration.form.type:
+        class: vitaworke3\UsuarisBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: mi_user_registration }

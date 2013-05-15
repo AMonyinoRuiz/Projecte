@@ -4,7 +4,8 @@ namespace vitaworke3\ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use vitaworke3\ClientBundle\Util\Util;
-
+use Doctrine\Common\Collections\ArrayCollection;
+ 
 /**
  * Client
  *
@@ -28,6 +29,14 @@ class Client
      * @ORM\Column(name="Nom", type="string", length=100)
      */
     private $Nom;
+
+
+ /**
+     * @var string
+     *
+     * @ORM\Column(name="Nick", type="string", length=100)
+     */
+    private $Nick;
 
     /**
      * @var string
@@ -55,7 +64,7 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="DataAccesAutoritzat", type="datetime")
+     * @ORM\Column(name="DataAccesAutoritzat", type="date")
      */
     private $DataAccesAutoritzat;
 
@@ -69,7 +78,7 @@ class Client
     /**
      * @var boolean
      *
-     * @ORM\Column(name="Baixa", type="boolean")
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
      */
     private $Baixa;
     
@@ -107,6 +116,30 @@ class Client
     public function getNom()
     {
         return $this->Nom;
+    }
+
+
+/**
+     * Set Nick
+     *
+     * @param string $nick
+     * @return Client
+     */
+    public function setNick($nick)
+    {
+        $this->Nick = $nick;
+       
+        return $this;
+    }
+
+    /**
+     * Get Nick
+     *
+     * @return string 
+     */
+    public function getNick()
+    {
+        return $this->Nick;
     }
 
     /**
@@ -249,7 +282,19 @@ class Client
     }
     public function __toString()
     {
-        return $this->getNom();
+        $var= $this->getNom();
+        if ($var==null)
+        {
+            $var=' ';
+        }
+
+        return $var;
+
     }
+    public function __construct()
+    {
+        $this->Associat = new ArrayCollection();
+    }
+
 
 }

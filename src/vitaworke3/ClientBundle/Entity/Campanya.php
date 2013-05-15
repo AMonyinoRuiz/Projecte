@@ -28,29 +28,27 @@ class Campanya
      */
     private $Client;
 
-     /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=100)
-     */
-    private $slug;
-
-
-   
-
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="DataInicial", type="datetime")
+     * @ORM\Column(name="Data", type="date")
      */
     private $DataInicial;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="DataFinal", type="datetime")
+     * @ORM\Column(name="DataFinal", type="date")
      */
     private $DataFinal;
+
+         /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
+     */
+    private $Baixa;
+
 
 
     /**
@@ -84,27 +82,6 @@ class Campanya
     public function getClient()
     {
         return $this->Client;
-    }
-
-   /**
-     * Set slug
-     *
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     
@@ -153,4 +130,29 @@ class Campanya
     {
         return $this->DataFinal;
     }
+
+         /**
+     * Set Baixa
+     *
+     * @param boolean $baixa
+     * @return Campanya
+     */
+    public function setBaixa($baixa)
+    {
+        $this->Baixa = $baixa;
+    
+        return $this;
+    }
+
+    /**
+     * Get Baixa
+     *
+     * @return boolean 
+     */
+    public function getBaixa()
+    {
+        return $this->Baixa;
+    }
+
+
 }

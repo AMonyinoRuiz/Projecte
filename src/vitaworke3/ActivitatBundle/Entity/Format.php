@@ -37,6 +37,13 @@ class Format
      */
     private $slug;
 
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
+     */
+    private $Baixa;
+
 
     /**
      * Get id
@@ -96,8 +103,42 @@ class Format
         return $this->slug;
     }
 
+
+
     public function __toString()
     {
-        return $this->getFormat();
+        $var= $this->getFormat();
+        if ($var==null)
+        {
+            $var=' ';
+        }
+
+        return $var;
+
     }
+  
+   
+     /**
+     * Set Baixa
+     *
+     * @param boolean $baixa
+     * @return Format
+     */
+    public function setBaixa($baixa)
+    {
+        $this->Baixa = $baixa;
+    
+        return $this;
+    }
+
+    /**
+     * Get Baixa
+     *
+     * @return boolean 
+     */
+    public function getBaixa()
+    {
+        return $this->Baixa;
+    }
+
 }

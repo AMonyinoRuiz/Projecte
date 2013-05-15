@@ -27,6 +27,19 @@ class CalendariType extends AbstractType
             ->add('Activitat')
             ->add('Associats')
             ->add('Enviar')
+            ->add('Enviada')
+            ->add('Realitzada')
+            ->add('Valoracio', 'choice', array('choices'   => array(
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5', ),
+    'multiple'  => false,
+    'expanded'  => true,
+));
+
+
 
         ;
     }

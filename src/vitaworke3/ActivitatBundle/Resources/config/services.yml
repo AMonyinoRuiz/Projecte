@@ -6,6 +6,14 @@ services:
 #        class: %activitat.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
 # ...
+    sonata.vitaworke3.admin.activitat:
+        class: vitaworke3\ActivitatBundle\Admin\ActivitatAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Activitat }
+        arguments:
+            - null
+            - vitaworke3\ActivitatBundle\Entity\Activitat
+            - ActivitatBundle:Admin
     sonata.vitaworke3.admin.format:
         class: vitaworke3\ActivitatBundle\Admin\FormatAdmin
         tags:
@@ -38,14 +46,6 @@ services:
             - null
             - vitaworke3\ClientBundle\Entity\Client
             - ClientBundle:Admin
-    sonata.vitaworke3.admin.activitat:
-        class: vitaworke3\ActivitatBundle\Admin\ActivitatAdmin
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Activitats', label: activitat }
-        arguments:
-            - null
-            - vitaworke3\ActivitatBundle\Entity\Activitat
-            - ActivitatBundle:Admin
     sonata.vitaworke3.admin.campanya:
         class: vitaworke3\ClientBundle\Admin\CampanyaAdmin
         tags:
@@ -54,12 +54,11 @@ services:
             - null
             - vitaworke3\ClientBundle\Entity\Campanya
             - ClientBundle:Admin
-    sonata.vitaworke3.admin.calendari:
-        class: vitaworke3\CalendariBundle\Admin\CalendariAdmin
+    sonata.vitaworke3.admin.usuaris:
+        class: vitaworke3\UsuarisBundle\Admin\UsuarisAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: 'Calendari', label: calendari }
+            - { name: sonata.admin, manager_type: orm, group: 'Usuaris', label: usuaris }
         arguments:
             - null
-            - vitaworke3\CalendariBundle\Entity\Calendari
-            - CalendariBundle:Admin
-    
+            - vitaworke3\UsuarisBundle\Entity\Usuari
+            - UsuarisBundle:Admin

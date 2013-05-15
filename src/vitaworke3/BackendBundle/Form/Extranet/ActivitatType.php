@@ -19,7 +19,7 @@ class ActivitatType extends AbstractType
                     'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                     'required' => false))
 
-            ->add('DataCreacio')
+            ->add('DiesCaducitat')
             ->add('Presentacio')
             ->add('Baixa')
             ->add('Activada')
@@ -48,6 +48,9 @@ class ActivitatType extends AbstractType
                  }
                 )
               )
+        
+
+       
         ;
     }
 

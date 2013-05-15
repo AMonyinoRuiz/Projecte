@@ -8,16 +8,19 @@
 
 <body>
 <div id="content">
-<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
+<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo"/></div>
 <div id="menu"><ul>
     <li><a href="{{ path('extranet_activitat')}}">Activitat</li>
     <li><a href="{{ path('extranet_calendari')}}">Calendari</a></li>
-    <li><a href="http://vitaworke3.local/app_dev.php/admin/dashboard">Cuadre de comandament</a></li>
+    <li><a href="http://vitaworke3.local/app.php/admin/dashboard">Cuadre de comandament</a></li>
 </ul></div>
-<div id="contenido"> <article>{% block article %}{% endblock %}
+<div id="contenido"> 
+	<article>{% block article %}{% endblock %}
    </article>
-<div id="footer"><img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion" />
-  <p>Vitawork E3</p></div>
+<div id="footer">
+	<img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion"/>
+  <p>Vitawork E3</p>
+</div>
 </div>
 </body>
 </html>

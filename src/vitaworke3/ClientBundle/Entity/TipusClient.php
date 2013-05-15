@@ -32,11 +32,16 @@ class TipusClient
     /**
      * @var string
      *
-     * @ORM\Column(name="slug", type="string", length=100)
+     * @ORM\Column(name="slug", type="string", length=100,nullable=true)
      */
     private $slug;
 
-
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
+     */
+    private $Baixa;
     /**
      * Get id
      *
@@ -93,9 +98,39 @@ class TipusClient
     {
         return $this->slug;
     }
+   
+     /**
+     * Set Baixa
+     *
+     * @param boolean $baixa
+     * 
+     */
+    public function setBaixa($baixa)
+    {
+        $this->Baixa = $baixa;
+    
+        return $this;
+    }
+
+    /**
+     * Get Baixa
+     *
+     * @return boolean 
+     */
+    public function getBaixa()
+    {
+        return $this->Baixa;
+    }
+
     public function __toString()
     {
-        return $this->getTipusClient();
+        $var= $this->getTipusClient();
+        if ($var==null)
+        {
+            $var=' ';
+        }
+
+        return $var;
     }
 
     

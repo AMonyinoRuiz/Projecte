@@ -3,15 +3,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Template 1</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/activitat.css')}}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+
 </head>
 <body>
+
 <article>
 <div id="content">
-<h1>Llistat activitats</h1>
 <table>
 <thead>
-<tr>
+<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
+<h1>Llistat activitats</h1>
 <th>Activitat</th>
 <th>Presentació</th>
 <th>Formador</th>
@@ -23,7 +26,7 @@
 {% for activitat in activitats %}
 <tr>
 <td><a href="{{ path('extranet_activitat_editar', { 'id': activitat.id })}}">{{ activitat.activitat }}</td>
-<td>{{ activitat.presentacio}}</td>
+<td><a href="{{ path('extranet_activitat_editar', { 'id': activitat.id })}}">{{ activitat.presentacio}}</td>
 <td>{{ activitat.formador}}</td>
 <td><img witdh='20px' height='20px' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/><td>
 

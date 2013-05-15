@@ -11,6 +11,7 @@ class TipologiaAdmin extends Admin
 	{	
 		$mapper
 		->add('Tipologia')
+		->add('Baixa')
 		->add('_action', 'actions', array(
                 'actions' => array(
                     'view' => array(),
@@ -24,12 +25,14 @@ class TipologiaAdmin extends Admin
 	{
 		$mapper
 		->add('Tipologia')
+		->add('Baixa')
 		;
 	}
 	protected function configureFormFields(FormMapper $mapper)
 	{
 		$mapper
 		->add('Tipologia')
+		->add('Baixa')
 		;
 	}
 }

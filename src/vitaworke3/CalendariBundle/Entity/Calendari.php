@@ -4,6 +4,9 @@ namespace vitaworke3\CalendariBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use vitaworke3\ClientBundle\Util\Util;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
  * Calendari
@@ -90,6 +93,63 @@ class Calendari
      */
     private $Enviada;
 
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Valoracio", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5}, multiple = false)
+     */
+    private $Valoracio;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Pregunta1", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
+     */
+    private $Pregunta1;
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Pregunta2", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
+     */
+    private $Pregunta2;
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Pregunta3", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
+     */
+    private $Pregunta3;
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Pregunta4", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
+     */
+    private $Pregunta4;
+   
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Pregunta5", type="integer", nullable=true)
+     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
+     */
+    private $Pregunta5;
+   
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="Puntuacio", type="integer", nullable=true)
+     */
+    private $Puntuacio;
+   
+
     /**
      * Get id
      *
@@ -99,10 +159,6 @@ class Calendari
     {
         return $this->id;
     }
-
-    
-  
-
 
     /**
      * Set DiaActivitat
@@ -306,6 +362,169 @@ class Calendari
         return $this;
     }
 
+   /**
+     * Set Valoracio
+     *
+     * @param integer $valoracio
+     * @return Calendari
+     */
+    public function setValoracio($valoracio)
+    {
+        $this->Valoracio = $valoracio;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getValoracio()
+    {
+        return $this->Valoracio;
+    }
  
+    
+   /**
+     * Set Pregunta1
+     *
+     * @param integer $pregunta1
+     * @return Calendari
+     */
+    public function setPregunta1($pregunta1)
+    {
+        $this->Pregunta1 = $pregunta1;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPregunta1()
+    {
+        return $this->Pregunta1;
+    }
+
+      /**
+     * Set Pregunta1
+     *
+     * @param integer $pregunta2
+     * @return Calendari
+     */
+    public function setPregunta2($pregunta2)
+    {
+        $this->Pregunta2 = $pregunta2;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPregunta2()
+    {
+        return $this->Pregunta2;
+    }
+     /**
+     * Set Pregunta3
+     *
+     * @param integer $pregunta3
+     * @return Calendari
+     */
+    public function setPregunta3($pregunta3)
+    {
+        $this->Pregunta3 = $pregunta3;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPregunta3()
+    {
+        return $this->Pregunta3;
+    }
+     /**
+     * Set Pregunta4
+     *
+     * @param integer $pregunta4
+     * @return Calendari
+     */
+    public function setPregunta4($pregunta4)
+    {
+        $this->Pregunta4 = $pregunta4;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPregunta4()
+    {
+        return $this->Pregunta4;
+    }
+     /**
+     * Set Pregunta5
+     *
+     * @param integer $pregunta5
+     * @return Calendari
+     */
+    public function setPregunta5($pregunta5)
+    {
+        $this->Pregunta5 = $pregunta5;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPregunta5()
+    {
+        return $this->Pregunta5;
+    }
+
+    
+
+   /**
+     * Set Puntuacio
+     *
+     * @param integer $puntuacio
+     * @return Calendari
+     */
+  
+    public function setPuntuacio($puntuacio)
+    {
+        $this->Puntuacio = $puntuacio;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getPuntuacio()
+    {
+        return $this->Puntuacio;
+    }
+
+
+
 
 }
