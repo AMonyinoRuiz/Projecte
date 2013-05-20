@@ -22,14 +22,13 @@ class CalendariType extends AbstractType
                             ->orWhere('l.TipusClient = 2');
                             
                  }
-                )
-              )
+                ,'multiple'=>true)             )
             ->add('Activitat')
-            ->add('Associats')
             ->add('Enviar')
             ->add('Enviada')
-            ->add('Realitzada')
-            ->add('Valoracio', 'choice', array('choices'   => array(
+            ->add('Oberta')
+            ->add('Valorada')
+             ->add('Valoracio', 'choice', array('choices'   => array(
         1 => '1',
         2 => '2',
         3 => '3',
@@ -38,10 +37,12 @@ class CalendariType extends AbstractType
     'multiple'  => false,
     'expanded'  => true,
 ));
+         
+         
+         
 
 
-
-        ;
+    
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

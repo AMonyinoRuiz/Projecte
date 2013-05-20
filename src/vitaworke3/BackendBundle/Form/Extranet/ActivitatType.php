@@ -12,13 +12,16 @@ class ActivitatType extends AbstractType
     {
         $builder
             ->add('Activitat')
+            ->add('Sinopsi')
             ->add('imatge', 'file', array(
                     'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                     'required' => false))
             ->add('multimedia', 'file', array(
                     'data_class' => 'Symfony\Component\HttpFoundation\File\File',
                     'required' => false))
-
+            ->add('Link')
+            ->add('Html')
+            
             ->add('DiesCaducitat')
             ->add('Presentacio')
             ->add('Baixa')
@@ -37,7 +40,7 @@ class ActivitatType extends AbstractType
                 )
               )
 
-                          ->add('Formador','entity',
+            ->add('Formador','entity',
             array('label' => 'Formador',
                 'class' => 'vitaworke3\ClientBundle\Entity\Client',
                  'query_builder' => function (\Doctrine\ORM\EntityRepository $repository)
@@ -48,10 +51,12 @@ class ActivitatType extends AbstractType
                  }
                 )
               )
+
         
 
        
         ;
+        $builder->add('tags', 'collection', array('type' => new \vitaworke3\ActivitatBundle\Form\TagType(),'allow_add'    => true, 'by_reference'=>false,'allow_delete' => true,));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -10,7 +10,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: "%kernel.debug%"
     form:            true
-    csrf_protection: false
+    csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
@@ -55,11 +55,13 @@ doctrine:
         auto_mapping: true
 
 # Swiftmailer Configuration
+
+
 swiftmailer:
     transport: gmail
     username: letsgojazz@gmail.com
     password: trinitiblood_1491
-    #delivery_address: 92877@parcdesalutmar.cat
+    delivery_address: 92877@parcdesalutmar.cat
 
 sonata_block:
     default_contexts: [cms]
@@ -85,5 +87,5 @@ fos_user:
     firewall_name: main
     user_class: vitaworke3\UsuarisBundle\Entity\Usuari
     registration:
-        form:
+      form:
            type: mi_user_registration

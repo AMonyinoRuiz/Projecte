@@ -1,5 +1,8 @@
-extranet_portada:
+extranet_inici:
     pattern: /
+    defaults: { _controller:BackendBundle:Extranet:inici }
+extranet_portada:
+    pattern: /portada
     defaults: { _controller:BackendBundle:Extranet:portada }
 extranet_activitat_nova:
     pattern: /activitat/nova
@@ -25,6 +28,22 @@ extranet_calendari_nou:
 extranet_calendari_editar:
     pattern: /calendari/editar/{id}
     defaults: { _controller:BackendBundle:Extranet:CalendariEditar }
+extranet_client:
+    pattern: /client
+    defaults: { _controller:BackendBundle:Extranet:Client }
+extranet_client_nou:
+    pattern: /client/nou
+    defaults: { _controller:BackendBundle:Extranet:ClientNou }
+extranet_client_editar:
+    pattern: /client/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:ClientEditar }
 extranet_calendari_activitat_visualitzar:
     pattern: /calendari/visualitzar/{id}
     defaults: { _controller:BackendBundle:Extranet:CalendariActivitatVisualitzar }
+extranet_task:
+    pattern: /task
+    defaults: { _controller:ActivitatBundle:Task:task }
+extranet_task_nova:
+    pattern: /task/nova
+    defaults: { _controller:ActivitatBundle:Task:new }
+

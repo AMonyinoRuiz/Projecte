@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
+
+
+
 /**
  * Activitat
  *
@@ -33,6 +36,15 @@ class Activitat
      */
     private $Activitat;
 
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Sinopsi", type="string", length=100)
+     */
+    private $Sinopsi;
+
+
     /**
      * @var string
      *
@@ -46,6 +58,14 @@ class Activitat
      * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\Tipologia") 
      */
     private $Tipologia;
+    
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToMany(targetEntity="vitaworke3\ActivitatBundle\Entity\Tag",cascade={"persist"}) 
+     */
+    private $Tags;
 
     /**
      * @var string
@@ -95,7 +115,7 @@ class Activitat
     /**
      * @var string
      *
-     * @ORM\Column(name="Presentacio", type="text")
+     * @ORM\Column(name="Presentacio", type="text", nullable=true)
      */
     private $Presentacio;
 
@@ -120,7 +140,22 @@ class Activitat
      */
     private $DiesCaducitat;
 
-    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="Link", type="string", nullable=true)
+     */
+    private $Link;
+
+
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="Html", type="string", nullable=true)
+     */
+    private $Html;
+
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -336,6 +371,32 @@ class Activitat
     {
         return $this->Activitat;
     }
+
+    
+    /**
+     * Set Sinopsi
+     *
+     * @param string $sinopsi
+     * @return Sinopsi
+     */
+    public function setSinopsi($sinopsi)
+    {
+        $this->Sinopsi = $sinopsi;
+      
+        return $this;
+    }
+
+    /**
+     * Get Sinopsi
+     *
+     * @return string 
+     */
+    public function getSinopsi()
+    {
+        return $this->Sinopsi;
+    }
+
+
 
     /**
      * Set slug
@@ -619,7 +680,15 @@ class Activitat
 
     public function __toString()
     {
-        return $this->getActivitat();
+       
+        $var= $this->getActivitat();
+        if ($var==null)
+        {
+            $var=' ';
+        }
+
+        return $var;
+
     }
 
     public function UploadArxius($directoriDesti)
@@ -633,6 +702,74 @@ class Activitat
         $this->imatge->getPath();
         $this->imatge->move($directoriDesti, $nomArxiuimatge);
     }
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
+ 
+    public function getTags()
+    {
+        return $this->Tags;
+    }
+
+     public function addTag(ArrayCollection $tags)
+    {
+        $this->tags=$tags;
+    }
+
+    public function removeTag($tag)
+    {
+        $this->tags->removeElement($tag);
+    
+    }
+      /**
+     * Set Link
+     *
+     * @param string $link
+     * @return Link
+     */
+    public function setLink($link)
+    {
+        $this->Link = $link;
+      
+        return $this;
+    }
+
+    /**
+     * Get Sinopsi
+     *
+     * @return string 
+     */
+    public function getLink()
+    {
+        return $this->Link;
+    }
+
+  /**
+     * Set Html
+     *
+     * @param string $html
+     * @return Html
+     */
+    public function setHtml($html)
+    {
+        $this->Html = $html;
+      
+        return $this;
+    }
+
+    /**
+     * Get Sinopsi
+     *
+     * @return string 
+     */
+    public function getHtml()
+    {
+        return $this->Sinopsi;
+    }
+
  
   
 }

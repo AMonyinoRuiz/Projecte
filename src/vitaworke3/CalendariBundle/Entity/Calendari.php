@@ -57,29 +57,8 @@ class Calendari
      
     private $Activitat;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="Associats", type="boolean" ,nullable=true)
-     */
-    private $Associats;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="Realitzada", type="boolean" ,nullable=true)
-     */
-    private $Realitzada;
-
-    /**
-     * @var date
-     *
-     * @ORM\Column(name="DataRealitzada", type="date" ,nullable=true)
-     */
-    private $DataRealitzada;
-    
-
-    /**
+   
+     /**
      * @var boolean
      *
      * @ORM\Column(name="Enviar", type="boolean" ,nullable=true)
@@ -89,11 +68,17 @@ class Calendari
    /**
      * @var boolean
      *
-     * @ORM\Column(name="Enviada", type="boolean" ,nullable=true)
+     * @ORM\Column(name="Enviada", type="datetime" ,nullable=true)
      */
     private $Enviada;
 
-   
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Oberta",  type="datetime" ,nullable=true)
+     */
+    private $Oberta;
+
     /**
      * @var integer
      *
@@ -102,6 +87,15 @@ class Calendari
      */
     private $Valoracio;
     
+     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Valorada",  type="datetime" ,nullable=true)
+     */
+    private $Valorada;
+
+   
+
     /**
      * @var integer
      *
@@ -251,69 +245,38 @@ class Calendari
         return $this->Activitat;
     }
 
-    /**
-     * Set Associats
-     *
-     * @param boolean $associats
-     * @return Calendari
-     */
-    public function setAssociats($associats)
-    {
-        $this->Associats = $associats;
-    
-        return $this;
-    }
-
-    /**
-     * Get Associats
-     *
-     * @return boolean 
-     */
-    public function getAssociats()
-    {
-        return $this->Associats;
-    }
-
-     /**
-     * Set Realitzada
-     *
-     * @param boolean $realitzada
-     * @return Calendari
-     */
-    public function setRealitzada($realitzada)
-    {
-        $this->Realitzada = $realitzada;
-    
-        return $this;
-    }
-
-    /**
-     * Get Realitzada
-     *
-     * @return boolean 
-     */
-    public function getRealitzada()
-    {
-        return $this->Realitzada;
-    }
-    
      
-    public function setDataRealitzada($dataRealitzada)
+    public function setOberta($oberta)
     {
-        $this->DataRealitzada = $dataRealitzada;
+        $this->Oberta = $oberta;
          return $this;
     }
 
     /**
-     * Get DataRealitzada
+     * Get Oberta
      *
-     * @return \Date
      */
-    public function getDataRealitzada()
+    public function getOberta()
     {
-        return $this->DataRealitzada;
+        return $this->Oberta;
     }
 
+   
+    
+
+    public function setValorada($valorada)
+    {
+        $this->Valorada = $valorada;
+         return $this;
+    }
+
+    /**
+     * Get Valorada
+     */
+    public function getValorada()
+    {
+        return $this->Valorada;
+    }
 
 
      /**
@@ -340,7 +303,7 @@ class Calendari
     }
 
     /**
-     * Get Enviada
+     *
      *
      * @return boolean 
      */
@@ -352,8 +315,6 @@ class Calendari
   /**
      * Set Enviada
      *
-     * @param boolean $enviada
-     * @return Calendari
      */
     public function setEnviada($enviada)
     {

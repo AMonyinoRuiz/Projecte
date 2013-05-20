@@ -5,21 +5,55 @@ namespace vitaworke3\BackendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use vitaworke3\BackendBundle\Form\Extranet\ActivitatType;
 use vitaworke3\ActivitatBundle\Entity\Activitat;
+use vitaworke3\ActivitatBundle\Entity\Tag;
 use vitaworke3\CalendariBundle\Entity\Calendari;
 use vitaworke3\BackendBundle\Form\Extranet\CalendariType;
 use vitaworke3\ClientBundle\Entity\Client;
 use vitaworke3\BackendBundle\Form\Extranet\CalendariValorarType;
 use vitaworke3\BackendBundle\Form\Extranet\TestInicialType;
+use vitaworke3\BackendBundle\Form\Extranet\ClientType;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class ExtranetController extends Controller
 {
-    public function portadaAction()
+    
+   public function loginAction()
+	{
+		$peticion = $this->getRequest();
+		$sesion = $peticion->getSession();
+		$error = $peticion->attributes->get(
+			SecurityContext::AUTHENTICATION_ERROR,
+			$sesion->get(SecurityContext::AUTHENTICATION_ERROR)
+			);
+		return $this->render('BackendBundle:Extranet:login.html.twig', array(
+		'error' => $error
+		));
+	}
+
+	public function iniciAction()
+    {
+        return $this->render('BackendBundle:Extranet:inici.html.twig');
+    }
+	public function portadaAction()
     {
         return $this->render('BackendBundle:Extranet:portada.html.twig');
     }
 
-     public function CalendariAction()
+     public function ClientAction()
+    {
+       	$em = $this->getDoctrine()->getEntityManager();
+		$clients = $em->getRepository('ClientBundle:Client')
+		->findAll();
+		return $this->render('BackendBundle:Extranet:client.html.twig', array(
+		'clients' => $clients
+		)); 
+
+
+        
+    }
+
+    public function CalendariAction()
     {
        	$em = $this->getDoctrine()->getEntityManager();
 		$calendaris = $em->getRepository('CalendariBundle:Calendari')
@@ -47,10 +81,40 @@ class ExtranetController extends Controller
         
     }
 
+    public function ClientNouAction()
+    {
+        $peticion = $this->getRequest();
+        $client = new Client();
+        $formulario = $this->createForm(new ClientType(), $client);
+        $em = $this->getDoctrine()->getEntityManager();
+        if ($peticion->getMethod() == 'POST') {
+				$formulario->bind($peticion);
+				if ($formulario->isValid()) {
+					$em->persist($client);
+					$em->flush();
+					$this->get('session')->setFlash('info',
+						'Los datos de tu perfil se han actualizado correctamente'
+					);
+					return $this->redirect(
+					$this->generateUrl('extranet_client')
+					);
+				}
+			}
+        return $this->render('BackendBundle:Extranet:clientnou.html.twig', array('accion' =>'crear','formulario' => $formulario->createView()));
+    }
+
+
     public function ActivitatNovaAction()
     {
         $peticion = $this->getRequest();
+        $em = $this->getDoctrine()->getEntityManager();
         $activitat = new Activitat();
+        $tag1 = new Tag();
+        $tag1->name = 'tag1';
+        $tag2 = new Tag();
+        $tag2->name = 'tag2';
+        
+  		$activitat->addTag($tag2);
         $formulario = $this->createForm(new ActivitatType(), $activitat);
         $em = $this->getDoctrine()->getEntityManager();
         if ($peticion->getMethod() == 'POST') {
@@ -81,7 +145,6 @@ class ExtranetController extends Controller
 			if ($formulario->isValid()) 
 			{
 				 $em = $this->getDoctrine()->getEntityManager();
-				 $associatsCalendari=$formulario->getData()->getAssociats();
 				 $enviar=$formulario->getData()->getEnviar();
 				 $client=$calendari->getClient();
 				 $nomClient=$client->getNom();
@@ -108,8 +171,37 @@ class ExtranetController extends Controller
 						->setTo('92877@parcdesalutmar.cat')
 						->setBody($texto,'text/html');
 						$this->get('mailer')->send($mensaje);
+						$enviada=new \DateTime('now');
+						$calendari->setEnviada($enviada);
 					}
-					$calendari->setEnviada(true);	
+					  // enviament a tots els associats
+					$LlistaAssociats = $em->getRepository('ClientBundle:Client')
+					->findBy(array('Associat' =>$client));
+					foreach ($LlistaAssociats as $AssociatClient) 
+					{	
+						$calendariAfegit = new Calendari();
+						$calendariAfegit->setClient($AssociatClient);
+						$calendariAfegit->setActivitat($activitatdeldia);
+						$calendariAfegit->setDiaActivitat($dataActivitat);
+						$em->persist($calendariAfegit);
+						$em->flush();
+						$nomClient=$AssociatClient->getNom();
+						$texto = $this->renderView('BackendBundle:Activitat:email.html.twig',
+						array('usuari' => $AssociatClient,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendariAfegit));
+						$mailclient=$AssociatClient->getMail();
+						if (!empty($mailclient)) 
+						{
+							$mensaje = \Swift_Message::newInstance()
+							->setSubject($nomClient)
+							->setFrom('mailing@vitaworke3.com')
+							->setTo('92877@parcdesalutmar.cat')
+							->setBody($texto,'text/html');
+							$this->get('mailer')->send($mensaje);
+							$enviada=new \DateTime('now');
+							$calendariAfegit->setEnviada($enviada);
+						}
+								
+					}	
 				}
 				else
 				{						
@@ -117,8 +209,8 @@ class ExtranetController extends Controller
 					$calendari->setDiaActivitat($dataActivitat);
 			    	
 			    }
-					$em->persist($calendari);
-					$em->flush();
+				$em->persist($calendari);
+				$em->flush();
 			
 			  	$this->get('session')->setFlash('info',
 				'Los datos de tu perfil se han actualizado correctamente'
@@ -130,6 +222,35 @@ class ExtranetController extends Controller
 		}
         return $this->render('BackendBundle:Extranet:calendarinou.html.twig', array('accion' =>'crear','formulario' => $formulario->createView()));
     }
+
+	
+    public function ClientEditarAction($id)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+		$client = $em->getRepository('ClientBundle:Client')->find($id);
+		if (!$client) {
+			throw $this->createNotFoundException('client inexistent');
+			}
+		$formulario = $this->createForm(new ClientType(), $client);
+		$peticion = $this->getRequest();
+		if ($peticion->getMethod() == 'POST') {
+			$formulario->bind($peticion);
+			if ($formulario->isValid()) {
+				$em->persist($client);
+				$em->flush();
+				return $this->redirect(
+				$this->generateUrl('extranet_client')
+				);
+			}
+		}
+		return $this->render('BackendBundle:Extranet:clientnou.html.twig',
+		array(
+		'accion' =>'editar',
+		'client' => $client,
+		'formulario' => $formulario->createView()
+		)
+		);
+	}
 
 	public function ActivitatEditarAction($id)
 	{
@@ -204,20 +325,22 @@ public function CalendariActivitatVisualitzarAction($id)
         {
 			$peticion = $this->getRequest();
 			$tipologia=$activitat->getTipologia();
-			if ($tipologia='Tipologia 1')
+			if ($tipologia == 'Tipologia 1')
 			{
 				$formulario=$this->createForm(new TestInicialType(),$calendari);
 				if ($peticion->getMethod() == 'POST') 
 				{
 					$formulario->bind($peticion);
-					$calendari->setRealitzada(true);	
+					$valorada = new \DateTime("now");
+					$calendari->setValorada($valorada);	
 					$em->persist($calendari);
 					$em->flush();
 					return $this->render('BackendBundle:Extranet:valorattestinicial.html.twig',array('formulario' => $formulario->createView()));
 					
 				}
 
-					
+				$oberta = new \DateTime("now");
+				$calendari->setOberta($oberta);	
 				return $this->render('BackendBundle:Extranet:testinicial.html.twig',
 				array(
 				'calendari'=>$calendari,
@@ -231,9 +354,11 @@ public function CalendariActivitatVisualitzarAction($id)
 				if ($peticion->getMethod() == 'POST') 
 				{
 					$formulario->bind($peticion);
-					$calendari->setRealitzada(true);	
 					$valoracio = $formulario->getData()->getValoracio();
 					$calendari->setValoracio($valoracio);
+					
+					$valorada=new \DateTime('now');
+					$calendari->setValorada($valorada);	
 					$em->persist($calendari);
 					$em->flush();
 					return $this->render('BackendBundle:Extranet:valorat.html.twig',array('formulario' => $formulario->createView()));
@@ -241,6 +366,11 @@ public function CalendariActivitatVisualitzarAction($id)
 				}
 			
 
+				$oberta=new \DateTime('now');
+				$calendari->setOberta($oberta);	
+				$em->persist($calendari);
+				$em->flush();
+						
 				return $this->render('BackendBundle:Extranet:activitatvisualitzar.html.twig',
 				array(
 				'calendari'=>$calendari,

@@ -12,6 +12,10 @@ class ActivitatAdmin extends Admin
 	{	
 		$mapper
 		->add('Activitat')
+		->add('Sinopsi')
+		->add('Link')
+        ->add('Html')
+        
 		->add('Tipologia')
         ->add('Format')
         ->add('Comite')
@@ -33,6 +37,10 @@ class ActivitatAdmin extends Admin
 	{
 		$mapper
 		->add('Activitat')
+		->add('Sinopsi')
+		->add('Link')
+        ->add('Html')
+        
 		->add('Tipologia')
         ->add('Format')
         ->add('Comite')
@@ -47,6 +55,10 @@ class ActivitatAdmin extends Admin
 	{
 		$mapper
 		->add('Activitat')
+		->add('Sinopsi')
+		->add('Link')
+        ->add('Html')
+        
 		->add('Tipologia')
         ->add('Format')
         ->add('Comite')

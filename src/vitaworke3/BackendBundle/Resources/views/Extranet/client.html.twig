@@ -8,26 +8,33 @@
 </head>
 <body>
 <div id="content">
-<h1>Calendari activitats</h1>
+<h1>Clients</h1>
 <table>
 <thead>
 <tr>
-<th>Data</th>
-<th>Client</th>
-<th>Activitat</th>
+<th>Nom</th>
+<th>Nick</th>
+<th>Tipus Client</th>
+<th>Associat a</th>
+<th>Mail</th>
+
 </tr>
 </thead>
 <tbody>
-{% for calendari in calendaris %}
+{% for client in clients %}
 <tr>
-<td><a href="{{ path('extranet_calendari_editar', { 'id': calendari.id })}}">{{ calendari.DiaActivitat| date()   }}</td>
-<td><a href="{{ path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}">{{ calendari.Client.Nom}}</td>
-<td>{{ calendari.Activitat.Activitat}}"<td>
+<td><a href="{{ path('extranet_client_editar', { 'id': client.id })}}">{{ client.Nom}}</td>
+
+<td>{{ client.Nick}}</td>
+<td>{{ client.TipusClient}}"<td>
+<td>{{ client.Associat}}</td>
+<td>{{ client.Mail}}"<td>
+
 </tr>
 {% endfor %}
 </tbody>
 </table>
-<INPUT type="button" value="Afegir activitat a calendari" onClick="location.href='{{ path('extranet_calendari_nou')}}'">
+<INPUT type="button" value="Afegir client" onClick="location.href='{{ path('extranet_client_nou')}}'">
 <INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
 </div>
 </body>

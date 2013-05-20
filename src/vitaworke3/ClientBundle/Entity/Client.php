@@ -5,6 +5,8 @@ namespace vitaworke3\ClientBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use vitaworke3\ClientBundle\Util\Util;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
  
 /**
  * Client
@@ -12,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Client
+class Client implements UserInterface
 {
     /**
      * @var integer
@@ -87,6 +89,19 @@ class Client
      *
      * @return integer 
      */
+
+    /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     * @Assert\Length(min = 6)
+     */
+     private $password;
+
+      /**
+     * @ORM\Column(type="string", length=255,nullable=true)
+     * @Assert\Length(min = 6)
+     */
+     private $salt;
+
     public function getId()
     {
         return $this->id;
@@ -295,6 +310,45 @@ class Client
     {
         $this->Associat = new ArrayCollection();
     }
+    
 
+    function eraseCredentials()
+    {
+    }
+    
+    function getRoles()
+    {
+        return array('ROLE_CLIENT');
+    }
+
+    function getUsername()
+    {
+        return $this->getNick();
+    }
+
+     public function setPassword($password)
+    {
+        $this->Password = $password;
+    
+        return $this;
+    }
+
+    function getPassword()
+    {
+        return $this->Password;
+    }
+
+    
+ public function setSalt($salt)
+    {
+        $this->Salt= $salt;
+    
+        return $this;
+    }
+
+    function getSalt()
+    {
+         return $this->Salt;
+    }
 
 }
