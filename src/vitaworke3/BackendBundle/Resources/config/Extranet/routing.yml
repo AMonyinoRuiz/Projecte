@@ -7,6 +7,9 @@ extranet_portada:
 extranet_activitat_nova:
     pattern: /activitat/nova
     defaults: { _controller:BackendBundle:Extranet:ActivitatNova }
+extranet_activitat_filtre:
+    pattern: /activitat/select/{idformador}
+    defaults: { _controller:BackendBundle:Extranet:ActivitatFiltre }    
 extranet_activitat:
     pattern: /activitat
     defaults: { _controller:BackendBundle:Extranet:Activitat }
@@ -31,6 +34,9 @@ extranet_calendari_editar:
 extranet_client:
     pattern: /client
     defaults: { _controller:BackendBundle:Extranet:Client }
+extranet_client_filtre:
+    pattern: /client/select/{idassociat}
+    defaults: { _controller:BackendBundle:Extranet:ClientFiltre }
 extranet_client_nou:
     pattern: /client/nou
     defaults: { _controller:BackendBundle:Extranet:ClientNou }
@@ -40,10 +46,79 @@ extranet_client_editar:
 extranet_calendari_activitat_visualitzar:
     pattern: /calendari/visualitzar/{id}
     defaults: { _controller:BackendBundle:Extranet:CalendariActivitatVisualitzar }
+extranet_calendari_valorar:
+    pattern: /calendari/valorar/{id}
+    defaults: { _controller:BackendBundle:Extranet:CalendariValorar }
 extranet_task:
     pattern: /task
     defaults: { _controller:ActivitatBundle:Task:task }
 extranet_task_nova:
     pattern: /task/nova
     defaults: { _controller:ActivitatBundle:Task:new }
+extranet_calendari_email:
+    pattern: /calendari/email/{id}
+    defaults: { _controller:BackendBundle:Extranet:CalendariEmail }
+extranet_preview:
+    pattern: /preview/{id}
+    defaults: { _controller:BackendBundle:Extranet:Preview }
 
+extranet_empresa:
+    pattern: /empresa
+    defaults: { _controller:BackendBundle:Extranet:Empresa }
+extranet_empresa_nova:
+    pattern: /empresa/nova
+    defaults: { _controller:BackendBundle:Extranet:EmpresaNova }
+extranet_empresa_editar:
+    pattern: /empresa/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:EmpresaEditar }
+
+extranet_grup:
+    pattern: /grup
+    defaults: { _controller:BackendBundle:Extranet:Grup }
+extranet_grup_filtre:
+    pattern: /grup/select/{idassociat}
+    defaults: { _controller:BackendBundle:Extranet:GrupFiltre }
+
+extranet_grup_nou:
+    pattern: /grup/nou
+    defaults: { _controller:BackendBundle:Extranet:GrupNou }
+extranet_grup_editar:
+    pattern: /grup/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:GrupEditar }
+
+
+extranet_comite:
+    pattern: /comite
+    defaults: { _controller:BackendBundle:Extranet:Comite }
+extranet_comite_nou:
+    pattern: /comite/nou
+    defaults: { _controller:BackendBundle:Extranet:ComiteNou}
+extranet_comite_editar:
+    pattern: /comite/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:ComiteEditar}
+
+extranet_formador:
+    pattern: /formador
+    defaults: { _controller:BackendBundle:Extranet:Formador }
+extranet_formador_filtre:
+    pattern: /formador/select/{idcomite}
+    defaults: { _controller:BackendBundle:Extranet:FormadorFiltre }
+extranet_formador_nou:
+    pattern: /formador/nou
+    defaults: { _controller:BackendBundle:Extranet:FormadorNou }
+extranet_formador_editar:
+    pattern: /formador/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:FormadorEditar }
+
+extranet_client_idioma:
+    pattern: /clients/idioma
+    defaults: { _controller:BackendBundle:Extranet:ClientIdioma }
+extranet_client_idioma_filtre:
+    pattern: /clients/idioma/select/{idempresa}
+    defaults: { _controller:BackendBundle:Extranet:ClientIdiomaFiltre }
+extranet_client_idioma_nou:
+    pattern: /clients/idioma/nou
+    defaults: { _controller:BackendBundle:Extranet:ClientIdiomaNou }
+extranet_client_idioma_editar:
+    pattern: /clients/idioma/editar/{id}
+    defaults: { _controller:BackendBundle:Extranet:ClientIdiomaEditar }

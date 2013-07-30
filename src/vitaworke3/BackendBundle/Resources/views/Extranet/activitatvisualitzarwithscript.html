@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template Activitat</title>
+<link href="{{asset('css/stylevisuact.css')}}" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+</script>
+</head>
+  
+<body onload="MM_preloadImages('{{asset('uploads/images/star_on.png')}}')">
+<div id="content">
+  <div id="maincontent">
+
+  <div id="logo"><img src="{{asset('uploads/images/logo.png')}}" width="181" height="75" alt="logo" /></div>
+  <form action="{{path('extranet_calendari_activitat_visualitzar', { 'id': calendari.id })}}" method="post">
+  <div id="maintext">
+  <div id="header"><h1>{{ activitat.activitat }}</h1><h2>Subtítulo de la actividad</h2><h3>Tipo de actividad: Texto / Imagen / Video / Audio</h3></div>
+  <div id="divider"></div>
+  <div id="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. Nunc leo mi, euismod vel rutrum vitae, volutpat ut arcu. Quisque convallis egestas sem, quis malesuada turpis viverra nec. Nullam nisl leo, lobortis sit amet rutrum sit amet, porta vitae dui. Pellentesque pellentesque condimentum dui, vitae consectetur erat posuere id. Nam odio risus, bibendum eu interdum at, vehicula quis erat. Duis congue condimentum vestibulum. Curabitur tincidunt pulvinar urna a aliquam. Quisque pellentesque aliquet metus, ornare euismod orci pretium sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu fermentum mi. </p></div>
+    <div id="text"><p> </p></div>
+      <div id="text"><p></p></div>
+      <div id="text" align="center">
+        <video width="500" height="500" controls>
+        <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia}}' type="video/mp4">
+        <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia}}' type="video/ogv">
+        <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia ~ 'ipad3'}}' type="video/m4v">
+       
+        Your browser does not support the video tag.
+      </video>
+      </div>
+        <div id="valoracio">
+       <div id="txt_valoracio"><p>Gracias por valorar esta actividad:<a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" alt="star" width="16" height="15" class="starspaces" id="star" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star2','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star2" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star3','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star3" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star4','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star4" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star5','','/uploads/images/star_on.png',1)"><img src="{{asset('uploads/images/star_off.png')}}" width="16" height="15" class="starspaces" id="star5" /></a></p>
+        </div>
+      
+
+         <input  type="image" src="{{asset('uploads/images/button_valoraci0.png')}}" width="71" height="24" alt="logo" />
+        
+  </div>
+  <div id="footer">
+    <p>TM y Copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+</div>
+
+
+
+</div>
+</body>
+</html>

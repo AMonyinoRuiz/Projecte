@@ -3,29 +3,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Template 1</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+ <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+ <script src="{{asset('js/select2.js')}}"></script>
+    <script>
+        $(document).ready(function() { $("#associat").select2({
+                placeholder: "Select a State"});});
+                                     
+    </script>
 </head>
 <body>
 <div id="content">
 <h1>Nou client</h1>
-<form action="{{ accion == 'crear' ? path('extranet_client_nou') :
-path('extranet_client_editar', { 'id': client.id }) }}" method="post" {{
+<form action="{{ accion == 'crear' ? path('extranet_client_nou') : path('extranet_client_editar', {'id': client.id }) }}" method="post" {{
 form_enctype(formulario) }}>
 <div>
-{{ form_errors(formulario) }}
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
 <div>
-{{ form_row(formulario.Nom) }}
-</div>
-<div>
-{{ form_row(formulario.Nick) }}
-</div>
-<div>
-{{ form_row(formulario.Mail) }}
-</div>
-{{ form_rest(formulario) }}
+<td>{{ form_label(formulario.Nom, 'Nom') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Nick, 'Nick') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nick , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Mail, 'Mail') }}</td>
+<br>
+<td>{{ form_widget(formulario.Mail , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<select  id="associat" name="associat" width="300" style="width: 300px">
+   <option value="empty" {{ idassociat == 'empty' ? 'selected="selected"' : '' }}></option>
+   {% for associat in associats %} 
+	<option value="{{ associat.slug }}"  {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom }}</option>
+	{% endfor %}
+
+ </select> 	
+<br>
+<br>
+
+
+<td>{{ form_label(formulario.DataAccesAutoritzatInici, 'Data inici acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatInici)}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatFi, 'Data fi acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatFi)}}</td>
+<br>
+<br>
+{% if accion == 'editar' %}
+<td>{{ form_label(formulario.Baixa, 'Baixa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Baixa)}}</td>
+{% endif %}
+<br>
+<br>
+{% if accion == 'crear' %}
 <input class="boton" type="submit" value="Afegir client" />
+{% else %}
+<input class="boton" type="submit" value="Guardar canvis client" />
+{% endif %}
 <INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_client')}}'">
-<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
+<INPUT type="button" value="Tornar a perfils" onClick="location.href='{{ path('extranet_perfil')}}'">
+
+<INPUT type="button" value="Tornar a portada"   onClick="location.href='{{ path('extranet_portada')}}'">
 </div>
 </form>
 </div>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="content">
+<h1>Nou client</h1>
+<form action="{{ accion == 'crear' ? path('extranet_client_idioma_nou') : path('extranet_client_idioma_editar', {'id': clientidioma.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<div>
+<td>{{ form_label(formulario.nomtemplate, 'Nom Template') }}</td>
+<br>
+<td>{{ form_widget(formulario.nomtemplate , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Client, 'Grup/Empresa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Client )}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Idioma, 'Idioma') }}</td>
+<br>
+<td>{{ form_widget(formulario.Idioma  )}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.assumpte, 'Assumpte') }}</td>
+<br>
+<td>{{ form_widget(formulario.assumpte , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<table width="1100">
+<td wwidth="500">Text titol  abans nick</td>
+<td width="100">Incloure nick</td>
+<td width="500">Text titol despres nick</td>
+</table>
+<table witdh="1100">
+<td width="500">{{ form_widget(formulario.titol1, { 'attr': {'size' : 60}}) }}</td>	
+<td width="100">{{ form_widget(formulario.nick) }}</td>	
+<td width="500">{{ form_widget(formulario.titol2 ,{ 'attr': {'size' : 60}}) }}</td>	
+</table>
+<br>
+<br>
+<td>{{ form_label(formulario.contingut, 'Contingut') }}</td>
+<br>
+<td>{{ form_widget(formulario.contingut)}}</td>
+{% if accion == 'editar' %}
+<br>
+<td>{{ form_label(formulario.Baixa, 'Baixa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Baixa)}}</td>
+{% endif %}
+<br>
+<br>
+{% if accion == 'crear' %}
+<input class="boton" type="submit" value="Afegir template" />
+{% else %}
+<input class="boton" type="submit" value="Guardar canvis template" />
+{% endif %}
+<INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_client_idioma')}}'">
+<INPUT type="button" value="Tornar a perfils" onClick="location.href='{{ path('extranet_perfil')}}'">
+
+<INPUT type="button" value="Tornar a portada"   onClick="location.href='{{ path('extranet_portada')}}'">
+</div>
+</form>
+</div>
+</body>
+</html>

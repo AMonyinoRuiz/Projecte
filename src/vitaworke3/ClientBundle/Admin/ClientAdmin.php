@@ -13,10 +13,8 @@ class ClientAdmin extends Admin
 		$mapper
 		->add('Nom')
 		->add('Nick')
-		
 		->add('TipusClient')
 		->add('Associat')
-        ->add('DataAccesAutoritzat')
         ->add('Mail')
         ->add('Baixa')
         ->add('_action', 'actions', array(
@@ -37,7 +35,6 @@ class ClientAdmin extends Admin
 	    ->add('Nick')
 		->add('TipusClient')
 		->add('Associat')
-        ->add('DataAccesAutoritzat')
         ->add('Mail')
         ->add('Baixa')
         ;
@@ -49,7 +46,6 @@ class ClientAdmin extends Admin
 		->add('Nick')
 		->add('TipusClient')
 		->add('Associat')
-        ->add('DataAccesAutoritzat')
         ->add('Mail')
         ->add('Baixa')
         ;

@@ -8,9 +8,24 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
+/**
+ * Tag
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
 class Task
 {
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
     protected $description;
 
     
@@ -28,6 +43,16 @@ class Task
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+        /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     public function __construct()

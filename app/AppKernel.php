@@ -31,6 +31,9 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle()
+
             
         );
 

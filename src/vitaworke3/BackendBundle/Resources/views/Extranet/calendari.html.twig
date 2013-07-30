@@ -4,12 +4,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Template 1</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
 </head>
+
 <body>
+
 <div id="content">
 <h1>Calendari activitats</h1>
+{{ simple_paginator_render('extranet_calendari', null, {
+'container_class': 'paginador',
+'previousPageText': 'Anterior',
+'nextPageText': 'Siguiente',
+'currentClass': 'actual',
+'firstPageText': 'Primera',
+'lastPageText': 'Última'
+}) }}
 <table>
+
 <thead>
 <tr>
 <th>Data</th>
@@ -20,13 +34,36 @@
 <tbody>
 {% for calendari in calendaris %}
 <tr>
-<td><a href="{{ path('extranet_calendari_editar', { 'id': calendari.id })}}">{{ calendari.DiaActivitat| date()   }}</td>
+<td><a href="{{ path('extranet_calendari_editar', { 'id':  calendari.id })}}">{{ calendari.DiaActivitat| date()   }}</td>
 <td><a href="{{ path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}">{{ calendari.Client.Nom}}</td>
-<td>{{ calendari.Activitat.Activitat}}"<td>
+<td>{{ calendari.Activitat}}"<td>
 </tr>
 {% endfor %}
 </tbody>
 </table>
+<ul width="300" class="paginador">
+{% if paginador.currentPage > 1 %}
+<li><a href="{{ path('extranet_calendari', { 'page': paginador.previousPage
+}) }}">Anterior</a></li>
+{% else %}
+<li>Anterior</li>
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+<li class="actual">{{ page }}</li>
+{% else %}
+<li><a href="{{ path('extranet_calendari', { 'page': page }) }}">{{ page
+}}</a></li>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<li><a href="{{ path('extranet_calendari', { 'page': paginador.nextPage })
+}}">Siguiente</a></li>
+{% else %}
+<li>Siguiente</li>
+{% endif %}
+</ul>
+
 <INPUT type="button" value="Afegir activitat a calendari" onClick="location.href='{{ path('extranet_calendari_nou')}}'">
 <INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
 </div>

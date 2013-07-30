@@ -12,7 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Calendari
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="vitaworke3\CalendariBundle\Entity\CalendariRepository")
+ * 
  */
 class Calendari
 {
@@ -83,7 +84,7 @@ class Calendari
      * @var integer
      *
      * @ORM\Column(name="Valoracio", type="integer", nullable=true)
-     * @Assert\Choice(choices = {1,2,3,4,5}, multiple = false)
+     * @Assert\Choice(choices = {1,2,3,4,5,null}, multiple = false)
      */
     private $Valoracio;
     
@@ -95,54 +96,58 @@ class Calendari
     private $Valorada;
 
    
+     /**
+     * @var integer
+     *
+     * @ORM\Column(name="DiesCaducitat", type="integer", nullable=true)
+     */
+    private $DiesCaducitat;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Pregunta1", type="integer", nullable=true)
-     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
-     */
-    private $Pregunta1;
-   
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Pregunta2", type="integer", nullable=true)
-     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
-     */
-    private $Pregunta2;
-   
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Pregunta3", type="integer", nullable=true)
-     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
-     */
-    private $Pregunta3;
-   
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="Pregunta4", type="integer", nullable=true)
-     * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
-     */
-    private $Pregunta4;
-   
     /**
      * @var integer
      *
      * @ORM\Column(name="Pregunta5", type="integer", nullable=true)
      * @Assert\Choice(choices = {1,2,3,4,5,6,7}, multiple = false)
      */
-    private $Pregunta5;
+    //private $Pregunta5;
    
-     /**
-     * @var integer
+    
+
+   /**
+     * @var string
      *
-     * @ORM\Column(name="Puntuacio", type="integer", nullable=true)
+     * @ORM\Column(name="assumpte", type="string", length=100,nullable=true)
      */
-    private $Puntuacio;
-   
+    private $assumpte;
+
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="titol1", type="string", length=100,nullable=true)
+     */
+    private $titol1;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="titol2", type="string", length=100,nullable=true)
+     */
+    private $titol2;
+    
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="nick", type="boolean" ,nullable=true)
+     */
+     private $nick;
+
+       /**
+     * @var string
+     *
+     * @ORM\Column(name="contingut", type="string", length=100,nullable=true)
+     */
+    private $contingut;
+
 
     /**
      * Get id
@@ -485,7 +490,151 @@ class Calendari
         return $this->Puntuacio;
     }
 
+   /**
+     * Set assumpte
+     *
+     * @param string $assumpte
+     * @return ClientIdioma
+     */
+    public function setAssumpte($assumpte)
+    {
+        $this->assumpte = $assumpte;
+    
+        return $this;
+    }
 
+    /**
+     * Get assumpte
+     *
+     * @return string 
+     */
+    public function getAssumpte()
+    {
+        return $this->assumpte;
+    }
+
+
+     /**
+     * Set titol1
+     *
+     * @param string $titol1
+     * @return ClientIdioma
+     */
+    public function setTitol1($titol1)
+    {
+        $this->titol1 = $titol1;
+    
+        return $this;
+    }
+
+    /**
+     * Get titol1
+     *
+     * @return string 
+     */
+    public function getTitol1()
+    {
+        return $this->titol1;
+    }
+    
+    /**
+     * Set titol2
+     *
+     * @param string $titol2
+     * @return ClientIdioma
+     */
+    public function setTitol2($titol2)
+    {
+        $this->titol2 = $titol2;
+    
+        return $this;
+    }
+
+    /**
+     * Get titol2
+     *
+     * @return string 
+     */
+    public function getTitol2()
+    {
+        return $this->titol2;
+    }
+    
+    /**
+     * Set nick
+     *
+     * @param string $nick
+     * @return ClientIdioma
+     */
+    public function setNick($nick)
+    {
+        $this->nick = $nick;
+    
+        return $this;
+    }
+
+    /**
+     * Get nick
+     *
+     * @return string 
+     */
+    public function getNick()
+    {
+        return $this->nick;
+    }
+
+
+
+ /**
+     * Set contingut
+     *
+     * @param string $contingut
+     * @return ClientIdioma
+     */
+    public function setContingut($contingut)
+    {
+        $this->contingut = $contingut;
+    
+        return $this;
+    }
+
+    /**
+     * Get contingut
+     *
+     * @return string 
+     */
+    public function getContingut()
+    {
+        return $this->contingut;
+    }
+
+
+
+  /**
+     * Set DiesCaducitat
+     *
+     * @param integer $diesCaducitat
+     * @return DiesCaducitat
+     */
+    public function setDiesCaducitat($diesCaducitat)
+    {
+        $this->DiesCaducitat = $diesCaducitat;
+    
+        return $this;
+    }
+
+    /**
+     * Get 
+     *
+     * @return integer 
+     */
+    public function getDiesCaducitat()
+    {
+        return $this->DiesCaducitat;
+    }
+
+   
+ 
 
 
 }

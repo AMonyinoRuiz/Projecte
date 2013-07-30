@@ -13,26 +13,20 @@ class ClientType extends AbstractType
         $builder
             ->add('Nom')
             ->add('Nick')
-            ->add('TipusClient')
-            ->add('Associat', 'collection',
-            array('label' => 'Associat',
-                'data_class' => 'vitaworke3\ClientBundle\Entity\Client',
-                 
-                )
-              )
-
             ->add('Mail')
-            ->add('DataAccesAutoritzat')
+            ->add('DataAccesAutoritzatInici')
+            ->add('DataAccesAutoritzatFi')
             ->add('Baixa')
           ;
     }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+ public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+       
         $resolver->setDefaults(array(
             'data_class' => 'vitaworke3\ClientBundle\Entity\Client'
         ));
     }
+    
 
     public function getName()
     {

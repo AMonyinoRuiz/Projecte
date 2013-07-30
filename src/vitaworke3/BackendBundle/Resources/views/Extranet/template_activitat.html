@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template Activitat</title>
+<link href="{{asset('css/stylevisuact.css')}}" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+
+#content_valoracio {
+  height: 100%;
+  width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#buttons {
+  float: left;
+  height: 77px;
+  width: 520px;
+  margin-top: 40px;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+.btn {
+  margin-right: 11.7px;
+  margin-left: 11.7px;
+}
+.txt {
+  margin-right: 13px;
+  margin-left: 13px;
+  float: left;
+  width: 77px;
+  text-align: center;
+  font-size: 0.8em;
+}
+#valoracio_mala {
+  float: left;
+  width: 77px;
+  text-align: center;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+#txt_valoracio {
+  float: left;
+  height: 100%;
+  width: 520px;
+  padding-top: 20px;
+  color: #666;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+#txt_gracias {
+  padding: 20px;
+  float: left;
+  width: 520px;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 1.2em;
+
+}
+  #modal
+{
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  filter: alpha(opacity=50);
+  opacity: 6.8;
+  -moz-opacity:6.8;
+  -webkit-opacity:6.8;
+  -o-opacity:6.8;
+  -ms-opacity:6.8;
+  background-color: #808080;
+  left: 0;
+  top: 0;
+  overflow: auto;
+}
+
+.contenedor
+{
+  width: 600px;
+  height: 300px;
+  background: #fff;
+  position: relative;
+  margin: 10% auto;
+  padding: 30px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  -moz-box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  background: -moz-linear-gradient(#fff, #ccc);
+  background: -webkit-gradient(linear, right bottom, right top, color-stop(1, rgb(255,255,255)), color-stop(0.57,       rgb(230,230,230)));
+  text-shadow: 0 1px 0 #fff;
+}
+
+.contenedor h2 {
+  font-size: 36px;
+  padding: 0 0 20px;
+}
+
+.contenedor a[href="#close"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: transparent;
+}
+
+.contenedor a[href="#close"]:focus {
+  outline: none;
+}
+
+.contenedor a[href="#close"]:after {
+  content: 'X';
+  display: block;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 1.5em;
+  padding: 1px 1px 1px 2px;
+  text-decoration: none;
+  text-shadow: none;
+  text-align: center;
+  font-weight: bold;
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.contenedor a[href="#close"]:focus:after,
+.contenedor a[href="#close"]:hover:after {
+  -webkit-transform: scale(1.1,1.1);
+  -moz-transform: scale(1.1,1.1);
+}
+
+</style>
+<script type="text/javascript">
+
+function toogle(a,b,c)
+{
+  document.getElementById(b).style.display=a;
+  document.getElementById(c).style.display=a;
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+</script>
+
+</head>
+
+<body onload="MM_preloadImages('images/star_on.png')">
+<div id="content">
+  <div id="maincontent">
+    <div id="logo"><img src="images/logo.png" width="181" height="75" alt="logo" /></div>
+    
+  <div id="maintext">
+  <div id="header"><h1>TÍTULO DE LA ACTIVIDAD</h1><h2>Subtítulo de la actividad</h2><h3>Tipo de actividad: Texto / Imagen / Video / Audio</h3></div>
+  <div id="divider"></div>
+  <div id="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. Nunc leo mi, euismod vel rutrum vitae, volutpat ut arcu. Quisque convallis egestas sem, quis malesuada turpis viverra nec. Nullam nisl leo, lobortis sit amet rutrum sit amet, porta vitae dui. Pellentesque pellentesque condimentum dui, vitae consectetur erat posuere id. Nam odio risus, bibendum eu interdum at, vehicula quis erat. Duis congue condimentum vestibulum. Curabitur tincidunt pulvinar urna a aliquam. Quisque pellentesque aliquet metus, ornare euismod orci pretium sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu fermentum mi. </p></div>
+    <div id="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. Nunc leo mi, euismod vel rutrum vitae, volutpat ut arcu. Quisque convallis egestas sem, quis malesuada turpis viverra nec. Nullam nisl leo, lobortis sit amet rutrum sit amet, porta vitae dui. Pellentesque pellentesque condimentum dui, vitae consectetur erat posuere id. Nam odio risus, bibendum eu interdum at, vehicula quis erat. Duis congue condimentum vestibulum. Curabitur tincidunt pulvinar urna a aliquam. Quisque pellentesque aliquet metus, ornare euismod orci pretium sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu fermentum mi. </p></div>
+      <div id="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. Nunc leo mi, euismod vel rutrum vitae, volutpat ut arcu. Quisque convallis egestas sem, quis malesuada turpis viverra nec. Nullam nisl leo, lobortis sit amet rutrum sit amet, porta vitae dui. Pellentesque pellentesque condimentum dui, vitae consectetur erat posuere id. Nam odio risus, bibendum eu interdum at, vehicula quis erat. Duis congue condimentum vestibulum. Curabitur tincidunt pulvinar urna a aliquam. Quisque pellentesque aliquet metus, ornare euismod orci pretium sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu fermentum mi. </p></div>
+      <div id="text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. Nunc leo mi, euismod vel rutrum vitae, volutpat ut arcu. Quisque convallis egestas sem, quis malesuada turpis viverra nec. Nullam nisl leo, lobortis sit amet rutrum sit amet, porta vitae dui. Pellentesque pellentesque condimentum dui, vitae consectetur erat posuere id. Nam odio risus, bibendum eu interdum at, vehicula quis erat. Duis congue condimentum vestibulum. Curabitur tincidunt pulvinar urna a aliquam. Quisque pellentesque aliquet metus, ornare euismod orci pretium sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu fermentum mi. </p></div>
+        <div id="valoracio">
+           <div id="txt_valoracio"><p>Gracias por valorar esta actividad:<a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star','','images/star_on.png',1)"><img src="images/star_off.png" alt="star" width="16" height="15" class="starspaces" id="star" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star2','','images/star_on.png',1)"><img src="images/star_off.png" width="16" height="15" class="starspaces" id="star2" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star3','','images/star_on.png',1)"><img src="images/star_off.png" width="16" height="15" class="starspaces" id="star3" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star4','','images/star_on.png',1)"><img src="images/star_off.png" width="16" height="15" class="starspaces" id="star4" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star5','','images/star_on.png',1)"><img src="images/star_off.png" width="16" height="15" class="starspaces" id="star5" /></a></p>
+        </div>
+
+        <div id="button_valoracio"><a href="#"><img src="images/button_valoraci0.png" alt="button_valoracio" width="71" height="24" /></a></div>
+        </div>
+         <div id="divider"></div>
+
+  </div>
+  <div id="footer">
+    <p>TM y Copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+</div>
+
+
+
+</div>
+</body>
+</html>

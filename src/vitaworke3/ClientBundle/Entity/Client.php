@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Client
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="vitaworke3\ClientBundle\Entity\ClientRepository")
  */
 class Client implements UserInterface
 {
@@ -36,7 +36,7 @@ class Client implements UserInterface
  /**
      * @var string
      *
-     * @ORM\Column(name="Nick", type="string", length=100)
+     * @ORM\Column(name="Nick", type="string", length=100,nullable=true)
      */
     private $Nick;
 
@@ -55,7 +55,8 @@ class Client implements UserInterface
     /**
      * @var string
      * 
-     * /** @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
+     ** 
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
      * @ORM\JoinColumn(nullable=true)
      *
      */
@@ -66,14 +67,22 @@ class Client implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="DataAccesAutoritzat", type="date")
+     * @ORM\Column(name="DataAccesAutoritzatInici", type="date")
      */
-    private $DataAccesAutoritzat;
+    private $DataAccesAutoritzatInici;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Mail", type="string", length=100)
+     * @ORM\Column(name="DataAccesAutoritzatFi", type="date")
+     */
+    private $DataAccesAutoritzatFi;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Mail", type="string", length=100, nullable=true)
      */
     private $Mail;
 
@@ -101,6 +110,23 @@ class Client implements UserInterface
      * @Assert\Length(min = 6)
      */
      private $salt;
+
+     /**
+     * @var string
+     * @ORM\ManyToOne(targetEntity="vitaworke3\BackendBundle\Entity\Idioma") 
+    */
+    
+   
+    private $Idioma;
+
+     /**
+     * @var string
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\ClientIdioma") 
+    */
+    
+   
+    private $Template;
+
 
     public function getId()
     {
@@ -186,7 +212,7 @@ class Client implements UserInterface
      * @param string $tipusClient
      * @return Client
      */
-    public function setTipusClient(\vitaworke3\ClientBundle\Entity\TipusClient $tipusClient)
+    public function setTipusClient(\vitaworke3\ClientBundle\Entity\TipusClient $tipusClient= null)
     {
         $this->TipusClient = $tipusClient;
     
@@ -210,7 +236,7 @@ class Client implements UserInterface
      * 
      * @return Client
      */
-    public function setAssociat(\vitaworke3\ClientBundle\Entity\Client $associat = null)
+    public function setAssociat(\vitaworke3\ClientBundle\Entity\Client $associat= null)
     {
         $this->Associat = $associat;
     
@@ -228,27 +254,56 @@ class Client implements UserInterface
     }
 
     /**
-     * Set DataAccesAutoritzat
+     * Set DataAccesAutoritzatInici
      *
-     * @param string $dataAccesAutoritzat
+     * @param string $dataAccesAutoritzatInici
      * @return Client
      */
-    public function setDataAccesAutoritzat($dataAccesAutoritzat)
+    public function setDataAccesAutoritzatInici($dataAccesAutoritzatInici)
     {
-        $this->DataAccesAutoritzat = $dataAccesAutoritzat;
+        $this->DataAccesAutoritzatInici = $dataAccesAutoritzatInici;
     
         return $this;
     }
 
-    /**
-     * Get DataAccesAutoritzat
+    
+       /**
+     * Get DataAccesAutoritzatInici
      *
      * @return string 
      */
-    public function getDataAccesAutoritzat()
+    public function getDataAccesAutoritzatInici()
     {
-        return $this->DataAccesAutoritzat;
+        return $this->DataAccesAutoritzatInici;
     }
+
+    
+
+    /**
+     * Set DataAccesAutoritzatFi
+     *
+     * @param string $dataAccesAutoritzatFi
+     * @return Client
+     */
+    public function setDataAccesAutoritzatFi($dataAccesAutoritzatFi)
+    {
+        $this->DataAccesAutoritzatFi = $dataAccesAutoritzatFi;
+    
+        return $this;
+    }
+    /**
+     * Get DataAccesAutoritzatFi
+     *
+     * @return string 
+     */
+    public function getDataAccesAutoritzatFi()
+    {
+        return $this->DataAccesAutoritzatFi;
+    }
+
+     
+
+ 
 
     /**
      * Set Mail
@@ -306,12 +361,7 @@ class Client implements UserInterface
         return $var;
 
     }
-    public function __construct()
-    {
-        $this->Associat = new ArrayCollection();
-    }
-    
-
+   
     function eraseCredentials()
     {
     }
@@ -349,6 +399,51 @@ class Client implements UserInterface
     function getSalt()
     {
          return $this->Salt;
+    }
+
+
+     /* Set Idioma
+     *
+     * @param string $idioma
+     * @return Client
+     */
+    public function setIdioma(\vitaworke3\BackendBundle\Entity\Idioma $idioma = null)
+    {
+        $this->Idioma = $idioma;
+    
+        return $this;
+    }
+
+    /**
+     * Get Idioma
+     *
+     * @return string 
+     */
+    public function getIdioma()
+    {
+        return $this->Idioma;
+    }
+
+    /* Set template
+     *
+     * @param string $template
+     * @return Client
+     */
+    public function setTemplate(\vitaworke3\ClientBundle\Entity\ClientIdioma $template = null)
+    {
+        $this->Template = $template;
+    
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string 
+     */
+    public function getTemplate()
+    {
+        return $this->Template;
     }
 
 }

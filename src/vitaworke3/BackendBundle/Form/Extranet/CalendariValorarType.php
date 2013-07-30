@@ -12,11 +12,11 @@ class CalendariValorarType extends AbstractType
     {
         $builder
             ->add('Valoracio', 'choice', array('choices'   => array(
-        1 => '12',
-        2 => '22',
-        3 => '32',
-        4 => '42',
-        5 => '52', ),
+        1 => '1',
+        2 => '2',
+        3 => '3',
+        4 => '4',
+        5 => '5', ),
     'multiple'  => false,
     'expanded'  => true,
 ));

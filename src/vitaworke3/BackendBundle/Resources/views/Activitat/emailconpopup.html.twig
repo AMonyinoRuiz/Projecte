@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+body {
+	background-color: #F2F2F2;
+	margin: 0px;
+	padding: 0px;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	color: #000;
+}
+#centralbody {
+	height: 100%;
+	width: 458px;
+	margin-right: auto;
+	margin-left: auto;
+}
+#logoheader {
+	float: left;
+	height: 77px;
+	width: 600px;
+	text-align: center;
+	padding-top: 27px;
+	padding-bottom: 26px;
+}
+#maintext {
+	background-color: #FFF;
+	height: 100%;
+	width: 540px;
+	float: left;
+	padding: 30px;
+}
+#secondtext {
+	background-color: #F2F2F2;
+	height: 100%;
+	width: 390px;
+	float: left;
+	padding-top: 10px;
+	padding-right: 30px;
+	padding-bottom: 10px;
+	padding-left: 30px;
+}
+#leftcolumn {
+	float: left;
+	height: 100%;
+	width: 146px;
+	text-align: left;
+	padding-top: 40px;
+	padding-right: 10px;
+}
+#centercolumn {
+	float: left;
+	height: 100%;
+	width: 79px;
+}
+#rightcolumn {
+	float: right;
+	height: 100%;
+	width: 145px;
+	text-align: right;
+	padding-top: 40px;
+	padding-left: 10px;
+}
+#footer {
+	float: left;
+	height: 100%;
+	width: 600px;
+	padding-top: 0px;
+	text-align: center;
+}
+h1 {
+	font-size: 1em;
+	margin-bottom: 5px;
+}
+h2 {
+	font-size: 1em;
+	font-weight: normal;
+	font-style: italic;
+	margin-top: 0px;
+	padding-top: 0px;
+	margin-bottom: 10px;
+	padding-bottom: 0px;
+}
+p {
+	font-size: 0.9em;
+	line-height: 17px;
+	text-align: right;
+}
+#secondtext h1 {
+	color: #666;
+	font-size: 0.9em;
+}
+#secondtext p {
+	color: #666;
+	font-size: 0.8em;
+	line-height: 14px;
+}
+.wattermarkposition {
+	width: 79px;
+	height: 128px;
+	position: relative;
+	clip: rect(auto,auto,auto,auto);
+	visibility: visible;
+	bottom: -30px;
+}
+#footer p {
+	text-align: center;
+	font-size: 0.8em;
+	color: #999;
+}
+#shadow {
+	float: left;
+	height: 100%;
+	width: 8px;
+	padding-top: 150px;
+}
+#maincontent {
+	float: left;
+	height: 100%;
+	width: 600px;
+}
+#text {
+	float: left;
+	height: 100%;
+	width: 360px;
+	text-align: right;
+}
+#button {
+	float: left;
+	height: 100%;
+	width: 150px;
+	padding-left: 30px;
+	padding-top: 20px;
+}
+</style>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template Mail</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+</style>
+</head>
+
+<body>
+
+
+<div id="centralbody">
+{% if accio == 'crear' %}
+<p>Si no pots veure correctament la plantilla o al fer click al boto no s'obre l'activitat , prem click</p><a href="{{host  ~  path('extranet_calendari_email',{ 'id': calendari.id})}}">aqui</a>
+{% endif %}
+
+
+<div id="maincontent">
+<div id="logoheader"><img src="{{ host ~ '/uploads/images/logo.png' }}"  width="181" height="75" alt="logo" /></div>
+<div id="maintext">
+<div id="text">
+  <h1>TU ACTIVIDAD DE HOY</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In nibh magna, lacinia sed scelerisque a, mollis vitae sapien. Suspendisse non sapien quis nisi malesuada pulvinar. </p></div>
+
+<input  type="image" src="{{ host ~ '/uploads/images/button.png' }}"  width="75" height="40" alt="button" onClick="window.open('{{host  ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}','popUpWindow','height=800,width=1200,left=100,top=20,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');" />
+
+</div>
+
+<div id="footer"><p>TM y Copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+</div>
+</div>
+</body>
+</html>
+

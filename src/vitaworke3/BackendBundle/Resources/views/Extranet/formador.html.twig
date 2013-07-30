@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
+<script type="text/javascript">
+ $(document).ready(function() { $("#Comite").select2(); });
+
+	function lista() {
+		var lista = document.getElementById('Comite');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+</script>
+
+</head>
+<body>
+
+
+<div id="content">
+<h1>Formador</h1>
+<br>
+<select id="Comite" name="Comite" onchange='lista()' width="300" style="width: 300px">
+{% for comite in comites %} 
+	<option value="{{ comite.slug }}" data-url="{{ url('extranet_formador_filtre', { 'idcomite': comite.id }) }}" {{ idcomite == comite.id ? 'selected="selected"' : '' }}>{{ comite.nom }}</option>
+{% endfor %}
+	<option value="Tots" data-url="{{ url('extranet_formador')}}" {{ idcomite == 'Tots' ? 'selected="selected"' : '' }}>Tots</option>
+</select>
+<br> 
+	{{ simple_paginator_render('extranet_formador', null, {
+'container_class': 'paginador',
+'previousPageText': 'Anterior',
+'nextPageText': 'Siguiente',
+'currentClass': 'actual',
+'firstPageText': 'Primera',
+'lastPageText': 'Última'
+}) }}
+<br>
+<table width="1000">
+<td width="200">Nom</td>
+<td width="150">Nick</td>
+<td width="400">Comite</td>
+<td width="150">Mail</td>
+<td width="100"></td>
+</table>
+{% for formador in formadors %}
+<table width="1000">
+<td width="200">{{ formador.Nom}}</td>
+<td width="150">{{ formador.Nick}}</td>
+<td width="400">{{ formador.Associat}}</td>
+<td width="150">{{ formador.Mail}}<td>
+<td width="100"><INPUT type="button" value="Editar" onClick="location.href='{{ path('extranet_formador_editar', {'id': formador.id })}}'"><td>
+</table>
+{% endfor %}
+<ul class="paginador">
+{% if paginador.currentPage > 1 %}
+<li><a href="{{ path('extranet_formador', { 'page': paginador.previousPage
+}) }}">Anterior</a></li>
+{% else %}
+<li>Anterior</li>
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+<li class="actual">{{ page }}</li>
+{% else %}
+<li><a href="{{ path('extranet_formador', { 'page': page }) }}">{{ page
+}}</a></li>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<li><a href="{{ path('extranet_formador', { 'page': paginador.nextPage })
+}}">Siguiente</a></li>
+{% else %}
+<li>Siguiente</li>
+{% endif %}
+</ul>
+
+
+<INPUT type="button" value="Afegir formador" onClick="location.href='{{ path('extranet_formador_nou')}}'">
+<INPUT type="button" value="Tornar a perfil" onClick="location.href='{{ path('extranet_perfil')}}'">
+<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
+</div>
+</body>
+</html> 

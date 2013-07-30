@@ -1,33 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Task</title>
-<link href="{{asset('css/activitat.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
-
+<title>Template 1</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-<article>
 <div id="content">
+<h1>tasques</h1>
 <table>
 <thead>
-<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
-<h1>Llistat activitats</h1>
-<th>descripcio</th>
+<tr>
+<th>Descripcio</th>
+<th>Tags</th>
 </tr>
 </thead>
 <tbody>
 {% for task in tasks %}
+<td>{{task.description}}<td>
+
+{% for tag in task.tags %}
+            <td>{{(tag.name) }}</td>
+       {% endfor %}
 <tr>
-<td>{{ task.descripcio}}</td>
 </tr>
 {% endfor %}
+
 </tbody>
 </table>
-<INPUT type="button" value="Afegir activitat" onClick="location.href='{{ path('extranet_task_nova')}}'">
+<INPUT type="button" value="nova tasca" onClick="location.href='{{ path('extranet_task_nova')}}'">
+<INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
 </div>
-</article>
 </body>
-</html>	
+</html> 

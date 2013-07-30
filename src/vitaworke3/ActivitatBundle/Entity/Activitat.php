@@ -16,7 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Activitat
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="vitaworke3\ActivitatBundle\Entity\ActivitatRepository")
  */
 class Activitat
 {
@@ -40,9 +40,17 @@ class Activitat
     /**
      * @var string
      *
-     * @ORM\Column(name="Sinopsi", type="string", length=100)
+     * @ORM\Column(name="TItol", type="string", length=100)
      */
-    private $Sinopsi;
+    private $Titol;
+
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Subtitol", type="string", length=100)
+     */
+    private $Subtitol;
 
 
     /**
@@ -88,36 +96,12 @@ class Activitat
      */
     private $Formador;
     
-    
-     /**
-     *
-    * @ORM\Column(type="string", nullable=true)
-    *
-    * @Assert\File()
-    */
-    private $Video;
-
-    /**
-    *
-    * @ORM\Column(type="string", nullable=true)
-    *
-    * @Assert\File()
-     */
-    private $Audio;
-
     /**
      * @var \Date
      *
      * @ORM\Column(name="DataCreacio", type="date", nullable=true)
      */
     private $DataCreacio;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Presentacio", type="text", nullable=true)
-     */
-    private $Presentacio;
 
     /**
      * @var boolean
@@ -140,202 +124,138 @@ class Activitat
      */
     private $DiesCaducitat;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text1;
+
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text2;
+    
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text3;
+    
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text4;
+    
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text5;
+     
+      /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text6;
+     
+      /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text7;
+     
+      /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $Text8;
+
      /**
      * @var string
      *
-     * @ORM\Column(name="Link", type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
      */
-    private $Link;
-
+    private $TipusCamp1;
+   
+     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp2;
+   
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp3;
+    
+     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp4;
+    
+     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp5;
+    
+     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp6;
+    
+      /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp7;
+   
+     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ActivitatBundle\Entity\TipusCamp") 
+     */
+    private $TipusCamp8;
+   
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="assumpte", type="string", length=100,nullable=true)
+     */
+    private $assumpte;
 
      /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="Html", type="string", nullable=true)
+     * @ORM\Column(name="titol1", type="string", length=100,nullable=true)
      */
-    private $Html;
-
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $pathImatge;
-
- 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $pathMultimedia;
-
-   
-    /**
-    * 
-    * @Assert\file(maxSize = "100000k")
-    */
-    private $multimedia;
-
-   
-   /**
-     * Sets multimedia.
+    private $titol1;
+    
+     /**
+     * @var string
      *
-     * @param UploadedFile $multimedia
+     * @ORM\Column(name="titol2", type="string", length=100,nullable=true)
      */
-   
-    public function setMultimedia(UploadedFile $multimedia = null)
-    {
-        $this->multimedia = $multimedia;
-    }
-
+    private $titol2;
+    
     /**
-     * Get imatge.
+     * @var boolean
      *
-     * @return UploadedFile
+     * @ORM\Column(name="nick", type="boolean" ,nullable=true)
      */
-    public function getMultimedia()
-    {
-        return $this->multimedia;
-    }
+     private $nick;
 
-    public function getAbsolutePathMultimedia()
-    {
-        return null === $this->pathMultimedia
-            ? null
-            : $this->getUploadRootDirMultimedia().'/'.$this->pathMultimedia;
-    }
-
-    public function getWebPathMultimedia()
-    {
-        return null === $this->pathMultimedia
-            ? null
-            : $this->getUploadDirMultimedia().'/'.$this->pathMultimedia;
-    }
-
-    protected function getUploadRootDirMultimedia()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDirMultimedia();
-    }
-
-    protected function getUploadDirMultimedia()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/multimedia';
-    }
-
-    public function uploadMultimedia()
-    {
-        // the file property can be empty if the field is not required
-        if (null === $this->getMultimedia()) {
-         return;
-        }
-
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->getMultimedia()->move(
-        $this->getUploadRootDirMultimedia(),
-        $this->getMultimedia()->getClientOriginalName()
-        );
-
-        // set the path property to the filename where you've saved the file
-        $this->pathMultimedia = $this->getMultimedia()->getClientOriginalName();
-
-        // clean up the file property as you won't need it anymore
-        $this->multimedia= null;
-    }
-
-/**
-    * 
-    * @Assert\Image(maxSize = "1500k")
-    */
-    private $imatge;
-
-    /**
-     * Sets imatge.
+       /**
+     * @var string
      *
-     * @param UploadedFile $imatge
+     * @ORM\Column(name="contingut", type="string", length=100,nullable=true)
      */
-    public function setImatge(UploadedFile $imatge = null)
-    {
-        $this->imatge = $imatge;
-    }
+    private $contingut;
 
-    /**
-     * Get imatge.
-     *
-     * @return UploadedFile
-     */
-    public function getImatge()
-    {
-        return $this->imatge;
-    }
-
-    public function getAbsolutePathImatge()
-    {
-        return null === $this->pathImatge
-            ? null
-            : $this->getUploadRootDirImatge().'/'.$this->pathImatge;
-    }
-
-    public function getWebPathImatge()
-    {
-        return null === $this->pathImatge
-            ? null
-            : $this->getUploadDirImatge().'/'.$this->pathImatge;
-    }
-
-    protected function getUploadRootDirImatge()
-    {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDirImatge();
-    }
-
-    protected function getUploadDirImatge()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'uploads/imatges';
-    }
-
-    public function uploadImatge()
-    {
-        // the file property can be empty if the field is not required
-        if (null === $this->getImatge()) {
-         return;
-        }
-
-        // use the original file name here but you should
-        // sanitize it at least to avoid any security issues
-
-        // move takes the target directory and then the
-        // target filename to move to
-        $this->getImatge()->move(
-        $this->getUploadRootDirImatge(),
-        $this->getImatge()->getClientOriginalName()
-        );
-
-        // set the path property to the filename where you've saved the file
-        $this->pathImatge = $this->getImatge()->getClientOriginalName();
-
-        // clean up the file property as you won't need it anymore
-        $this->imatge = null;
-    }
-
-
-
-
-
-
-
-
-
-
-
+      
 
     /**
      * Get id
@@ -374,28 +294,55 @@ class Activitat
 
     
     /**
-     * Set Sinopsi
+     * Set Titol
      *
-     * @param string $sinopsi
-     * @return Sinopsi
+     * @param string $titol
+     * @return Titol
      */
-    public function setSinopsi($sinopsi)
+    public function setTitol($titol)
     {
-        $this->Sinopsi = $sinopsi;
+        $this->Titol = $titol;
       
         return $this;
     }
 
     /**
-     * Get Sinopsi
+     * Get Titol
      *
      * @return string 
      */
-    public function getSinopsi()
+    public function getTitol()
     {
-        return $this->Sinopsi;
+        return $this->Titol;
     }
 
+   
+     /**
+     * Set Subtitol
+     *
+     * @param string $subtitol
+     * @return Subtitol
+     */
+    public function setSubtitol($subtitol)
+    {
+        $this->Subtitol = $subtitol;
+      
+        return $this;
+    }
+
+    
+       
+ 
+    /**
+     * Get Subtitol
+     *
+     * @return string 
+     */
+    public function getSubtitol()
+    {
+        return $this->Subtitol;
+    }
+    
 
 
     /**
@@ -539,52 +486,6 @@ class Activitat
         return $this->Formador;
     }
 
-       /**
-     * Set Video
-     *
-     * @param string $video
-     * @return Activitat
-     */
-    public function setVideo($video)
-    {
-        $this->Video = $video;
-    
-        return $this;
-    }
-
-    /**
-     * Get Video
-     *
-     * @return string 
-     */
-    public function getVideo()
-    {
-        return $this->Video;
-    }
-
-    /**
-     * Set Audio
-     *
-     * @param string $audio
-     * @return Activitat
-     */
-    public function setAudio($audio)
-    {
-        $this->Audio = $audio;
-    
-        return $this;
-    }
-
-    /**
-     * Get Audio
-     *
-     * @return string 
-     */
-    public function getAudio()
-    {
-        return $this->Audio;
-    }
-
     /**
      * Set DataCreacio
      *
@@ -609,28 +510,7 @@ class Activitat
         return $this->data;
     }
 
-    /**
-     * Set Presentacio
-     *
-     * @param string $presentacio
-     * @return Activitat
-     */
-    public function setPresentacio($presentacio)
-    {
-        $this->Presentacio = $presentacio;
-    
-        return $this;
-    }
 
-    /**
-     * Get Presentacio
-     *
-     * @return string 
-     */
-    public function getPresentacio()
-    {
-        return $this->Presentacio;
-    }
 
     /**
      * Set Baixa
@@ -691,17 +571,6 @@ class Activitat
 
     }
 
-    public function UploadArxius($directoriDesti)
-    {
-        if (null === $this->imatge) 
-        {
-            return;
-        }
-        
-        $nomArxiuimatge =$this->imatge->getClientOriginalName();
-        $this->imatge->getPath();
-        $this->imatge->move($directoriDesti, $nomArxiuimatge);
-    }
 
     public function __construct()
     {
@@ -709,67 +578,481 @@ class Activitat
     }
 
  
-    public function getTags()
+    public function setText1($text1)
     {
-        return $this->Tags;
+        $this->Text1 = $text1;
+      
+        return $this;
     }
 
-     public function addTag(ArrayCollection $tags)
+    /**
+     * Get Text1
+     *
+     * @return string 
+     */
+    public function getText1()
     {
-        $this->tags=$tags;
+        return $this->Text1;
     }
 
-    public function removeTag($tag)
+     /**
+     * Set Text2
+     *
+     * @param string $text2
+     * @return Text2
+     */
+    public function setText2($text2)
     {
-        $this->tags->removeElement($tag);
-    
+        $this->Text2 = $text2;
+      
+        return $this;
+    }
+
+    /**
+     * Get Text2
+     *
+     * @return string 
+     */
+    public function getText2()
+    {
+        return $this->Text2;
     }
       /**
-     * Set Link
+     * Set Text3
      *
-     * @param string $link
-     * @return Link
+     * @param string $text3
+     * @return Text3
      */
-    public function setLink($link)
+    public function setText3($text3)
     {
-        $this->Link = $link;
+        $this->Text3 = $text3;
       
         return $this;
     }
 
     /**
-     * Get Sinopsi
+     * Get Text3
      *
      * @return string 
      */
-    public function getLink()
+    public function getText3()
     {
-        return $this->Link;
+        return $this->Text3;
     }
-
-  /**
-     * Set Html
+     /**
+     * Set Text4
      *
-     * @param string $html
-     * @return Html
+     * @param string $text4
+     * @return Text4
      */
-    public function setHtml($html)
+    public function setText4($text4)
     {
-        $this->Html = $html;
+        $this->Text4 = $text4;
       
         return $this;
     }
 
     /**
-     * Get Sinopsi
+     * Get Text4
      *
      * @return string 
      */
-    public function getHtml()
+    public function getText4()
     {
-        return $this->Sinopsi;
+        return $this->Text4;
+    }
+     /**
+     * Set Text5
+     *
+     * @param string $text5
+     * @return Text5
+     */
+    public function setText5($text5)
+    {
+        $this->Text5 = $text5;
+      
+        return $this;
     }
 
- 
+    /**
+     * Get Text5
+     *
+     * @return string 
+     */
+    public function getText5()
+    {
+        return $this->Text5;
+    }
+     /**
+     * Set Text6
+     *
+     * @param string $text6
+     * @return Text6
+     */
+    public function setText6($text6)
+    {
+        $this->Text6 = $text6;
+      
+        return $this;
+    }
+
+    /**
+     * Get Text6
+     *
+     * @return string 
+     */
+    public function getText6()
+    {
+        return $this->Text6;
+    }
+     /**
+     * Set Text7
+     *
+     * @param string $text7
+     * @return Text7
+     */
+    public function setText7($text7)
+    {
+        $this->Text7 = $text7;
+      
+        return $this;
+    }
+
+    /**
+     * Get Text7
+     *
+     * @return string 
+     */
+    public function getText7()
+    {
+        return $this->Text7;
+    }
+     /**
+     * Set Text8
+     *
+     * @param string $text8
+     * @return Text8
+     */
+    public function setText8($text8)
+    {
+        $this->Text8 = $text8;
+      
+        return $this;
+    }
+
+    /**
+     * Get Text8
+     *
+     * @return string 
+     */
+    public function getText8()
+    {
+        return $this->Text8;
+    }
+  
+    /**
+     * Set TipusCamp1
+     *
+     * @param string $tipuscamp1
+     * @return TipusCamp1
+     */
+    public function setTipusCamp1(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp1 = null)
+    {
+        $this->TipusCamp1 = $tipuscamp1;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp1
+     *
+     * @return string 
+     */
+    public function getTipusCamp1()
+    {
+        return $this->TipusCamp1;
+    }
+     
+     /**
+     * Set TipusCamp2
+     *
+     * @param string $tipuscamp2
+     * @return TipusCamp2
+     */
+    public function setTipusCamp2(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp2 = null)
+    { 
+        $this->TipusCamp2 = $tipuscamp2;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp2
+     *
+     * @return string 
+     */
+    public function getTipusCamp2()
+    {
+        return $this->TipusCamp2;
+    }
+
+     /**
+     * Set TipusCamp3
+     *
+     * @param string $tipuscamp3
+     * @return TipusCamp3
+     */
+    public function setTipusCamp3(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp3 = null)
+    {
+        $this->TipusCamp3 = $tipuscamp3;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp3
+     *
+     * @return string 
+     */
+    public function getTipusCamp3()
+    {
+        return $this->TipusCamp3;
+    }
+
+    /**
+     * Set TipusCamp4
+     *
+     * @param string $tipuscamp4
+     * @return TipusCamp4
+     */
+    public function setTipusCamp4(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp4 = null)
+    {
+        $this->TipusCamp4 = $tipuscamp4;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp4
+     *
+     * @return string 
+     */
+    public function getTipusCamp4()
+    {
+        return $this->TipusCamp4;
+    }
+
+    /**
+     * Set TipusCamp5
+     *
+     * @param string $tipuscamp5
+     * @return TipusCamp5
+     */
+    public function setTipusCamp5(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp5 = null)
+    {
+        $this->TipusCamp5 = $tipuscamp5;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp5
+     *
+     * @return string 
+     */
+    public function getTipusCamp5()
+    {
+        return $this->TipusCamp5;
+    }
+    /**
+     * Set TipusCamp6
+     *
+     * @param string $tipuscamp6
+     * @return TipusCamp6
+     */
+    public function setTipusCamp6(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp6 = null)
+    {
+        $this->TipusCamp6 = $tipuscamp6;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp6
+     *
+     * @return string 
+     */
+    public function getTipusCamp6()
+    {
+        return $this->TipusCamp6;
+    }
+
+    /**
+     * Set TipusCamp7
+     *
+     * @param string $tipuscamp7
+     * @return TipusCamp7
+     */
+    public function setTipusCamp7(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp7 = null)
+    {
+        $this->TipusCamp7 = $tipuscamp7;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp7
+     *
+     * @return string 
+     */
+    public function getTipusCamp7()
+    {
+        return $this->TipusCamp7;
+    }
+
+    /**
+     * Set TipusCamp8
+     *
+     * @param string $tipuscamp8
+     * @return TipusCamp8
+     */
+    public function setTipusCamp8(\vitaworke3\ActivitatBundle\Entity\TipusCamp $tipuscamp8 = null)
+    {
+        $this->TipusCamp8 = $tipuscamp8;
+    
+        return $this;
+    }
+
+    /**
+     * Get TipusCamp8
+     *
+     * @return string 
+     */
+    public function getTipusCamp8()
+    {
+        return $this->TipusCamp8;
+    }
+
+    /**
+     * Set assumpte
+     *
+     * @param string $assumpte
+     * @return ClientIdioma
+     */
+    public function setAssumpte($assumpte)
+    {
+        $this->assumpte = $assumpte;
+    
+        return $this;
+    }
+
+    /**
+     * Get assumpte
+     *
+     * @return string 
+     */
+    public function getAssumpte()
+    {
+        return $this->assumpte;
+    }
+
+
+     /**
+     * Set titol1
+     *
+     * @param string $titol1
+     * @return ClientIdioma
+     */
+    public function setTitol1($titol1)
+    {
+        $this->titol1 = $titol1;
+    
+        return $this;
+    }
+
+    /**
+     * Get titol1
+     *
+     * @return string 
+     */
+    public function getTitol1()
+    {
+        return $this->titol1;
+    }
+    
+    /**
+     * Set titol2
+     *
+     * @param string $titol2
+     * @return ClientIdioma
+     */
+    public function setTitol2($titol2)
+    {
+        $this->titol1 = $titol2;
+    
+        return $this;
+    }
+
+    /**
+     * Get titol2
+     *
+     * @return string 
+     */
+    public function getTitol2()
+    {
+        return $this->titol2;
+    }
+    
+    /**
+     * Set nick
+     *
+     * @param string $nick
+     * @return ClientIdioma
+     */
+    public function setNick($nick)
+    {
+        $this->nick = $nick;
+    
+        return $this;
+    }
+
+    /**
+     * Get nick
+     *
+     * @return string 
+     */
+    public function getNick()
+    {
+        return $this->nick;
+    }
+
+
+
+ /**
+     * Set contingut
+     *
+     * @param string $contingut
+     * @return ClientIdioma
+     */
+    public function setContingut($contingut)
+    {
+        $this->contingut = $contingut;
+    
+        return $this;
+    }
+
+    /**
+     * Get contingut
+     *
+     * @return string 
+     */
+    public function getContingut()
+    {
+        return $this->contingut;
+    }
+
+
+
+
   
 }

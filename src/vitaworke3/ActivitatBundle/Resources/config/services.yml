@@ -62,3 +62,36 @@ services:
             - null
             - vitaworke3\UsuarisBundle\Entity\Usuari
             - UsuarisBundle:Admin
+    sonata.vitaworke3.admin.calendari:
+        class: vitaworke3\CalendariBundle\Admin\CalendariAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Calendari', label: calendari }
+        arguments:
+            - null
+            - vitaworke3\CalendariBundle\Entity\Calendari
+            - UsuarisBundle:Admin
+    sonata.vitaworke3.admin.tipuscamp:
+        class: vitaworke3\ActivitatBundle\Admin\TipusCampAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Tipus Camp Activitat }
+        arguments:
+            - null
+            - vitaworke3\ActivitatBundle\Entity\TipusCamp
+            - ActivitatBundle:Admin     
+    sonata.vitaworke3.admin.idioma:
+        class: vitaworke3\BackendBundle\Admin\IdiomaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Idioma }
+        arguments:
+            - null
+            - vitaworke3\BackendBundle\Entity\Idioma
+            - BackendBundle:Admin     
+    sonata.vitaworke3.admin.clientidioma:
+        class: vitaworke3\ClientBundle\Admin\ClientIdiomaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Idioma per client (empresa grup) }
+        arguments:
+            - null
+            - vitaworke3\ClientBundle\Entity\ClientIdioma
+            - ClientBundle:Admin     
+                  

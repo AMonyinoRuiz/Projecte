@@ -2,48 +2,93 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Template 1</title>
-<link href="{{asset('css/activitat.css')}}" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
+  <script>
+        $(document).ready(function() { $("#formador").select2(); });
+        
+        function listaformador() {
+		
+		var lista = document.getElementById('formador');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+    </script>
 
+<title>Template 1</title>
 </head>
 <body>
 
-<article>
+
 <div id="content">
-<table>
-<thead>
 <div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo" /></div>
-<h1>Llistat activitats</h1>
-<th>Activitat</th>
-<th>Presentació</th>
-<th>Formador</th>
-<th>Imatge</th>
-<th>Multimedia</th>
-</tr>
-</thead>
-<tbody>
-{% for activitat in activitats %}
-<tr>
-<td><a href="{{ path('extranet_activitat_editar', { 'id': activitat.id })}}">{{ activitat.activitat }}</td>
-<td><a href="{{ path('extranet_activitat_editar', { 'id': activitat.id })}}">{{ activitat.presentacio}}</td>
-<td>{{ activitat.formador}}</td>
-<td><img witdh='20px' height='20px' src='{{'/uploads/imatges/' ~ activitat.pathImatge }}'/><td>
+<h1>Llista activitats</h1>
+<br>
+<table width="1100">
 
-<video width="80" height="80" controls autoplay>
-  <source src='{{'/uploads/multimedia/' ~ activitat.pathMultimedia}}' type="video/mp4">
-  <object data='{{'/uploads/multimedia/' ~ activitat.pathMultimedia }}' width="320" height="240">
-    <embed width="80" height="80" src="movie.swf">
-  </object>
-</video>
-
-</tr>
+<select style="width: 300px" id="formador" onchange='listaformador()'>
+{% for formador in formadors %} 
+	<option value="{{ formador.nom }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador': formador.id }) }}" {{ idformador == formador.id ? 'selected="selected"' : '' }}>{{ formador.nom }}</option>
 {% endfor %}
-</tbody>
+	<option value="Tots" data-url="{{ url('extranet_activitat')}}" {{ idformador == 'Tots' ? 'selected="selected"' : '' }}>Tots</option>
+</select>
 </table>
+<br>
+{{ simple_paginator_render('extranet_activitat', null, {
+'container_class': 'paginador',
+'previousPageText': 'Anterior',
+'nextPageText': 'Siguiente',
+'currentClass': 'actual',
+'firstPageText': 'Primera',
+'lastPageText': 'Última'
+}) }}
+
+<br>
+<table width="1100">
+<td wwidth="200">Activitat</td>
+<td width="200">Formador</td>
+<td width="200">Comite</td>
+<td width="200">Tipologia</td>
+<td width="200">Format</td>
+<td width="100"></td>
+</table>
+{% for activitat in activitats %}
+<table width="1100">
+<td width="200">{{ activitat.activitat }}</td>
+<td width="200">{{ activitat.formador}}</td>
+<td width="200">{{ activitat.comite}}<td>
+<td width="200">{{ activitat.tipologia}}<td>
+<td width="200">{{ activitat.format}}<td>
+<td width="100"><INPUT type="button" value="Editar" onClick="location.href='{{ path('extranet_activitat_editar', {'id': activitat.id })}}'"><td>
+</table>
+{% endfor %}
+</table>
+<ul id="paginador" style="width: 600px;display: inline;">
+{% if paginador.currentPage > 1 %}
+<li><a href="{{ path('extranet_activitat', { 'page': paginador.previousPage
+}) }}">Anterior</a></li>
+{% else %}
+<li>Anterior</li>
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+<li class="actual">{{ page }}</li>
+{% else %}
+<li><a href="{{ path('extranet_activitat', { 'page': page }) }}">{{ page
+}}</a></li>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<li><a href="{{ path('extranet_activitat', { 'page': paginador.nextPage })
+}}">Siguiente</a></li>
+{% else %}
+<li>Siguiente</li>
+{% endif %}
+</ul>
 <INPUT type="button" value="Afegir activitat" onClick="location.href='{{ path('extranet_activitat_nova')}}'">
 <INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
-
 </div>
 </article>
 </body>

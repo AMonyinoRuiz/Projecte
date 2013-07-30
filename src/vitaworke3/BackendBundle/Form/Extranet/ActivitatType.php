@@ -12,18 +12,9 @@ class ActivitatType extends AbstractType
     {
         $builder
             ->add('Activitat')
-            ->add('Sinopsi')
-            ->add('imatge', 'file', array(
-                    'data_class' => 'Symfony\Component\HttpFoundation\File\File',
-                    'required' => false))
-            ->add('multimedia', 'file', array(
-                    'data_class' => 'Symfony\Component\HttpFoundation\File\File',
-                    'required' => false))
-            ->add('Link')
-            ->add('Html')
-            
+            ->add('Titol')
+            ->add('Subtitol')
             ->add('DiesCaducitat')
-            ->add('Presentacio')
             ->add('Baixa')
             ->add('Activada')
             ->add('Tipologia')
@@ -49,14 +40,35 @@ class ActivitatType extends AbstractType
                             ->where('l.TipusClient = 4');
                             
                  }
-                )
-              )
+                 )
+               )
 
-        
+              ->add('Text1', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'), 'required' => false))
+              ->add('Text2', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text3', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text4', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text5', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text6', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text7', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('Text8', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))
+              ->add('TipusCamp1')
+              ->add('TipusCamp2')
+              ->add('TipusCamp3')
+              ->add('TipusCamp4')
+              ->add('TipusCamp5')
+              ->add('TipusCamp6')
+              ->add('TipusCamp7')
+              ->add('TipusCamp8')
+              ->add('assumpte')
+              ->add('titol1')
+              ->add('titol2')
+              ->add('nick')
+              ->add('contingut', 'textarea', array('attr' => array('cols' => '70', 'rows' => '10'), 'required' => false))
+          
+             
 
-       
-        ;
-        $builder->add('tags', 'collection', array('type' => new \vitaworke3\ActivitatBundle\Form\TagType(),'allow_add'    => true, 'by_reference'=>false,'allow_delete' => true,));
+            ;
+      
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -22,24 +22,31 @@ class CalendariType extends AbstractType
                             ->orWhere('l.TipusClient = 2');
                             
                  }
-                ,'multiple'=>true)             )
+                )
+              )
             ->add('Activitat')
+            ->add('DiesCaducitat')
             ->add('Enviar')
             ->add('Enviada')
             ->add('Oberta')
             ->add('Valorada')
-             ->add('Valoracio', 'choice', array('choices'   => array(
+            ->add('assumpte')
+            ->add('titol1')
+            ->add('titol2')
+            ->add('nick')
+            ->add('contingut', 'textarea', array('attr' => array('cols' => '70', 'rows' => '10'), 'required' => false))
+            ->add('Valoracio', 'choice', array('choices'   => array(
         1 => '1',
         2 => '2',
         3 => '3',
         4 => '4',
-        5 => '5', ),
+        5 => '5',),
     'multiple'  => false,
     'expanded'  => true,
+    'required' =>false,
 ));
          
-         
-         
+              
 
 
     

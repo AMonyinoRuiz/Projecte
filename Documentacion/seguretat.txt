@@ -1,3 +1,6 @@
 - Host: 82.165.170.12
 - User: root
 - Password: TsgeW77u
+
+
+<a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" alt="star" width="16" height="15" class="starspaces" id="star" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star2','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star2" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star3','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star3" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star4','','/uploads/images/star_on.png',1)"><img src="/uploads/images/star_off.png" width="16" height="15" class="starspaces" id="star4" /></a><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('star5','','/uploads/images/star_on.png',1)"><img src="{{asset('uploads/images/star_off.png')}}" width="16" height="15" class="starspaces" id="star5" /></a>

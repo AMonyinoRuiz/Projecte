@@ -14,9 +14,15 @@ class CalendariAdmin extends Admin
 		->add('DiaActivitat')
 		->add('Client')
 		->add('Activitat')
-		->add('Associats')
-		->add('Realitzada')
 		->add('Enviada')
+		->add('_action', 'actions', array(
+                'actions' => array(
+                    'view' => array(),
+                    'edit' => array(),
+                         )
+            ))
+        
+		
         
 		;
 	}
@@ -26,9 +32,7 @@ class CalendariAdmin extends Admin
 		->add('DiaActivitat')
 		->add('Client')
 		->add('Activitat')
-		->add('Associats')
-		->add('Realitzada')
-        ->add('Enviada')
+		->add('Enviada')
         
         ;
 	}
@@ -38,9 +42,7 @@ class CalendariAdmin extends Admin
 		->add('DiaActivitat')
 		->add('Client')
 		->add('Activitat')
-		->add('Associats')
-		->add('Realitzada')
-        ->add('Enviada')
+		->add('Enviada')
         
         ;
 	}

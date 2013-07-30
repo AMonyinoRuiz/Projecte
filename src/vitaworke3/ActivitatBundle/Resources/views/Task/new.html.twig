@@ -16,8 +16,9 @@
     <li><a href="{{ path('extranet_calendari')}}">Calendari</a></li>
     <li><a href="http://vitaworke3.local/app.php/admin/dashboard">Cuadre de comandament</a></li>
 </ul></div>
-<div id="contenido"> 
-<form action="..." method="POST" {{ form_enctype(form) }}>
+
+
+<form action="{{path('extranet_task_nova')}}" method="POST" {{ form_enctype(form) }}>
     {# render the task's only field: description #}
     {{ form_row(form.description) }}
 

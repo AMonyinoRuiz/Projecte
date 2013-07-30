@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
+</head>
+<body>
+<div id="content">
+<h1>Nou comite</h1>
+<form action="{{ accion == 'crear' ? path('extranet_comite_nou') : path('extranet_comite_editar', {'id': comite.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<div>
+<td>{{ form_label(formulario.Nom, 'Nom') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+{% if accion == 'editar' %}
+<td>{{ form_label(formulario.Baixa, 'Baixa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Baixa)}}</td>
+{% endif %}
+<br>
+<br>
+{% if accion == 'crear' %}
+<input class="boton" type="submit" value="Afegir comité" />
+{% else %}
+<input class="boton" type="submit" value="Guardar canvis comité" />
+{% endif %}
+<INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_comite')}}'">
+<INPUT type="button" value="Tornar a perfils" onClick="location.href='{{ path('extranet_perfil')}}'">
+<INPUT type="button" value="Tornar a portada"   onClick="location.href='{{ path('extranet_portada')}}'">
+</div>
+</form>
+</div>
+</body>
+</html>

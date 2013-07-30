@@ -24,23 +24,29 @@ class TaskController extends Controller
     public function newAction(Request $request)
     {
         $task = new Task();
-
-        // dummy code - this is here just so that the Task has some tags
-        // otherwise, this isn't an interesting example
-        // end dummy code
-
-        $form = $this->createForm(new TaskType(), $task);
         $tag1 = new Tag();
-        $tag1->name = 'tag1';
+        $tag1->name = 'tag11111';
         $task->getTags()->add($tag1);
         $tag2 = new Tag();
         $tag2->name = 'tag2';
         $task->getTags()->add($tag2);
-        // process the form on POST
+        $form = $this->createForm(new TaskType(), $task);
         if ($request->isMethod('POST')) {
             $form->bind($request);
-            if ($form->isValid()) {
-                // ... maybe do some form processing, like saving the Task and Tag objects
+            if ($form->isValid()) 
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($task);
+                $em->flush();
+                return $this->redirect(
+                    $this->generateUrl('extranet_portada')
+                    );
+                
+            }else
+            {
+            return $this->redirect(
+                    $this->generateUrl('extranet_calendari')
+                    );
             }
         }
 

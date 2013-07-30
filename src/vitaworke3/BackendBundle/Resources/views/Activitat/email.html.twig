@@ -2,160 +2,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Template 2</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<title>Template Mail</title>
 <style type="text/css">
+.modalDialog {
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 99999;
+  opacity:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+.modalDialog:target {
+  opacity:1;
+  pointer-events: auto;
+}
 
-body {
-	background-color: #FFF;
-	margin: 0px;
-	padding: 0px;
-	font-family: Helvetica, Arial, sans-serif;
-	font-size: 0.9em;
-	color: #000;
+.modalDialog > div {
+  width: 400px;
+  position: relative;
+  margin: 10% auto;
+  padding: 5px 20px 13px 20px;
+  border-radius: 10px;
+  background: #fff;
+  background: -moz-linear-gradient(#fff, #999);
+  background: -webkit-linear-gradient(#fff, #999);
+  background: -o-linear-gradient(#fff, #999);
 }
-#centralbody {
-	height: 100%;
-	width: 458px;
-	margin-right: auto;
-	margin-left: auto;
+.close {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
 }
-#logoheader {
-	float: left;
-	height: 77px;
-	width: 450px;
-	text-align: center;
-	padding-top: 27px;
-	padding-bottom: 26px;
-}
-#maintext {
-	background-color: #F2F2F2;
-	height: 100%;
-	width: 390px;
-	float: left;
-	padding: 30px;
-}
-#secondtext {
-	background-color: #F2F2F2;
-	height: 100%;
-	width: 390px;
-	float: left;
-	padding-top: 10px;
-	padding-right: 30px;
-	padding-bottom: 10px;
-	padding-left: 30px;
-}
-#leftcolumn {
-	float: left;
-	height: 100%;
-	width: 146px;
-	text-align: left;
-	padding-top: 40px;
-	padding-right: 10px;
-}
-#centercolumn {
-	float: left;
-	height: 100%;
-	width: 79px;
-}
-#rightcolumn {
-	float: right;
-	height: 100%;
-	width: 145px;
-	text-align: right;
-	padding-top: 40px;
-	padding-left: 10px;
-}
-#footer {
-	float: left;
-	height: 100%;
-	width: 450px;
-	padding-top: 20px;
-	text-align: center;
-}
-h1 {
-	font-size: 1em;
-	margin-bottom: 5px;
-}
-h2 {
-	font-size: 1em;
-	font-weight: normal;
-	font-style: italic;
-	margin-top: 0px;
-	padding-top: 0px;
-	margin-bottom: 10px;
-	padding-bottom: 30px;
-}
-p {
-	font-size: 0.9em;
-	line-height: 17px;
-	text-align: justify;
-}
-#secondtext h1 {
-	color: #666;
-	font-size: 0.9em;
-}
-#secondtext p {
-	color: #666;
-	font-size: 0.8em;
-	line-height: 14px;
-}
-.wattermarkposition {
-	width: 79px;
-	height: 128px;
-	position: relative;
-	clip: rect(auto,auto,auto,auto);
-	visibility: visible;
-	bottom: -30px;
-}
-#footer p {
-	text-align: center;
-	font-size: 0.7em;
-	color: #999;
-}
-#shadow {
-	float: left;
-	height: 100%;
-	width: 8px;
-	padding-top: 150px;
-}
-#maincontent {
-	float: left;
-	height: 100%;
-	width: 450px;
-}
+
+.close:hover { background: #00d9ff; }
 
 </style>
 </head>
-
-<body>
-
-
-<div id="centralbody">
-
-<div id="shadow"><img src="{{ host ~ '/uploads/images/shadow.png'}}" width="8" height="89" alt="shadow" /></div>
-
-<div id="maincontent">
-<div id="logoheader"><img src="{{ host ~ '/uploads/images/logo.png' }}" width="181" height="77" alt="logo" /></div>
-
-<div id="maintext"><h1>Bon dia {{ calendari.id }}</h1>
-<div id="maintext"><h1>{{'http://vitaworke3.local' ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}</h1>
-<br></br>
-<br></br>
-<div id="centercolumn">
-<img src="{{ host ~ '/uploads/images/logo.png' }}" width="181" height="77" alt="imatge" width="150" height="150"onClick="window.open('{{'http://vitaworke3.local' ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}','mywindow','width=800,height=500')"/></div>
-</div>
-<div id="secondtext">
-<div id="leftcolumn"><h1></h1><p></p></div>
-<div id="centercolumn"><img src="{{ host ~ '/uploads/images/wattermark.png' }}" alt="wattermark" width="79" height="128" class="wattermarkposition" /></div>
-<div id="rightcolumn"><h1></h1><p></p></div>
-</div>
-
-<div id="footer"><p>TM y Copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
-
-</div>
-</div>
+<body bgcolor="#F2F2F2">
+<table style="width: 600px;font-family:arial;" border="0" cellspacing="0" cellpadding="20" bgcolor="#FFF" align="center">
+<tbody>
+  <tr>
+    <td COLSPAN=2 bgcolor="#F2F2F2" align="center" height="130"><img src="{{ host ~ '/uploads/images/logo.png' }}" width="181" height="75" alt="logo" /></td>
+ </tr>
+  <tr>
+    <td width="400" style="font-size: 0.9em;line-height: 17px;text-align: right;">
+      <span style="font-size: 1.1em; margin-bottom:15px;font-weight: bold;line-height: 40px">
+        {{titol1}}
+        
+        {{titol2}}
+      </span><br/>{{contingut | raw}}
 
 
+     </td> 
+     <p> calendari {{calendari.id}}</p>
+   <td width="120"><a href="{{host  ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}"><img src="{{ host ~ '/uploads/images/button_gif_2.gif' }}" width="98" height="88" alt="button" /></a></td> 
+  </tr>
+  </table>
+  <tbody>
+ <table style="width: 600px;font-family:arial;" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFF" align="center">
+  <tr>
+    <td  align="center" bgcolor="#F2F2F2"><img src="{{ host ~ '/uploads/images/shadow_footer.png' }}" width="510" height="8" alt="shadow" /></td>
+    </tr>
+    <tr>
+    <td align="center" bgcolor="#F2F2F2" style="font-size: 0.8em; color: #999;">TM y Copyright © 2013 Vitawork E<sup>3</sup></td>
+  </tr>
+</table>
 </body>
 </html>

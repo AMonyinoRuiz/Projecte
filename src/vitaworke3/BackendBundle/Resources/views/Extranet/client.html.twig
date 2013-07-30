@@ -4,37 +4,84 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Template 1</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
+    <script>
+        $(document).ready(function() { $("#associat").select2(); });
+        
+        function lista() {
+		
+		var lista = document.getElementById('associat');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+    </script>
+
 </head>
 <body>
 <div id="content">
-<h1>Clients</h1>
-<table>
-<thead>
-<tr>
-<th>Nom</th>
-<th>Nick</th>
-<th>Tipus Client</th>
-<th>Associat a</th>
-<th>Mail</th>
-
-</tr>
-</thead>
-<tbody>
-{% for client in clients %}
-<tr>
-<td><a href="{{ path('extranet_client_editar', { 'id': client.id })}}">{{ client.Nom}}</td>
-
-<td>{{ client.Nick}}</td>
-<td>{{ client.TipusClient}}"<td>
-<td>{{ client.Associat}}</td>
-<td>{{ client.Mail}}"<td>
-
-</tr>
-{% endfor %}
-</tbody>
+<h1>Client</h1>
+<br>
+<select id="associat" name="associat" onchange='lista()' width="300" style="width: 300px">
+   {% for associat in associats %} 
+	<option value="{{ associat.slug }}" data-url="{{ url('extranet_client_filtre', { 'idassociat': associat.id }) }}" {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom }}</option>
+	{% endfor %}
+  	<option value="Tots" data-url="{{ url('extranet_client')}}" {{ idassociat == 'Tots' ? 'selected="selected"' : '' }}>Tots</option>
+</select>
+<br> 
+{{ simple_paginator_render('extranet_calendari', null, {
+'container_class': 'paginador',
+'previousPageText': 'Anterior',
+'nextPageText': 'Siguiente',
+'currentClass': 'actual',
+'firstPageText': 'Primera',
+'lastPageText': 'Última'
+}) }}
+<br> 
+<table width="800">
+<td width="200">Nom</td>
+<td width="100">Nick</td>
+<td width="200">Associat a</td>
+<td width="200">Mail</td>
+<td width="100"></td>
 </table>
+{% for client in clients %}
+<table width="800">
+<td width="200">{{ client.Nom}}</td>
+<td width="100">{{ client.Nick}}</td>
+<td width="200">{{ client.Associat}}</td>
+<td width="200">{{ client.Mail}}<td>
+<td width="100"><INPUT type="button" value="Editar" onClick="location.href='{{ path('extranet_client_editar', {'id': client.id })}}'"><td>
+</table>
+{% endfor %}
+
+<ul class="paginador">
+{% if paginador.currentPage > 1 %}
+<li><a href="{{ path('extranet_client', { 'page': paginador.previousPage
+}) }}">Anterior</a></li>
+{% else %}
+<li>Anterior</li>
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+<li class="actual">{{ page }}</li>
+{% else %}
+<li><a href="{{ path('extranet_client', { 'page': page }) }}">{{ page
+}}</a></li>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<li><a href="{{ path('extranet_client', { 'page': paginador.nextPage })
+}}">Siguiente</a></li>
+{% else %}
+<li>Siguiente</li>
+{% endif %}
+</ul>
+
 <INPUT type="button" value="Afegir client" onClick="location.href='{{ path('extranet_client_nou')}}'">
+<INPUT type="button" value="Tornar a perfil" onClick="location.href='{{ path('extranet_perfil')}}'">
 <INPUT type="button" value="Tornar a portada" onClick="location.href='{{ path('extranet_portada')}}'">
 </div>
 </body>

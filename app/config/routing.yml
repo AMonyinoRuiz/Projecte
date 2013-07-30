@@ -1,48 +1,37 @@
 backend:
     resource: "@BackendBundle/Resources/config/routing.yml"
     prefix:   /
-
 extranet:
-    resource: "@BackendBundle/Resources/config/extranet/routing.yml"
+    resource: "@BackendBundle/Resources/config/Extranet/routing.yml"
     prefix:   /extranet
-
 calendari:
     resource: "@CalendariBundle/Controller/"
     type:     annotation
     prefix:   /
-
 client:
     resource: "@ClientBundle/Resources/config/routing.yml"
     prefix:   /
-
 activitat:
     resource: "@ActivitatBundle/Resources/config/routing.yml"
     prefix:   /
-
 sonata:
     resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
     prefix: /admin
-
 _sonata_admin:
     resource: .
     type: sonata_admin
     prefix: /admin
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile
-
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
     prefix: /register
-
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
     prefix: /resetting
-
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
@@ -50,8 +39,6 @@ login_check:
     pattern: /login_check
 logout:
    pattern: /logout
-
-
 # Internal routing configuration to handle ESI
 # ****** WARNING ******
 # This route should be enabled with caution as it can open a security vulnerability

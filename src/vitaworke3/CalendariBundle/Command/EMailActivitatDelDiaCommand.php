@@ -32,7 +32,7 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 			$output->writeln('inici proces <fg=magenta> generacio de emails</>...');
-			$host ='http://vitaworke3.local/app.php' ;
+			//$host ='http://vitawork.vitaworke3.com' ;
 			$contenedor = $this->getContainer();
 			$em = $contenedor->get('doctrine')->getEntityManager();	
 			$Calendari = array();
@@ -43,11 +43,14 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 				$clientoriginal=$Calendari->getClient();
 				$activitatdeldia=$Calendari->getActivitat();
 				$enviada=$Calendari->getEnviada();
-				$host = 'dev' == 'env' ?
-					'http://vitaworke3.local' :
-					'http://vitaworke3.com';
+				$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($Calendari,'mail',$contenedor);
+				$em->persist($Calendari);
+				$em->flush();
+			
+
+				/*
 				$texto = $contenedor->get('twig')->render(
-					'BackendBundle:Activitat:email.html.twig',array('usuari' => $clientoriginal,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$Calendari)
+					'BackendBundle:Activitat:email.html.twig',array('usuari' => $clientoriginal,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$Calendari,'accio'=>'crear')
 					);
 				$mailclient=$clientoriginal->getMail();
 				if ((!empty($mailclient)) and (empty($enviada)))
@@ -55,7 +58,7 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 					$mensaje = \Swift_Message::newInstance()
 					->setSubject('Vitawork E3: Tu dosis de bienestar.')
 					->setFrom('mailing@vitaworke3.com')
-					->setTo('92877@parcdesalutmar.cat')
+					->setTo($mailclient)
 					->setBody($texto,'text/html');
 					$contenedor->get('mailer')->send($mensaje);
 					$enviada=new \DateTime('now');
@@ -74,14 +77,14 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 					$em->persist($calendariAfegit);
 					$em->flush();
 					$texto = $contenedor->get('twig')->render('BackendBundle:Activitat:email.html.twig',
-						array('usuari' => $AssociatClient,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendariAfegit));
-					$mailclient=$AssociatClient->getMail();
-					if (!empty($mailclient)) 
+						array('usuari' => $AssociatClient,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendariAfegit,'accio'=>'crear'));
+					$mailclientAssociat=$AssociatClient->getMail();
+					if (!empty($mailclientAssociat)) 
 					{
 						$mensaje = \Swift_Message::newInstance()
 						->setSubject('Vitawork E3: Tu dosis de bienestar.')
 						->setFrom('mailing@vitaworke3.com')
-						->setTo('92877@parcdesalutmar.cat')
+						->setTo($mailclientAssociat)
 						->setBody($texto,'text/html');
 						$contenedor->get('mailer')->send($mensaje);
 						$enviada=new \DateTime('now');
@@ -90,7 +93,7 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 					
 								
 				}
-	
+				*/
 			}
 	
 		$output->writeln('fi proces  generacio de emails...');

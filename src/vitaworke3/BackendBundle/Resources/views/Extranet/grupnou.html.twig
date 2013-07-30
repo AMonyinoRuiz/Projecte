@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+ <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+ <script src="{{asset('js/select2.js')}}"></script>
+    <script>
+        $(document).ready(function() { $("#associat").select2();$("#idioma").select2();$("#template").select2(); });
+                                     
+    </script></head>
+<body>
+<div id="content">
+<h1>Nou grup</h1>
+<form action="{{ accion == 'crear' ? path('extranet_grup_nou') : path('extranet_grup_editar', {'id': grup.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<div>
+<td>{{ form_label(formulario.Nom, 'Nom') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<select  id="associat" name="associat" width="300" style="width: 300px">
+   <option value="empty" {{ idassociat == 'empty' ? 'selected="selected"' : '' }}></option>
+   {% for associat in associats %} 
+	<option value="{{ associat.slug }}"  {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom }}</option>
+	{% endfor %}
+
+ </select> 	
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatInici, 'Data inici acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatInici)}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatFi, 'Data fi acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatFi)}}</td>
+<br>
+<br>
+<p>Idioma</p>
+<select  id="idioma" name="idioma" width="300" style="width: 300px">
+   <option value="empty" {{ ididioma == 'empty' ? 'selected="selected"' : '' }}></option>
+   {% for idioma in idiomas %} 
+	<option value="{{ idioma.slug }}"  {{ ididioma == idioma.id ? 'selected="selected"' : '' }}>{{ idioma.Idioma}}</option>
+	{% endfor %}
+
+ </select> 	
+{% if accion == 'editar' %}
+<br>
+<br>
+<p>Si informem template, no es tindra en compte el idioma abans escollit i es fara servir sempre el template</p>
+<br>
+<p>template</p>
+<select  id="template" name="template" width="300" style="width: 300px">
+   <option value="empty" {{ idtemplate == 'empty' ? 'selected="selected"' : '' }}></option>
+   {% for template in templates %} 
+	<option value="{{ template.slug }}"  {{ idtemplate == template.id ? 'selected="selected"' : '' }}>{{ template.nomtemplate}}</option>
+	{% endfor %}
+
+ </select> 	
+<br>
+<br>
+<td>{{ form_label(formulario.Baixa, 'Baixa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Baixa)}}</td>
+{% endif %}
+<br>
+<br>
+{% if accion == 'crear' %}
+<input class="boton" type="submit" value="Afegir grup" />
+{% else %}
+<input class="boton" type="submit" value="Guardar canvis grup" />
+{% endif %}
+<INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_grup')}}'">
+<INPUT type="button" value="Tornar a perfils" onClick="location.href='{{ path('extranet_perfil')}}'">
+<INPUT type="button" value="Tornar a portada"   onClick="location.href='{{ path('extranet_portada')}}'">
+</div>
+</form>
+</div>
+</body>
+</html>

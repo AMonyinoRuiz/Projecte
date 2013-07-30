@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template 1</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+ <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+ <script src="{{asset('js/select2.js')}}"></script>
+    <script>
+        $(document).ready(function() { $("#comite").select2({
+                placeholder: "Select a State"});});
+                                     
+    </script>
+</head>
+<body>
+<div id="content">
+<h1>Nou formador</h1>
+<form action="{{ accion == 'crear' ? path('extranet_formador_nou') : path('extranet_formador_editar', {'id': formador.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<div>
+<td>{{ form_label(formulario.Nom, 'Nom') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Nick, 'Nick') }}</td>
+<br>
+<td>{{ form_widget(formulario.Nick , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.Mail, 'Mail') }}</td>
+<br>
+<td>{{ form_widget(formulario.Mail , { 'attr': {'size' : 100}})}}</td>
+<br>
+<br>
+<select  id="comite" name="comite" width="300" style="width: 300px">
+   <option value="empty" {{ idcomite == 'empty' ? 'selected="selected"' : '' }}></option>
+   {% for comite in comites %} 
+	<option value="{{ comite.slug }}"  {{ idcomite == comite.id ? 'selected="selected"' : '' }}>{{ comite.nom }}</option>
+	{% endfor %}
+
+ </select> 	
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatInici, 'Data inici acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatInici)}}</td>
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatFi, 'Data fi acces') }}</td>
+<br>
+<td>{{ form_widget(formulario.DataAccesAutoritzatFi)}}</td>
+<br>
+<br>
+{% if accion == 'editar' %}
+<td>{{ form_label(formulario.Baixa, 'Baixa') }}</td>
+<br>
+<td>{{ form_widget(formulario.Baixa)}}</td>
+{% endif %}
+<br>
+<br>
+{% if accion == 'crear' %}
+<input class="boton" type="submit" value="Afegir formador" />
+{% else %}
+<input class="boton" type="submit" value="Guardar canvis formador" />
+{% endif %}
+<INPUT type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_formador')}}'">
+<INPUT type="button" value="Tornar a perfils" onClick="location.href='{{ path('extranet_perfil')}}'">
+<INPUT type="button" value="Tornar a portada"   onClick="location.href='{{ path('extranet_portada')}}'">
+</div>
+</form>
+</div>
+</body>
+</html>

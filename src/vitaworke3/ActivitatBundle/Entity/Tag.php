@@ -29,10 +29,10 @@ class Tag
 
     public $name;
 
-    public function addActivitat(Activitat $activitat)
+    public function addTask(Activitat $task)
 	{
-    	if (!$this->activitat->contains($activitat)) {
-        $this->activitat->add($activitat);
+    	if (!$this->task->contains($task)) {
+        $this->task->add($task);
     	}
     }
 
