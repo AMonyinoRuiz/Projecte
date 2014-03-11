@@ -1,0 +1,66 @@
+{% extends 'BackendBundle:Extranet:perfil.html.twig' %}
+{% block main %}
+<form action="{{ accion == 'crear' ? path('extranet_template_nou') : path('extranet_template_editar', {'id': template.id }) }}" method="post" {{form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nova plantilla</h3></div>
+{% else %}
+<h3>Editar plantilla</h3></div>
+
+{% endif %}
+
+
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget(formulario.nomtemplate , { 'attr': {'placeholder': "Nom plantilla"}})}}</div>
+<div id="main_content_secondcolumn">
+{{ form_widget(formulario.Client, { 'attr': {'placeholder': "Client"}})}}
+</div>
+<div id="main_content_thirdcolumn">
+{{ form_widget(formulario.Idioma, { 'attr': {'placeholder': "Idioma"}})}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+<p style="color:#609">PLANTILLA EMAIL</p> 
+<br>
+{{form_widget(formulario.assumpte, { 'attr': {'placeholder': "Assumpte"}})}}
+<br>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget(formulario.titol1, { 'attr': {'placeholder': "Text títol abans de Nick"}})}}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.nick,'Incloure Nick')}} 
+{{form_widget(formulario.nick,{ 'attr': {'class' : 'baixa'}}) }}
+</div>
+<div id="main_content_thirdcolumn">
+{{ form_widget(formulario.titol2, { 'attr': {'placeholder': "Text títol després de Nick"}})}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{{ form_widget(formulario.contingut, { 'attr': {'placeholder': "Cos del mail"}})}}
+{% if accion == 'editar' %}
+<br>
+<br>
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+{% endif %}
+<br>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir plantilla" />
+{% else %}
+<input class="button_green" type="submit" value="Guardar canvis plantilla" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_template')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

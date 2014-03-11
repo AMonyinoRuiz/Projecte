@@ -8,15 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 
-
-
-
-
 /**
  * Activitat
  *
  * @ORM\Table()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass="vitaworke3\ActivitatBundle\Entity\ActivitatRepository")
+ * 
  */
 class Activitat
 {
@@ -40,7 +38,7 @@ class Activitat
     /**
      * @var string
      *
-     * @ORM\Column(name="TItol", type="string", length=100)
+     * @ORM\Column(name="Titol", type="string", length=100)
      */
     private $Titol;
 
@@ -48,7 +46,7 @@ class Activitat
     /**
      * @var string
      *
-     * @ORM\Column(name="Subtitol", type="string", length=100)
+     * @ORM\Column(name="Subtitol", type="string", length=100 , nullable=true)
      */
     private $Subtitol;
 
@@ -67,14 +65,6 @@ class Activitat
      */
     private $Tipologia;
     
-
-    /**
-     * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="vitaworke3\ActivitatBundle\Entity\Tag",cascade={"persist"}) 
-     */
-    private $Tags;
-
     /**
      * @var string
      *
@@ -125,12 +115,12 @@ class Activitat
     private $DiesCaducitat;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=1000, nullable=true)
      */
     public $Text1;
 
      /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=1000, nullable=true)
      */
     public $Text2;
     
@@ -251,13 +241,91 @@ class Activitat
        /**
      * @var string
      *
-     * @ORM\Column(name="contingut", type="string", length=100,nullable=true)
+     * @ORM\Column(name="contingut", type="string", length=1000,nullable=true)
      */
     private $contingut;
 
-      
+    /**
+     * @ORM\Column(name="path",type="string", length=255, nullable=true)
+     */
+    public $path;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file;
 
     /**
+     * @ORM\Column(name="path2",type="string", length=255, nullable=true)
+     */
+    public $path2;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file2;
+
+     /**
+     * @ORM\Column(name="path3",type="string", length=255, nullable=true)
+     */
+    public $path3;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file3;
+     /**
+     * @ORM\Column(name="path4",type="string", length=255, nullable=true)
+     */
+    public $path4;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file4;
+
+ /**
+     * @ORM\Column(name="path5",type="string", length=255, nullable=true)
+     */
+    public $path5;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file5;
+
+ /**
+     * @ORM\Column(name="path6",type="string", length=255, nullable=true)
+     */
+    public $path6;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file6;
+
+ /**
+     * @ORM\Column(name="path7",type="string", length=255, nullable=true)
+     */
+    public $path7;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file7;
+
+ /**
+     * @ORM\Column(name="path8",type="string", length=255, nullable=true)
+     */
+    public $path8;
+    
+     /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $file8;
+
+
+    /*
      * Get id
      *
      * @return integer 
@@ -349,7 +417,7 @@ class Activitat
      * Set slug
      *
      * @param string $slug
-     * @return Activitat
+     * @return Slug
      */
     public function setSlug($slug)
     {
@@ -398,7 +466,7 @@ class Activitat
      * Set Tipologia
      *
      * @param string $tipologia
-     * @return Activitat
+     * @return tipologia
      */
     public function setTipologia(\vitaworke3\ActivitatBundle\Entity\Tipologia $tipologia)
     {
@@ -421,7 +489,7 @@ class Activitat
      * Set Format
      *
      * @param string $format
-     * @return Activitat
+     * @return Format
      */
     public function setFormat(\vitaworke3\ActivitatBundle\Entity\Format $format)
     {
@@ -444,7 +512,7 @@ class Activitat
      * Set Comite
      *
      * @param string $comite
-     * @return Activitat
+     * @return Comite
      */
     public function setComite(\vitaworke3\ClientBundle\Entity\Client $comite)
     {
@@ -467,7 +535,7 @@ class Activitat
      * Set Formador
      *
      * @param string $formador
-     * @return Activitat
+     * @return Formador
      */
     public function setFormador(\vitaworke3\ClientBundle\Entity\Client $formador)
     {
@@ -490,7 +558,7 @@ class Activitat
      * Set DataCreacio
      *
      * @param \Date $dataCreacio
-     * @return Activitat
+     * @return DataCreacio
      */
     public function setDataCreacio($dataCreacio)
     {
@@ -516,7 +584,7 @@ class Activitat
      * Set Baixa
      *
      * @param boolean $baixa
-     * @return Activitat
+     * @return Baixa
      */
     public function setBaixa($baixa)
     {
@@ -539,7 +607,7 @@ class Activitat
      * Set Activada
      *
      * @param boolean $activada
-     * @return Activitat
+     * @return Activitada
      */
     public function setActivada($activada)
     {
@@ -558,25 +626,9 @@ class Activitat
         return $this->Activada;
     }
 
-    public function __toString()
-    {
-       
-        $var= $this->getActivitat();
-        if ($var==null)
-        {
-            $var=' ';
-        }
+   
 
-        return $var;
-
-    }
-
-
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
-    }
-
+   
  
     public function setText1($text1)
     {
@@ -988,7 +1040,7 @@ class Activitat
      */
     public function setTitol2($titol2)
     {
-        $this->titol1 = $titol2;
+        $this->titol2 = $titol2;
     
         return $this;
     }
@@ -1051,8 +1103,384 @@ class Activitat
         return $this->contingut;
     }
 
+   
+   /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+     public function setFile(UploadedFile $file = null)
+     {
+        $this->file = $file;
+        // check if we have an old image path
+        if (isset($this->path)) {
+            // store the old name to delete after the update
+            $this->temp = $this->path;
+            $this->path = null;
+        } else {
+            $this->path = 'initial';
+        }
+     }
 
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+  public function setPath($path)
+  {
+        $this->path = $path;
+        return $this;
+  }
+    public function getPath()
+    {
+        return $this->path;
+    }
+   public function setFile2(UploadedFile $file2 = null)
+    {
+        $this->file2 = $file2;
+        if (isset($this->path2)) {
+            $this->temp2 = $this->path2;
+            $this->path2 = null;
+        } else {
+            $this->path2 = 'initial';
+        }
+     }
+    public function getFile2()
+    {
+        return $this->file2;
+    }
+    public function setPath2($path2)
+    {
+        $this->path2 = $path2;
+        return $this;
+    }
+    public function getPath2()
+    {
+        return $this->path2;
+    }
+    
+    public function setFile3(UploadedFile $file3 = null)
+    {
+        $this->file3 = $file3;
+        if (isset($this->path3)) {
+            $this->temp3 = $this->path3;
+            $this->path3 = null;
+        } else {
+            $this->path3 = 'initial';
+        }
+     }
+    public function getFile3()
+    {
+        return $this->file3;
+    }
+    public function setPath3($path3)
+    {
+        $this->path3 = $path3;
+        return $this;
+    }
+    public function getPath3()
+    {
+        return $this->path3;
+    }
+  public function setFile4(UploadedFile $file4 = null)
+    {
+        $this->file4 = $file4;
+        if (isset($this->path4)) {
+            $this->temp4 = $this->path4;
+            $this->path4 = null;
+        } else {
+            $this->path4 = 'initial';
+        }
+     }
+    public function getFile4()
+    {
+        return $this->file4;
+    }
+    public function setPath4($path4)
+    {
+        $this->path4 = $path4;
+        return $this;
+    }
+    public function getPath4()
+    {
+        return $this->path4;
+    }
+    public function setFile5(UploadedFile $file5 = null)
+    {
+        $this->file5 = $file5;
+        if (isset($this->path5)) {
+            $this->temp5 = $this->path5;
+            $this->path5 = null;
+        } else {
+            $this->path5 = 'initial';
+        }
+     }
+    public function getFile5()
+    {
+        return $this->file5;
+    }
+    public function setPath5($path5)
+    {
+        $this->path5 = $path5;
+        return $this;
+    }
+    public function getPath5()
+    {
+        return $this->path5;
+    }
+    public function setFile6(UploadedFile $file6 = null)
+    {
+        $this->file6 = $file6;
+        if (isset($this->path6)) {
+            $this->temp6 = $this->path6;
+            $this->path6 = null;
+        } else {
+            $this->path6 = 'initial';
+        }
+     }
+    public function getFile6()
+    {
+        return $this->file6;
+    }
+    public function setPath6($path6)
+    {
+        $this->path6 = $path6;
+        return $this;
+    }
+    public function getPath6()
+    {
+        return $this->path6;
+    }
+    public function setFile7(UploadedFile $file7 = null)
+    {
+        $this->file7 = $file7;
+        if (isset($this->path7)) {
+            $this->temp7 = $this->path7;
+            $this->path7 = null;
+        } else {
+            $this->path7 = 'initial';
+        }
+     }
+    public function getFile7()
+    {
+        return $this->file7;
+    }
+    public function setPath7($path7)
+    {
+        $this->path7 = $path7;
+        return $this;
+    }
+    public function getPath7()
+    {
+        return $this->path7;
+    }
+    public function setFile8(UploadedFile $file8 = null)
+    {
+        $this->file8= $file8;
+        if (isset($this->path8)) {
+            $this->temp8 = $this->path8;
+            $this->path8 = null;
+        } else {
+            $this->path8 = 'initial';
+        }
+     }
+    public function getFile8()
+    {
+        return $this->file8;
+    }
+    public function setPath8($path8)
+    {
+        $this->path8 = $path8;
+        return $this;
+    }
+    public function getPath8()
+    {
+        return $this->path8;
+    }
+ public function __toString()
+    {
+        
 
+        return $this->getActivitat();
+
+    }
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/imatges';
+    }
+    
+     /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) 
+        {
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        }
+        if (null !== $this->getFile2())
+        {
+            $filename2 = sha1(uniqid(mt_rand(), true));
+            $this->path2 = $filename2.'.'.$this->getFile2()->guessExtension();
+        }
+        if (null !== $this->getFile3()) 
+        {
+            $filename3 = sha1(uniqid(mt_rand(), true));
+            $this->path3 = $filename3.'.'.$this->getFile3()->guessExtension();
+        }
+        if (null !== $this->getFile4()) 
+        {
+            $filename4 = sha1(uniqid(mt_rand(), true));
+            $this->path4 = $filename4.'.'.$this->getFile4()->guessExtension();
+        }
+        if (null !== $this->getFile5()) 
+        {
+            $filename5 = sha1(uniqid(mt_rand(), true));
+            $this->path5 = $filename5.'.'.$this->getFile5()->guessExtension();
+        }
+        if (null !== $this->getFile6()) 
+        {
+            $filename6 = sha1(uniqid(mt_rand(), true));
+            $this->path6 = $filename6.'.'.$this->getFile6()->guessExtension();
+        }
+        if (null !== $this->getFile7()) 
+        {
+            $filename7 = sha1(uniqid(mt_rand(), true));
+            $this->path7 = $filename7.'.'.$this->getFile7()->guessExtension();
+        }
+        if (null !== $this->getFile8()) 
+        {
+            $filename8 = sha1(uniqid(mt_rand(), true));
+            $this->path8 = $filename8.'.'.$this->getFile8()->guessExtension();
+        }
+    }
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+   
+    public function upload()
+    {
+       
+        if (null !== $this->getFile()) 
+        {
+            $this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+            if (isset($this->temp)) {
+            // delete the old image
+            //unlink($this->getUploadRootDir().'/'.$this->temp);
+            // clear the temp image path
+                $this->temp = null;
+            }
+            $this->file = null;
+        }
+        if (null !== $this->getFile2()) 
+        {
+            $this->getFile2()->move($this->getUploadRootDir(), $this->path2);
+
+            if (isset($this->temp2)) {
+            $this->temp2 = null;
+            }
+            $this->file2 = null;
+        }
+        if (null !== $this->getFile3()) 
+        {
+            $this->getFile3()->move($this->getUploadRootDir(), $this->path3);
+
+            if (isset($this->temp3)) {
+            $this->temp3 = null;
+            }
+            $this->file3 = null;
+        }
+        if (null !== $this->getFile4()) 
+        {
+            $this->getFile4()->move($this->getUploadRootDir(), $this->path4);
+
+            if (isset($this->temp4)) {
+            $this->temp4 = null;
+            }
+            $this->file4 = null;
+        }
+        if (null !== $this->getFile5()) 
+        {
+            $this->getFile5()->move($this->getUploadRootDir(), $this->path5);
+
+            if (isset($this->temp5)) {
+            $this->temp5 = null;
+            }
+            $this->file5 = null;
+        }
+        if (null !== $this->getFile6()) 
+        {
+            $this->getFile6()->move($this->getUploadRootDir(), $this->path6);
+
+            if (isset($this->temp6)) {
+            $this->temp6 = null;
+            }
+            $this->file6 = null;
+        }
+        if (null !== $this->getFile7()) 
+        {
+            $this->getFile7()->move($this->getUploadRootDir(), $this->path7);
+
+            if (isset($this->temp7)) {
+            $this->temp7 = null;
+            }
+            $this->file7 = null;
+        }
+        if (null !== $this->getFile8()) 
+        {
+            $this->getFile8()->move($this->getUploadRootDir(), $this->path8);
+
+            if (isset($this->temp8)) {
+            $this->temp8 = null;
+            }
+            $this->file8 = null;
+        }
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file == $this->getAbsolutePath()) {
+           //unlink($file);
+        }
+    }
+
+ 
+  
 
   
 }

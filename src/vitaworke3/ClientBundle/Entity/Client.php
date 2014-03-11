@@ -67,14 +67,14 @@ class Client implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="DataAccesAutoritzatInici", type="date")
+     * @ORM\Column(name="DataAccesAutoritzatInici", type="date",nullable=true)
      */
     private $DataAccesAutoritzatInici;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="DataAccesAutoritzatFi", type="date")
+     * @ORM\Column(name="DataAccesAutoritzatFi", type="date",nullable=true)
      */
     private $DataAccesAutoritzatFi;
 
@@ -121,11 +121,23 @@ class Client implements UserInterface
 
      /**
      * @var string
-     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\ClientIdioma") 
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Template") 
     */
     
    
     private $Template;
+
+     /**
+     * @var string
+     * 
+     ** 
+     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
+     * @ORM\JoinColumn(nullable=true)
+     *
+     */
+
+    public $Responsable;
+
 
 
     public function getId()
@@ -429,7 +441,7 @@ class Client implements UserInterface
      * @param string $template
      * @return Client
      */
-    public function setTemplate(\vitaworke3\ClientBundle\Entity\ClientIdioma $template = null)
+    public function setTemplate(\vitaworke3\ClientBundle\Entity\Template $template = null)
     {
         $this->Template = $template;
     
@@ -444,6 +456,31 @@ class Client implements UserInterface
     public function getTemplate()
     {
         return $this->Template;
+    }
+
+
+    /**
+     * Set Responsable
+     *
+     * @param mixed $responsable \vitaworke3\ClientBundle\Entity\Client or NULL
+     * 
+     * @return Client
+     */
+    public function setResponsable(\vitaworke3\ClientBundle\Entity\Client $responsable= null)
+    {
+        $this->Responsable = $responsable;
+    
+        return $this;
+    }
+
+    /**
+     * Get Responsable
+     *
+     * @return string 
+     */
+    public function getResponsable()
+    {
+        return $this->Responsable;
     }
 
 }

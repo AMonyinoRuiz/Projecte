@@ -1,0 +1,94 @@
+
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+<script type="text/javascript">
+        $(document).ready(function() { $("#Client").select2();$("#Activitat").select2(); });
+	
+	function lista() {
+		var lista = document.getElementById('Client');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+	  function Activitat() {
+    
+    var lista = document.getElementById('Activitat');
+    var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+    window.location = url;
+  };
+</script>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+<h1>Calendari activitats</h1>
+<div id="main_content_button"><a href="{{ path('extranet_calendari_nou')}}" class="button_orange"><img src="{{asset('uploads/images/icon_plus.png')}}" width="16" height="16" alt="plus" />  Afegir calendari</a></div>
+<div id="main_content_pagination">
+{% if paginador.currentPage > 1 %}
+<a href="{{ path('extranet_calendari', { 'page': paginador.firstPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('first','','{{asset('uploads/images/icon_first_activo.png')}}',1)"><img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<a href="{{ path('extranet_calendari', { 'page': paginador.previousPage}) }}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('previous','','{{asset('uploads/images/icon_previus_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" />
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+{{ page }}
+{% else %}
+<a href="{{ path('extranet_calendari', { 'page': page }) }}">{{ page
+}}</a>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<a href="{{ path('extranet_calendari', { 'page': paginador.nextPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('next','','images/icon_next_activo.png',1)">
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" /></a> 
+<a href="{{ path('extranet_calendari', { 'page': paginador.lastPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('last','','{{asset('uploads/images/icon_last_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" />
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" />
+{% endif %}
+</div>
+</div>
+
+
+<div id="main_content_tables">
+<br>
+<br>
+<table cellspacing="0">
+<tr>
+<th></th>
+<th><select id="Client" onchange='lista()' width="200" style="width: 200px">
+{% for client in clients %} 
+	<option value="{{ client.slug }}" data-url="{{ url('extranet_calendari_filtre', { 'idclient': client.id, 'idactivitat':idactivitat}) }}" {{ idclient == client.id ? 'selected="selected"' : '' }}>{{ client.nom}}</option>
+{% endfor %}
+	  <option value="totsclients" data-url="{{ url('extranet_calendari_filtre', { 'idclient':'0' , 'idactivitat':idactivitat}) }}" {{ idclient == '0' ? 'selected="selected"' : '' }}></option>
+</select></th>
+<th>
+<select id="Activitat" name="Activitat" onchange='Activitat()' width="250" style="width: 250px">
+   {% for activitat in activitats %} 
+  <option value="{{ activitat.slug }}" data-url="{{ url('extranet_calendari_filtre', {'idclient':idclient , 'idactivitat': activitat.id }) }}" {{ idactivitat == activitat.id ? 'selected="selected"' : '' }}>{{ activitat.Activitat }}</option>
+  {% endfor %}
+  <option value="totesactivitats" data-url="{{ url('extranet_calendari_filtre', { 'idclient':idclient , 'idactivitat': '0'}) }}" {{ idactivitat == '0' ? 'selected="selected"' : '' }}></option>
+</select>
+</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+
+    <tr><th>Data</th><th>Client</th><th>Activitat</th><th>Enviada</th><th>Oberta</th><th>Valorada</th><th>Editar</th></tr>
+   {% for calendari in calendaris %}
+    <tr><td>{{ calendari.DiaActivitat is empty ? "" : calendari.DiaActivitat|date("d/m/Y")    }}</td>
+    <td>{{ calendari.Client.Nom}}</td>
+    <td>{{ calendari.Activitat}}</td>
+    <td>{{ calendari.Enviada is empty ? "" : calendari.Enviada|date("d/m/Y") }}</td>
+    <td>{{ calendari.Oberta is empty ? "" : calendari.Oberta|date("d/m/Y") }}</td>
+    <td>{{ calendari.Valoracio }}</td>
+    <td><a href="{{ path('extranet_calendari_editar', {'id': calendari.id })}}" class="button_purple_small">Editar</a></td></tr>
+   {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}

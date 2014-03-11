@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{% block title %}{% endblock %}</title>
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+ <script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+ <script src="{{asset('js/select2.js')}}"></script>
+    <script>
+        $(document).ready(function() { $("#any").select2();$("#mes").select2();});
+
+        function llistaany() {
+    
+          var lista = document.getElementById('any');
+          var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+          window.location = url;
+  };
+     function llistames() {
+    
+          var lista = document.getElementById('mes');
+          var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+          window.location = url;
+  };                                 
+    </script>
+    <style type='text/css' media='screen'>
+  .td {background: #E6E6E6;font-size: 100%;text-align: center;color:#000000;border: 3px solid #E6E6E6}
+  .td a{width:100%;display:block;}
+  .tdCapçalera {background: #E6E6E6;font-size: 100%;text-align: center;color:#E27704;}
+  .tdNoInc {background: #FFFFFF;font-size: 100%;text-align: center;color:#FFFFFF;}
+  .tdNoIncGris{background:#AEAEAE;font-size: 60%;text-align: center;color:#000000;}
+  .PreContracte {background: #04B4AE;font-size: 100%;text-align: center;color:#FFFFFF;}
+  .tdSeleccio {background: #F5BCA9;font-size: 50%;text-align: center;color:#000000}
+  .tdavuiSel {background: #FF8000;font-size: 50%;text-align: center;color:#FFFFFF}
+  .tdavuiSelF {background: #FF8000;font-size: 50%;text-align: center;color:#FFFFFF}
+  .tddescripciogfh  {background: #AEAEAE;font-size: 60%;color:#000000}
+  .tddescripciotorn  {background: #AEAEAE;font-size: 60%;color:#000000}
+  .tddescripciotorndies  {background: #FFFFFF;font-size: 60%;color:#000000;border: 1px solid #AEAEAE}
+  .tddescripcionota {background: #FFFFFF;font-size: 100%;text-align: center;color:#E27704;border-style:outset;border-width:2px;border-color:#E27704}
+  .Positiu  {background: #FFFFFFF;font-size: 60%;color:green;border: 1px solid green}
+  .Negatiu  {background: #FFFFFFF;font-size: 60%;color:red;border: 1px solid red}
+  .tddescripciocat {background: #AEAEAE;font-size: 60%;color:#000000}
+  .tddescripciocatdies  {background: #FFFFFF;font-size: 60%;color:#000000;border:1px solid #AEAEAE}
+  .tddescripciohores {background: #FFFFFF;font-size: 40%;color:#000000;border:1px solid #AEAEAE}
+  .tddescripcioemp {background: #FFFFFF;font-size: 40%;color:#000000;border:1px solid #AEAEAE}
+    .tddescripcioempsup {background: #FFFFFF;font-size: 40%;color:blue;border:1px solid #AEAEAE}
+    .tdavui {background: #FF8000;font-size: 60%;text-align: center;color:#FFFFFF}
+  .tdavuiF {background: #FF8000;font-size: 60%;text-align: center;color:#FFFFFF}
+    .tdplantilla {background: #AEAEAE;font-size: 60%;text-align: center;color:#FFFFFF}
+  .tdplantillaF {background: #C6C6C6;font-size: 60%;text-align: center;color:#FFFFFF}
+  .caption {background: #08088A;margin: 0;border: 1px solid #333333;border-bottom: none;padding: 6px 16px;font-weight: bold;color:#FFFFFF;}
+  .tdia {background: #FFFFFF;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaA {background: #FCF38F;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaV {background: #AAEEAA;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaB {background: #FF6666;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaP {background: #FF8000;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaF {background: #CCCCFF;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaC {background: #CCCCFF;font-size: 60%;text-align: center;color:#000000;}
+  .tdiaSolV {background:#150567;font-size: 60%;text-align: center;color:#FFFFFF;}
+  .tdiaSolVRRHH {background:#ff00ff;font-size: 60%;text-align: center;color:#FFFFFF;}
+    .body{width: 100%;height:100% ;background: #F9F6F6;margin: 0;padding: 20px;line-height: 3em;font-family: tahoma, arial, sans-serif;}
+  .BotoO {background: #FFFFFF;font-size: 60%;text-align: center;color:#000000;border-style:outset;border-width:2px;border-color:#000000}
+  </STYLE>
+</head>
+
+  <BODY Class=body>
+	<P class=tdCapçalera ALIGN=CENTER> PLANNING VITAWORK {{idany}}</P>
+    {%if accion=='client'%}
+   <p><a href="{{ path('extranet_planning_empresa')}}">Tornar a Planning</a></p>
+   {% endif %}
+	<TABLE width=1200px>
+	<TD COLSPAN=99 WIDTH=100% class=tdCapçalera ALIGN=CENTER>
+    
+  <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
+   {% for mes in mesos %} 
+  <option value="{{ mes.NMes }}"  data-url="{{ url('extranet_planning_filtre', { 'idany': idany ,'idmes':mes.NMes ,'idempresa': idempresa}) }}" {{ idmes == mes.NMes ? 'selected="selected"' : '' }}>{{ mes }}</option>
+  {% endfor %}
+</select>
+  <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
+   {% for any in anys %} 
+  <option value="{{ any }}" data-url="{{ url('extranet_planning_filtre', { 'idany': any ,'idmes':idmes ,'idempresa': idempresa}) }}" {{ idany == any ? 'selected="selected"' : '' }}>{{ any }}</option>
+  {% endfor %}
+
+ </select>  
+  
+
+    </TABLE>
+    <TR>
+    <BR>
+    <BR>
+    <DIV STYLE='position:absolute;top=120px;left:20px' STYLE='overflow:none; height:90%;width:100%' TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 MARGINHEIGHT=0 MARGINWIDTH=0>
+    <TABLE width=1200px>
+    		<TD CLASS=tddescripciotorn WIDTH=2.5% ALIGN=LEFT></TD>
+    		<TD CLASS=tddescripciotorn WIDTH=20% ALIGN=LEFT>Noms i cognoms</TD>
+    		{% for dia in 1..dies %} 
+            <td class=tdia WIDTH=2.5% ALIGN=CENTER><B>{{dia}}</td>
+        {% endfor %}
+
+    </TABLE>
+    </DIV>
+    <TR>
+    <BR>
+    <BR>
+    <DIV STYLE='position:absolute;top=200px;left:20px' STYLE='overflow:none; height:90%;width:100%' TOPMARGIN=0 LEFTMARGIN=0 RIGHTMARGIN=0 MARGINHEIGHT=0 MARGINWIDTH=0>
+    <TABLE width=1200px>
+      {% set constant = ""  %}
+       {% for planning in plannings %}
+        
+        {% for key in planning %}
+       <TD CLASS=tddescripciotorn WIDTH=2.5% ALIGN=LEFT></TD>
+       {% if key.id =='0' %}
+         {%if accion=='empresa'%}
+        <TD><a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': key.client})}}" CLASS=tddescripciotorn WIDTH=20% ALIGN=LEFT> {{key.nom}}</a></TD>
+          {%else%}
+          <TD CLASS=tddescripciotorn WIDTH=20% ALIGN=LEFT>{{key.nom}}</TD>
+          {% endif %}
+        {%else%}
+          {% if (key.descripcio=='NO') and ( key.sw == 1) %}
+              <TD WIDTH=2.5% ALIGN=LEFT>VA </td>
+           {% elseif  key.sw == 1 %}
+              <TD  WIDTH=2.5% ALIGN=LEFT><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> {{key.descripcio}}</a></td>
+          {% elseif key.descripcio=='NO' %}
+               <TD  WIDTH=2.5% ALIGN=LEFT> <a  href="{{ path('extranet_calendari_nou_planning', { 'id': key.client, 'any':idany,'mes':idmes ,'iddia': key.dia})}}" > {{key.descripcio}}</a></td>
+          {%else%}
+               <TD  WIDTH=2.5% ALIGN=LEFT><a  href="{{ path('extranet_calendari_editar', { 'id': key.idcalendari })}}"> {{key.descripcio}}</a></td>
+        {% endif %}
+        
+        {% endif %}
+        {% endfor %}
+        <tr>
+        {% endfor %}
+         
+       
+    </TABLE>
+    </DIV>
+	</BODY>
+ 	</HTML>
+	
+ 
+ 
+ 
+ 

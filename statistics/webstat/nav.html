@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Navigation</title>
+<link href="general.css" rel="stylesheet" type="text/css">
+
+<style type="text/css">
+<!--
+body {
+	margin: 0;
+	padding: 4px;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #6E89DD;
+	color: #FFFFFF;
+	text-align:center;
+	font-weight:bold;
+}
+
+input, select {
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight:normal;
+}
+
+-->
+</style>
+
+<script language="JavaScript">
+<!-- hide
+function change_page()
+{
+    top.mainFrame.location= document.periodForm.periodSelect.value + '/index.html';
+}
+// -->
+</script>
+
+</head>
+
+<body>
+<form name="periodForm" action="" method="get">
+
+Select period
+<select name="periodSelect" ONCHANGE="change_page()">
+<option value="current">Current</option>
+<option value="2014-03">2014-03</option>
+<option value="2014-01">2014-01</option>
+<option value="2013-12">2013-12</option>
+<option value="2014-02">2014-02</option>
+</select>
+
+</form>
+</body>
+</html>

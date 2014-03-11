@@ -5,14 +5,14 @@ use Doctrine\ORM\EntityRepository;
 class CalendariRepository extends EntityRepository
 {
 
-public function enviarmail($calendari,$origen,$contenedor)
+public function enviarmail($calendari,$origen,$contenedor,$diaactivitat)
 {
 
-	$dataActivitat=new \DateTime('today');
+	$dataActivitat=$diaactivitat;
 	$calendari->setDiaActivitat($dataActivitat);
 	$client=$calendari->getClient();
     $nomClient=$client->getNom();
-	$host ='http://vitaworke3.local' ;
+	$host ='http://vitawork.vitaworke3.com' ;
 	// part nova a discutir el tema del assumpte, si omplim totes les dades obligatoriament o quins criteris cal tenir em compte.
 	// a comentar amb el grup de treball
 	$activitatdeldia=$calendari->getActivitat();
@@ -33,7 +33,7 @@ public function enviarmail($calendari,$origen,$contenedor)
 			$assumpte=$activitatdeldia->getassumpte();
 			if (empty($assumpte))
 			{
-				$assumpte='Vitawork E3: La teva dosis de benestar.';
+				$assumpte='Vitawork E3: Tu dosis de bienestar.';
 			}
 		}	
 	}
@@ -49,7 +49,7 @@ public function enviarmail($calendari,$origen,$contenedor)
 			$contingut=$activitatdeldia->getcontingut();
 			if (empty($contingut))
 			{
-					$contingut='contingut';
+					$contingut='';
 			}
 		}	
 	}
@@ -72,11 +72,14 @@ public function enviarmail($calendari,$origen,$contenedor)
 			{
 				$titol1='Hola';
 				$titol2=',';
-				$nick=$client->getnick();
 			}
 		}	
 	}
-    if ($origen=='app')
+ 		if (!empty($nick))
+ 		{
+ 			$nick=$client->getnick();
+ 		}
+	if ($origen=='app')
 	{
 		$texto = $contenedor->renderView(
 			'BackendBundle:Activitat:email.html.twig',array('usuari' => $client,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendari,'titol1'=>$titol1,'titol2'=>$titol2,'nick'=>$nick,'contingut'=>$contingut,'accio'=>'crear')
@@ -95,10 +98,21 @@ public function enviarmail($calendari,$origen,$contenedor)
 	{
 		$mensaje = \Swift_Message::newInstance()
 		->setSubject($assumpte)
-		->setFrom('vitaworke3@vitaworke3.com')
+		->setFrom('letsgojazz@gmail.com')
 		->setTo($mailclient)
 		->setBody($texto,'text/html');
-		$contenedor->get('mailer')->send($mensaje);
+			
+	
+			$contenedor->get('mailer')->send($mensaje);
+			$mailer = $contenedor->get('mailer');
+            $transport = $contenedor->get('swiftmailer.transport.real');
+            $spool = $mailer->getTransport()->getSpool();
+            //$spool = $transport->getSpool();
+			$spool->setMessageLimit(5);
+			$spool->setTimeLimit(1);
+		    $spool->flushQueue($transport);
+               
+            
 		$enviada=new \DateTime('now');
 		$calendari->setEnviada($enviada);
 	}
@@ -145,13 +159,58 @@ public function enviarmail($calendari,$origen,$contenedor)
 	return 'ok';
 	}
 
-public function querycalendariavui()
+public function querycalendari()
 {
 	$em = $this->getEntityManager();
 	$consulta = $em->createQuery('
 	SELECT o FROM CalendariBundle:Calendari o');
+	return $consulta;
+}
+
+public function querycalendarifiltre($idclient,$idactivitat)
+{
+	
+    $query='SELECT o FROM ActivitatBundle:Activitat o WHERE o.id>0';
+	
+    $query='SELECT o FROM CalendariBundle:Calendari o WHERE o.id>0';
+	
+	if (!empty($idclient)){ $query.=' AND  o.Client=:idclient';}
+    if (!empty($idactivitat)){ $query.=' AND  o.Activitat=:idactivitat';}
+	
+	$em = $this->getEntityManager();
+    $consulta = $em->createQuery($query);
+  	
+  	if (!empty($idclient)){ $consulta->setParameter('idclient', $idclient);}
+    if (!empty($idactivitat)){$consulta->setParameter('idactivitat', $idactivitat);}
 	
 	return $consulta;
 }
+public function querycalendariplanning($client,$limite=null)
+{
+	$em = $this->getEntityManager();
+	$consulta = $em->createQuery('
+	SELECT o.id FROM CalendariBundle:Calendari o
+	where o.Client=:client');
+	$consulta->setParameter('client', $client);
+	$consulta->getMaxResults(1);
+	return $consulta->getResult();
+}
+
+public function queryclientcalendarifiltre($tipusclient,$idassociat)
+  {
+	
+    $query='SELECT o FROM ClientBundle:Client o WHERE o.TipusClient=:tipusclient';
+	
+	if (!empty($idassociat)){ $query.=' AND  o.Associat=:idassociat';}
+    
+	$em = $this->getEntityManager();
+    $consulta = $em->createQuery($query);
+    $consulta->setParameter('tipusclient', $tipusclient);
+	
+	if (!empty($idassociat)){ $consulta->setParameter('idassociat', $idassociat);}
+    
+	return $consulta;
+  
+  }
 
 }

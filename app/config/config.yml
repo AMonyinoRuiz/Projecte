@@ -41,15 +41,27 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
+#swiftmailer:
+#    transport: smtp
+#    host:      smtp.1and1.es
+#    encryption: tls
+#    auth_mode: login
+#    username: info@vitaworke3.com
+#    password: sinergia2013
+#    port : 25
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: smtp
-    host:      smtp.1and1.es
+    host:      email-smtp.us-east-1.amazonaws.com
     encryption: tls
     auth_mode: login
-    username: info@vitaworke3.com
-    password: sinergia2013
-    port : 25
+    username: AKIAIMHPI4SLZZAB2SLA
+    password: AmN8QP7BbVRtaUCISeueI/DuE1SJ10XC7q93zYzhEDvi
+    port : 587
+    spool:
+        type: file
+        path: "%kernel.cache_dir%/swiftmailer/spool"
 sonata_block:
     default_contexts: [cms]
     blocks:
@@ -74,6 +86,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: vitaworke3\UsuarisBundle\Entity\Usuari
+   
 genemu_form:
     select2: ~
    

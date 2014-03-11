@@ -1,0 +1,55 @@
+{% extends 'BackendBundle:Extranet:perfil.html.twig' %}
+{% block main %}
+<form action="{{ accion == 'crear' ? path('extranet_empresa_nova') : path('extranet_empresa_editar', {'id': empresa.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nova empresa</h3>
+{% else %}
+<h3>Editar empresa</h3>
+{% endif %}
+</div>
+<div id="main_content_forms">
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100, 'placeholder': "Nom"}})}}</td>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatInici, 'Data inici acces') }}</td>
+<td>{{ form_widget(formulario.DataAccesAutoritzatInici)}}</td>
+<td>{{ form_label(formulario.DataAccesAutoritzatFi, 'Data fi acces') }}</td>
+<td>{{ form_widget(formulario.DataAccesAutoritzatFi)}}</td>
+<br>
+<br>
+{{ form_widget(formulario.responsable)}}
+<br>
+<br> 
+{{ form_widget(formulario.Idioma)}}
+<br>
+<br>
+{% if accion == 'editar' %}
+<td><p>***Si informem la plantilla, no és tindrà en compte l'idioma abans escollit i és farà servir sempre el de la plantilla</p></td>
+<br>
+{{ form_widget(formulario.Template)}}
+<br>
+<br>
+<td>
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+</td>
+{% endif %}
+<br>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir" />
+{% else %}
+<input class="button_green" type="submit" value="Guardar" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_empresa')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}
+

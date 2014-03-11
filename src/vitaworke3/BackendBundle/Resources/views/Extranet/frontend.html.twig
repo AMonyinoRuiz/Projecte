@@ -2,26 +2,71 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+<title>Perfils Clients</title>
+<link rel="stylesheet" type="text/css"  href="{{asset('css/style.css')}}" />
+<link href="{{asset('css/select2.css')}}" rel="stylesheet" type="text/css"/>
+<script src="{{ asset('js/jquery-1.9.1.min.js') }}"></script>
+<script src="{{asset('js/select2.js')}}"></script>
+<script src="{{asset('js/uploader.js')}}"></script>
+{% if formulario is defined %}
+  {{ form_javascript(formulario) }} 
+{% endif %}
+ 
+<script type="text/javascript">
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+    
+
+</script>
 </head>
 
-<body>
-<div id="content">
-<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo"/></div>
-<div id="menu"><ul>
-    <li><a href="{{ path('extranet_perfil')}}">Gestió perfils</a></li>
-    <li><a href="{{ path('extranet_activitat')}}">Activitat</li>
-    <li><a href="{{ path('extranet_calendari')}}">Calendari</a></li>
-    <li><a href="http://vitaworke3.local/app.php/admin/dashboard">Cuadre de comandament</a></li>
-</ul></div>
-<div id="contenido"> 
-	<article>{% block article %}{% endblock %}
-   </article>
-<div id="footer">
-	<img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion"/>
-  <p>Vitawork E3</p>
+<body onload="MM_preloadImages('{{asset('uploads/images/menu_1_activo.png')}}','{{asset('uploads/images/menu_3_activo.png')}}','{{asset('uploads/images/menu_4_activo.png')}}','{{asset('uploads/images/menu_5_activo.png')}}','{{asset('uploads/images/menu_6_activo.png')}}','{{asset('uploads/images/icon_next_activo.png')}}','{{asset('uploads/images/icon_last_activo.png')}}','{{asset('uploads/images/icon_previus_activo.png')}}','{{asset('uploads/images/icon_first_activo.png')}}')">
+<div id="header">
+<div id="header_content">
+<div id="header_content_cabecera">
+<div id="header_content_logo"><img src="{{asset('uploads/images/icon_vitawork.png')}}" width="24" height="38" alt="icon_vitawork" /> </div>
+<div id="header_content_tittle">E3 Vitawork: Panell d'administració </div>
+<div id="header_content_user">Benvingut, {{ app.user.username }}</div>
+<div id="header_content_logout"><a href="{{ path('fos_user_security_logout') }}"> <img src="{{asset('uploads/images/logout.png')}}" width="32" height="43" alt="logout" /></a></div>
 </div>
+<div id="header_content_menu">
+{% if is_granted('ROLE_ADMIN') %}
+<a target='_blank' href="http://vitawork.vitaworke3.com/app.php/admin/dashboard" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_escritori','','{{asset('uploads/images/menu_1_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_1_reposo.png')}}" alt="menu_escritori" width="109" height="91" id="menu_escritori" /></a>
+<a href="{{ path('extranet_perfil')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_perfils','','{{asset('uploads/images/menu_2_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_2_reposo.png')}}" alt="menu_perfils" width="109" height="91" id="menu_perfils" /></a>
+<a href="{{ path('extranet_usuaris')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_usuaris','','{{asset('uploads/images/menu_3_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_3_reposo.png')}}" alt="menu_usuaris" width="109" height="91" id="menu_usuaris" /></a>
+{% endif %}
+<a href="{{ path('extranet_activitat')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_activitat','','{{asset('uploads/images/menu_4_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_4_reposo.png')}}" alt="menu_activitat" width="109" height="91" id="menu_activitat" /></a>
+<a href="{{ path('extranet_calendari')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_calendari','','{{asset('uploads/images/menu_5_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_5_reposo.png')}}" alt="menu_calendari" width="109" height="91" id="menu_calendari" /></a>
+<a href="{{ path('extranet_planning_empresa')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_planning','','{{asset('uploads/images/menu_6_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_6_reposo.png')}}" alt="menu_planning" width="109" height="91" id="menu_planning" /></a>
+</div>
+</div>
+</div>
+{% block submenu %}{% endblock %}
+
+{% block main %}{% endblock %}
+
+<div id="footer">
+<div id="footer_content">Website Administration Vitawork E<sup>3</sup></div>
 </div>
 </body>
 </html>
+

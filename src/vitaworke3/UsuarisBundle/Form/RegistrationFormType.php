@@ -2,23 +2,39 @@
 
 namespace vitaworke3\UsuarisBundle\Form;
 
-use Symfony\Component\Form\FormBuilder;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
-use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RegistrationFormType extends BaseType
+class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)     {
-        parent::buildForm($builder, $options);
-
-        $builder->add('roles', 'choice', array('label' => 'Rol', 'required' => true, 'choices' => array( 1 => 'ROLE_ADMIN', 2 => 'ROLE_USER'), 'multiple' => true));
-
+    
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('plainPassword', 'repeated', array(
+                'type' => 'password',
+                'options' => array('translation_domain' => 'FOSUserBundle'),
+                'first_options' => array('label' => 'form.password'),
+                'second_options' => array('label' => 'form.password_confirmation'),
+                'invalid_message' => 'fos_user.password.mismatch',))
+            ->add('enabled', 'checkbox', array('label'     => 'Actiu','required'  => false))
+            ;
     }
 
-    public function getName() {
-        return 'mi_user_registration';
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+       
+        $resolver->setDefaults(array(
+            'data_class' => 'vitaworke3\UsuarisBundle\Entity\Usuari'
+        ));
+    }
+
+    public function getName()
+    {
+        return 'vitaworke3_usuarisbundle_registrationformtype';
     }
 }

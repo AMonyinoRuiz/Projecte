@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Template Activitat</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+
+#content_valoracio {
+  height: 100%;
+  width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#buttons {
+  float: left;
+  height: 77px;
+  width: 520px;
+  margin-top: 40px;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+.btn {
+  margin-right: 11.7px;
+  margin-left: 11.7px;
+}
+.txt {
+  margin-right: 13px;
+  margin-left: 13px;
+  float: left;
+  width: 77px;
+  text-align: center;
+  font-size: 0.8em;
+}
+#valoracio_mala {
+  float: left;
+  width: 77px;
+  text-align: center;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+#txt_valoracioModal {
+  float: left;
+  height: 100%;
+  width: 520px;
+  padding-top: 20px;
+  color: #666;
+  padding-right: 40px;
+  padding-left: 40px;
+}
+#txt_gracias {
+  padding: 20px;
+  float: left;
+  width: 520px;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 1.2em;
+
+}
+  #modal
+{
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+  filter: alpha(opacity=50);
+  opacity: 6.8;
+  -moz-opacity:6.8;
+  -webkit-opacity:6.8;
+  -o-opacity:6.8;
+  -ms-opacity:6.8;
+  background-color: #808080;
+  left: 0;
+  top: 0;
+  overflow: auto;
+}
+
+.contenedor
+{
+  width: 600px;
+  height: 300px;
+  background: #fff;
+  position: relative;
+  margin: 10% auto;
+  padding: 30px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+  -webkit-box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  -moz-box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  background: -moz-linear-gradient(#fff, #ccc);
+  background: -webkit-gradient(linear, right bottom, right top, color-stop(1, rgb(255,255,255)), color-stop(0.57,       rgb(230,230,230)));
+  text-shadow: 0 1px 0 #fff;
+}
+
+.contenedor h2 {
+  font-size: 36px;
+  padding: 0 0 20px;
+}
+
+.contenedor a[href="#close"] {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: transparent;
+}
+
+.contenedor a[href="#close"]:focus {
+  outline: none;
+}
+
+.contenedor a[href="#close"]:after {
+  content: 'X';
+  display: block;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  width: 1.5em;
+  padding: 1px 1px 1px 2px;
+  text-decoration: none;
+  text-shadow: none;
+  text-align: center;
+  font-weight: bold;
+  background: #000;
+  color: #fff;
+  border: 3px solid #fff;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.contenedor a[href="#close"]:focus:after,
+.contenedor a[href="#close"]:hover:after {
+  -webkit-transform: scale(1.1,1.1);
+  -moz-transform: scale(1.1,1.1);
+}
+
+</style>
+<script type="text/javascript">
+
+function toogle(a,b,c)
+{
+  document.getElementById(b).style.display=a;
+  document.getElementById(c).style.display=a;
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+
+
+</script>
+
+</head>
+<form action="{{path('extranet_calendari_activitat_visualitzar', { 'id': calendari.id })}}" method="post">
+<body>
+<div id="content">
+<div id="maincontent">
+  <div id="logo"><img src="{{asset('uploads/images/logo.png')}}" width="181" height="75" alt="logo" /></div>
+  <div id="maintext">
+  <div id="header"><h1>{{ activitat.Titol }}</h1><h2>{{ activitat.subtitol }}</h2></div>
+  <div id="divider"></div>
+   <div id="text">
+{% if activitat.TipusCamp1 == 'Vimeo / Youtube'  %}
+  <div id="{{class1}}" align="{{align1}}"><iframe src="{{activitat.Text1}}" width="{{llarg1}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Texte'  %}
+  <div id="{{class1}}" align="left">{{activitat.Text1 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Imatge' %}
+  <div id="{{class1}}" align="{{align1}}"><img src="/uploads/imatges/{{activitat.path}}" width="{{llarg1}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp1 == 'PDF' %}
+  <div id="{{class1}}"  align="{{align1}}">
+  <object data="/uploads/imatges/{{activitat.path}}" type="application/pdf" width="{{llarg1}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path}}" type="application/pdf" width="{{llarg1}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Audio'%}
+  <div id="{{class1}}" align="{{align1}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text1}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text1}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Vimeo / Youtube'  %}
+  <div id="{{class2}}" align="{{align2}}"><iframe src="{{activitat.Text2}}" width="{{llarg2}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Texte'  %}
+  <div id="{{class2}}" align="left">{{activitat.Text2 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Imatge'  %}
+  <div id="{{class2}}" align="{{align2}}"><img src="/uploads/imatges/{{activitat.path2}}" width="{{llarg2}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp2 == 'PDF'  %}
+  <div id="{{class2}}"  align="{{align2}}">
+  <object data="/uploads/imatges/{{activitat.path2}}" type="application/pdf" width="{{llarg2}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path2}}" type="application/pdf" width="{{llarg2}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+
+  {% if activitat.TipusCamp2== 'Audio' %}
+  <div id="{{class2}}" align="{{align2}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text2}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text2}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  </div>
+   
+  <div id="text">
+  {% if activitat.TipusCamp3== 'Vimeo / Youtube' %}
+  <div id="{{class3}}" align="{{align3}}"><p><iframe src="{{activitat.Text3}}" width="{{llarg3}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Texte' %}
+  <div id="{{class3}}" align="left">{{activitat.Text3 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Imatge' %}
+  <div id="{{class3}}" align="{{align3}}"><img src="/uploads/imatges/{{activitat.path3}}" width="{{llarg3}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp3 == 'PDF' %}
+  <div id="{{class3}}"  align="{{align3}}">
+  <object data="/uploads/imatges/{{activitat.path3}}" type="application/pdf" width="{{llarg3}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path3}}" type="application/pdf" width="{{llarg3}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Audio' %}
+  <div id="{{class3}}" align="{{align3}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text3}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text3}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Vimeo / Youtube' %}
+  <div id="{{class4}}" align="{{align4}}"><iframe src="{{activitat.Text4}}" width="{{llarg4}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Texte' %}
+  <div id="{{class4}}" align="left">{{activitat.Text4 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Imatge' %}
+  <div id="{{class4}}" align="{{align4}}"><img src="/uploads/imatges/{{activitat.path4}}" width="{{llarg4}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp4 == 'PDF' %}
+  <div id="{{class4}}"  align="{{align4}}">
+  <object data="/uploads/imatges/{{activitat.path4}}" type="application/pdf" width="{{llarg4}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path4}}" type="application/pdf" width="{{llarg4}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+   {% if activitat.TipusCamp4 == 'Audio' %}
+  <div id="{{class4}}" align="{{align4}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text4}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text4}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  </div>
+  <div id="text">
+  {% if activitat.TipusCamp5 == 'Vimeo / Youtube' %}
+  <div id="{{class5}}" align="{{align5}}"><iframe src="{{activitat.Text5}}" width="{{llarg5}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Texte' %}
+  <div id="{{class5}}" align="{{align5}}">{{activitat.Text5 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Imatge' %}
+  <div id="{{class5}}"  align="{{align5}}"><img src="/uploads/imatges/{{activitat.path5}}" width="{{llarg5}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp5 == 'PDF' %}
+  <div id="{{class5}}"  align="{{align5}}">
+  <object data="/uploads/imatges/{{activitat.path5}}" type="application/pdf" width="{{llarg5}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path5}}" type="application/pdf" width="{{llarg5}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Audio' %}
+  <div id="{{class5}}" align="{{align5}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text5}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text5}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Vimeo / Youtube' %}
+  <div id="{{class6}}"  align="{{align6}}"><iframe src="{{activitat.Text6}}" width="{{llarg6}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Texte' %}
+  <div id="{{class6}}" align="{{align6}}">{{activitat.Text6 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Imatge' %}
+  <div id="{{class6}}"  align="{{align6}}"><img src="/uploads/imatges/{{activitat.path6}}" width="{{llarg6}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Audio' %}
+  <div id="{{class6}}" align="{{align6}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text6}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text6}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'PDF' %}
+  <div id="{{class6}}"  align="{{align6}}">
+  <object data="/uploads/imatges/{{activitat.path6}}" type="application/pdf" width="{{llarg6}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path6}}" type="application/pdf" width="{{llarg6}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  
+  </div>
+  <div id="text">
+  {% if activitat.TipusCamp7 == 'Vimeo / Youtube' %}
+  <div id="{{class7}}" align="{{align7}}"><iframe src="{{activitat.Text7}}" width="{{llarg7}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Texte' %}
+  <div id="{{class7}}"  align="{{align7}}">{{activitat.Text7 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Imatge' %}
+  <div id="{{class7}}" align="{{align7}}"><img src="/uploads/imatges/{{activitat.path7}}" width="{{llarg7}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp7 == 'PDF' %}
+  <div id="{{class7}}"  align="{{align7}}">
+  <object data="/uploads/imatges/{{activitat.path7}}" type="application/pdf" width="{{llarg7}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path7}}" type="application/pdf" width="{{llarg7}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Audio' %}
+  <div id="{{class7}}" align="{{align7}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text7}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text7}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Vimeo / Youtube' %}
+  <div id="{{class8}}" align="{{align8}}"><iframe src="{{activitat.Text8}}" width="{{llarg8}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Texte' %}
+  <div id="{{class8}}" align="{{align8}}">{{activitat.Text8 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Imatge' %}
+  <div id="{{class8}}" align="{{align8}}"><img src="/uploads/imatges/{{activitat.path8}}" width="{{llarg8}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp8 == 'PDF' %}
+  <div id="{{class8}}"  align="{{align8}}">
+  <object data="/uploads/imatges/{{activitat.path8}}" type="application/pdf" width="{{llarg8}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path8}}" type="application/pdf" width="{{llarg8}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Audio' %}
+  <div id="{{class8}}" align="{{align8}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text8}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text8}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+
+    <div align="center"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('button_valoracio','','{{asset('uploads/images/button_valoracio_02.png')}}',1)" onclick="toogle('block','modal','ventana')"><img src="{{asset('uploads/images/button_valoracio_01.png')}}" name="button_valoracio" alt="button_valoracio" width="71" height="24" /></a></div>
+  </div>
+  </div>
+
+   <div id="footer">
+  <p>TM y Copyright © 2013 Vitawork E<sup>3</sup>. Todos los derechos reservados.</p></div>
+  </div>
+</div>
+</body>
+  <div id="modal" style="display:none">
+      <div id="ventana" class="contenedor" style="display:none">
+          <div id="content_valoracio">
+              <div id="buttons">  
+                  <input  onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_mala','','{{asset('uploads/images/btn_mala_02.png')}}',1)" type="image" src="{{asset('uploads/images/btn_mala_01.png')}}" width="77" height="77" alt="logo" name="btn_mala" value="1" id="btn_mala" class="btn"/>
+                 <input  onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_regular','','{{asset('uploads/images/btn_regular_02.png')}}',1)" type="image" src="{{asset('uploads/images/btn_regular_01.png')}}" width="77" height="77" alt="logo" name="btn_regular" value="2" id="btn_regular" class="btn"/>
+                 <input  onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_buena','','{{asset('uploads/images/btn_buena_02.png')}}',1)" type="image" src="{{asset('uploads/images/btn_buena_01.png')}}" width="77" height="77" alt="logo" name="btn_buena" value="3" id="btn_buena" class="btn"/>
+                 <input  onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_muybuena','','{{asset('uploads/images/btn_muybuena_02.png')}}',1)" type="image" src="{{asset('uploads/images/btn_muybuena_01.png')}}" width="77" height="77" alt="logo" name="btn_muybuena" value="1" id="btn_muybuena" class="btn"/>
+                 <input  onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('btn_excelente','','{{asset('uploads/images/btn_excelente_02.png')}}',1)" type="image" src="{{asset('uploads/images/btn_excelente_01.png')}}" width="77" height="77" alt="logo" name="btn_excelente" value="1" id="btn_excelente" class="btn"/>
+            </div>
+            <div id="txt_valoracioModal"><span class="txt">MALA</span><span class="txt">REGULAR</span> <span class="txt">BUENA</span> <span class="txt">MUY BUENA</span> <span class="txt">EXCELENTE</span>
+                 <div id="txt_gracias">Gracias por valorar esta actividad.</div>
+            </div> 
+        </div>
+        <a href="#close" title="Cerrar" onclick="toogle('none','modal','ventana')" >Close</a>
+     </div>
+  </div>
+
+</form>
+</html>
+
+
+
+

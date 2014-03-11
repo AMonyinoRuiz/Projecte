@@ -94,4 +94,12 @@ services:
             - null
             - vitaworke3\ClientBundle\Entity\ClientIdioma
             - ClientBundle:Admin     
+    sonata.vitaworke3.admin.mesos:
+        class: vitaworke3\CalendariBundle\Admin\MesosAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: 'Control taules', label: Descripció taula mesos }
+        arguments:
+            - null
+            - vitaworke3\CalendariBundle\Entity\Mesos
+            - CalendariBundle:Admin    
                   

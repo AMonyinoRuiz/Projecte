@@ -35,65 +35,67 @@ class EMailActivitatDelDiaCommand extends ContainerAwareCommand
 			//$host ='http://vitawork.vitaworke3.com' ;
 			$contenedor = $this->getContainer();
 			$em = $contenedor->get('doctrine')->getEntityManager();	
-			$Calendari = array();
+			$calendari = array();
 			$DataEnviament = new \DateTime('today');
-			$Calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array('DiaActivitat' => $DataEnviament));
-			foreach ($Calendaris as $Calendari)
+			$calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array('DiaActivitat' => $DataEnviament));
+			foreach ($calendaris as $calendari)
 			{
-				$clientoriginal=$Calendari->getClient();
-				$activitatdeldia=$Calendari->getActivitat();
-				$enviada=$Calendari->getEnviada();
-				$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($Calendari,'mail',$contenedor);
-				$em->persist($Calendari);
-				$em->flush();
-			
-
-				/*
-				$texto = $contenedor->get('twig')->render(
-					'BackendBundle:Activitat:email.html.twig',array('usuari' => $clientoriginal,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$Calendari,'accio'=>'crear')
-					);
-				$mailclient=$clientoriginal->getMail();
-				if ((!empty($mailclient)) and (empty($enviada)))
+				$clientoriginal=$calendari->getClient();
+				$activitatdeldia=$calendari->getActivitat();
+				$activada=$activitatdeldia->getActivada();
+				$calendaribaixa=$calendari->getBaixa();
+				$baixa=$activitatdeldia->getBaixa();
+				$enviada=$calendari->getEnviada();
+				if ($activada<>0 and $baixa<>1 and $calendaribaixa<>1)
 				{
-					$mensaje = \Swift_Message::newInstance()
-					->setSubject('Vitawork E3: Tu dosis de bienestar.')
-					->setFrom('mailing@vitaworke3.com')
-					->setTo($mailclient)
-					->setBody($texto,'text/html');
-					$contenedor->get('mailer')->send($mensaje);
-					$enviada=new \DateTime('now');
-					$Calendari->setEnviada($enviada);
-				}
-					
-
-				$LlistaAssociats = $em->getRepository('ClientBundle:Client')
-				->findBy(array('Associat' =>$clientoriginal));
-				foreach ($LlistaAssociats as $AssociatClient) 
-				{	
-					$calendariAfegit = new Calendari();
-					$calendariAfegit->setClient($AssociatClient);
-					$calendariAfegit->setActivitat($activitatdeldia);
-					$calendariAfegit->setDiaActivitat($DataEnviament);
-					$em->persist($calendariAfegit);
+					$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($calendari,'mail',$contenedor,$DataEnviament);
+					$em->persist($calendari);
 					$em->flush();
-					$texto = $contenedor->get('twig')->render('BackendBundle:Activitat:email.html.twig',
-						array('usuari' => $AssociatClient,'activitat'=>$activitatdeldia,'host'=>$host,'calendari'=>$calendariAfegit,'accio'=>'crear'));
-					$mailclientAssociat=$AssociatClient->getMail();
-					if (!empty($mailclientAssociat)) 
-					{
-						$mensaje = \Swift_Message::newInstance()
-						->setSubject('Vitawork E3: Tu dosis de bienestar.')
-						->setFrom('mailing@vitaworke3.com')
-						->setTo($mailclientAssociat)
-						->setBody($texto,'text/html');
-						$contenedor->get('mailer')->send($mensaje);
-						$enviada=new \DateTime('now');
-						$calendariAfegit->setEnviada($enviada);
-					}
+					$client=$calendari->getClient();
+					$activitatdeldia=$calendari->getActivitat();
+					$assumpte=$calendari->getassumpte();
+					$titol1=$calendari->gettitol1();
+					$titol2=$calendari->gettitol2();
+					$nick=$calendari->getnick();
+					$contingut=$calendari->getcontingut();
+					$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Client'));
 					
-								
+        			$LlistaAssociats = $em->getRepository('ClientBundle:Client')->queryclientsfiltre($tipusclient,$client,'','','')->getResult();
+					foreach ($LlistaAssociats as $AssociatClient) 
+					{	
+						$calendariAfegit = new Calendari();
+						$calendariAfegit->setClient($AssociatClient);
+						$calendariAfegit->setActivitat($activitatdeldia);
+						if (!empty($assumpte))
+						{
+							$calendariAfegit->setAssumpte($assumpte);
+						}
+						if (!empty($titol1))
+						{
+						
+							$calendariAfegit->setTitol1($titol1);
+						}
+						if (!empty($titol2))
+						{
+							$calendariAfegit->setTitol2($titol2);
+						}
+						if (!empty($nick))
+						{
+							$calendariAfegit->setNick($nick);
+						}
+						if (!empty($contingut))
+						{
+							$calendariAfegit->setContingut($contingut);
+						}
+						$dataActivitat=new \DateTime('today');
+						$calendariAfegit->setDiaActivitat($dataActivitat);
+						$em->persist($calendariAfegit);
+						$em->flush();
+						$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($calendariAfegit,'mail',$contenedor,$DataEnviament);
+						$em->persist($calendariAfegit);
+						$em->flush();
+					}
 				}
-				*/
 			}
 	
 		$output->writeln('fi proces  generacio de emails...');

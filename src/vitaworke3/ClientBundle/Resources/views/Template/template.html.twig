@@ -1,0 +1,83 @@
+{% extends 'BackendBundle:Extranet:perfil.html.twig' %}
+{% block main %}
+<script type="text/javascript">
+        $(document).ready(function() { $("#Associat").select2();$("#idioma").select2(); });
+	
+	function lista() {
+		var lista = document.getElementById('Associat');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+	  function Idioma() {
+    
+    var lista = document.getElementById('idioma');
+    var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+    window.location = url;
+  };
+</script>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+<h1>Templates idiomes disponibles per empresa/grup</h1>
+<div id="main_content_button"><a href="{{ path('extranet_template_nou')}}" class="button_orange"><img src="{{asset('uploads/images/icon_plus.png')}}" width="16" height="16" alt="plus" />  Afegir template</a></div>
+<div id="main_content_pagination">
+{% if paginador.currentPage > 1 %}
+<a href="{{ path('extranet_template', { 'page': paginador.firstPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('first','','{{asset('uploads/images/icon_first_activo.png')}}',1)"><img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<a href="{{ path('extranet_template', { 'page': paginador.previousPage}) }}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('previous','','{{asset('uploads/images/icon_previus_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" />
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+{{ page }}
+{% else %}
+<a href="{{ path('extranet_template', { 'page': page }) }}">{{ page
+}}</a>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<a href="{{ path('extranet_template', { 'page': paginador.nextPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('next','','images/icon_next_activo.png',1)">
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" /></a> 
+<a href="{{ path('extranet_template', { 'page': paginador.lastPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('last','','{{asset('uploads/images/icon_last_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" />
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" />
+{% endif %}
+</div>
+</div>
+<div id="main_content_tables">
+<br>
+<br>
+<br>
+<br>
+<table cellspacing="0">
+<tr>
+<th></th>
+<th><select id="Associat" onchange='lista()' width="300" style="width: 300px">
+{% for associat in associats %} 
+	<option value="{{ associat.slug }}" data-url="{{ url('extranet_template_filtre', { 'idassociat': associat.id, 'ididioma':ididioma}) }}" {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom}}</option>
+{% endfor %}
+	  <option value="totsassociats" data-url="{{ url('extranet_template_filtre', { 'idassociat':'0' , 'ididioma':ididioma}) }}" {{ idassociat == '0' ? 'selected="selected"' : '' }}></option>
+</select></th>
+<th>
+<select id="idioma" name="idioma" onchange='Idioma()' width="150" style="width: 150px">
+   {% for idioma in idiomas %} 
+  <option value="{{ idioma.slug }}" data-url="{{ url('extranet_template_filtre', {'idassociat':idassociat , 'ididioma': idioma.id }) }}" {{ ididioma == idioma.id ? 'selected="selected"' : '' }}>{{ idioma.Idioma }}</option>
+  {% endfor %}
+  <option value="totsidiomes" data-url="{{ url('extranet_template_filtre', { 'idassociat':idassociat , 'ididioma': '0'}) }}" {{ ididioma == '0' ? 'selected="selected"' : '' }}></option>
+</select>
+</th><th></th>
+</tr>
+
+    <tr><th>Template</th><th>Client</th><th>Idioma</th><th>Editar</th></tr>
+   {% for template in templates %}
+    <tr><td>{{ template.nomtemplate}}</td><td>{{ template.Client}}</td><td>{{ template.Idioma}}</td><td><a href="{{ path('extranet_template_editar', {'id': template.id })}}" class="button_purple_small">Editar</a></td></tr>
+   {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}

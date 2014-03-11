@@ -31,5 +31,11 @@ class SecurityController extends Controller
         return new Response($this->container->get('form.csrf_provider')
             ->generateCsrfToken('authenticate'));
     }
+    public function logoutAction()
+    {
+         $this->get('security.context')->setToken(null);
+        $this->get('request')->getSession()->invalidate();
+        return $this->redirect($this->generateUrl('extranet_portada'));
+    }
 
 }

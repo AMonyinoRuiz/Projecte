@@ -1,0 +1,98 @@
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+<script>
+        $(document).ready(function() { $("#any").select2();$("#mes").select2();});
+
+        function llistaany() {
+    
+          var lista = document.getElementById('any');
+          var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+          window.location = url;
+  };
+     function llistames() {
+    
+          var lista = document.getElementById('mes');
+          var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+          window.location = url;
+  };                                 
+  </script>
+  <div id="main">
+  <div id="main_content">
+  <div id="main_content_controls">
+  <h1>PLANNING VITAWORK {{idany}}</h1>
+  </div>
+  <br>
+ <div id="main_content_forms">
+  <div id="main_content_firstcolumn">
+   <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
+   {% for mes in mesos %} 
+  <option value="{{ mes.NMes }}"  data-url="{{ url('extranet_planning_filtre', { 'idany': idany ,'idmes':mes.NMes ,'idempresa': idempresa}) }}" {{ idmes == mes.NMes ? 'selected="selected"' : '' }}>{{ mes }}</option>
+  {% endfor %}
+  </select>
+  </div>
+  <div id="main_content_secondcolumn">
+  </div>
+  <div id="main_content_thirdcolumn">
+  <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
+   {% for any in anys %} 
+  <option value="{{ any }}" data-url="{{ url('extranet_planning_filtre', { 'idany': any ,'idmes':idmes ,'idempresa': idempresa}) }}" {{ idany == any ? 'selected="selected"' : '' }}>{{ any }}</option>
+  {% endfor %}
+  </select> 
+  </div>
+  <div id="main_content_fourthcolumn">
+  </div>
+  </div>
+
+<div id="main_content_tables">
+<table id="tableplanning" cellspacing="0">
+<tr>
+<th class="thplanning">Noms i cognoms</th>
+  {% for dia in 1..dies %} 
+         <th class="thplanning">{{dia}}</th>
+        {% endfor %}
+</tr>
+  <tr>
+      {% set constant = ""  %}
+      {% for planning in plannings %}
+        {% for key in planning %}
+          {% if key.id =='0' %}
+            {%if origen=='empresa'%}
+            <tr><td class="thplanning"><a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': key.client})}}" > {{key.nom}}</a></td>
+              {%else%}
+              <tr><th class="thplanning">{{key.nom}}</th>
+              {% endif %}
+          {%else%}
+          {% if (key.descripcio=='NO') and ( key.sw == 1) %}
+              <td class="thplanning"> <img src="/uploads/images/icon_buida.png" width="20" height="20"></td>
+           {% elseif  key.sw == 1 %}
+              {% if key.descripcio=='EV' %}
+              <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> <img src="/uploads/images/icon_enviada.png" width="20" height="20"></a></td>
+              {% elseif key.descripcio=='OB' %}
+              <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> <img src="/uploads/images/icon_consultada.png" width="20" height="20"></a></td>
+              {% elseif key.descripcio=='VA' %}
+              <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> <img src="/uploads/images/icon_feta.png" width="20" height="20"></a></td>
+              {%else%}
+              <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}">{{key.descripcio}}</a></td>
+              {% endif %}
+          {% elseif key.descripcio=='NO' %}
+               <td class="thplanning"><a href="{{ path('extranet_calendari_nou_planning', { 'accion':'crear' , 'idempresa': idempresa , 'id': key.client , 'idany':idany ,'idmes':idmes , 'iddia': key.dia ,  'idcalendari':'999999999999999'})}}">  {{key.descripcio}}</a></td>
+          {%else%}
+                <td class="thplanning"><a href="{{ path('extranet_calendari_nou_planning', { 'accion':'editar' ,'idempresa': idempresa , 'id': key.client , 'idany':idany ,'idmes':idmes , 'iddia': key.dia , 'idcalendari':key.idcalendari  })}}">{{key.descripcio}}</a></td>
+        {% endif %}
+
+        {% endif %}
+        
+        {% endfor %}
+        </tr>
+        {% endfor %}
+</table>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+	
+ 
+ 
+ 
+ 

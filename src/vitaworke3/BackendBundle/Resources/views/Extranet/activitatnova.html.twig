@@ -26,14 +26,11 @@ form_enctype(formulario) }}>
 {% if accion == 'editar' %}
 <td>ID ACTIVITAT: {{activitat.Id}}</td>
 <br>
-<td>NOM ACTIVITAT: {{activitat.activitat}}</td>
-<br>
-<br>
-{%else%}
+{% endif %}
+
 <td>{{ form_label(formulario.Activitat, 'Nom intern activitat') }}</td>
 <br>
 <td>{{ form_widget(formulario.Activitat , { 'attr': {'size' : 100}})}}</td>
-{% endif %}
 <br>
 <br>
 <td>{{ form_label(formulario.Titol, 'Títol') }}</td>

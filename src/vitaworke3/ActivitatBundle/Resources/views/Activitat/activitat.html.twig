@@ -1,0 +1,115 @@
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+  <script>
+        $(document).ready(function() { $("#formador").select2();$("#Comite").select2();$("#Tipologia").select2();$("#Format").select2(); });
+        
+    function listaformador() {
+		
+		var lista = document.getElementById('formador');
+		var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+		window.location = url;
+	};
+     function Comite() {
+    
+    var lista = document.getElementById('Comite');
+    var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+    window.location = url;
+  };
+   function Tipologia() {
+    
+    var lista = document.getElementById('Tipologia');
+    var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+    window.location = url;
+  };
+   function Format() {
+    
+    var lista = document.getElementById('Format');
+    var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+    window.location = url;
+  };
+    </script>
+
+
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+
+<h1>Llista activitats</h1>
+<div id="main_content_button"><a href="{{ path('extranet_activitat_nova')}}" class="button_orange"><img src="{{asset('uploads/images/icon_plus.png')}}" width="16" height="16" alt="plus" />  Afegir activitat</a></div>
+<div id="main_content_pagination">
+{% if paginador.currentPage > 1 %}
+<a href="{{ path('extranet_activitat', { 'page': paginador.firstPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('first','','{{asset('uploads/images/icon_first_activo.png')}}',1)"><img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<a href="{{ path('extranet_activitat', { 'page': paginador.previousPage}) }}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('previous','','{{asset('uploads/images/icon_previus_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" />
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+{{ page }}
+{% else %}
+<a href="{{ path('extranet_activitat', { 'page': page }) }}">{{ page
+}}</a>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<a href="{{ path('extranet_activitat', { 'page': paginador.nextPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('next','','images/icon_next_activo.png',1)">
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" /></a> 
+<a href="{{ path('extranet_activitat', { 'page': paginador.lastPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('last','','{{asset('uploads/images/icon_last_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" />
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" />
+{% endif %}
+</div>
+</div>
+<div id="main_content_tables">
+<br>
+</br>
+<table cellspacing="0">
+  <tr>
+  <th></th>
+  <th>
+  <select style="width: 150px" id="formador" onchange='listaformador()'>
+{% for formador in formadors %} 
+  <option value="{{ formador.nom }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador': formador.id , 'idcomite': idcomite,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idformador == formador.id ? 'selected="selected"' : '' }}>{{ formador.nom }}</option>
+{% endfor %}
+<option value="totsformadors" data-url="{{ url('extranet_activitat_filtre', { 'idformador': '0', 'idcomite': idcomite,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idformador == '0' ? 'selected="selected"' : '' }}></option>
+</select>
+</th>
+<th>
+<select id="Comite" name="Comite" onchange='Comite()' width="200" style="width: 150px">
+{% for comite in comites %} 
+  <option value="{{ comite.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': comite.id ,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idcomite == comite.id ? 'selected="selected"' : '' }}>{{ comite.nom }}</option>
+{% endfor %}
+ <option value="totsformadors" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': '0','idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idcomite == '0' ? 'selected="selected"' : '' }}></option>
+</select>
+</th>
+<th>
+<select id="Tipologia" name="Tipologia" onchange='Tipologia()' width="200" style="width: 150px">
+{% for tipologia in tipologies %} 
+  <option value="{{ tipologia.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': idcomite, 'idtipologia':tipologia.id ,'idformat':idformat}) }}" {{ idtipologia == tipologia.id ? 'selected="selected"' : '' }}>{{ tipologia.tipologia }}</option>
+{% endfor %}
+ <option value="totestipolgies" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': idcomite,'idtipologia':'0','idformat':idformat}) }}" {{ idtipologia == '0' ? 'selected="selected"' : '' }}></option>
+</select>
+</th>
+
+<th>
+<select id="Format" name="Format" onchange='Format()' width="200" style="width: 150px">
+{% for format in formats %} 
+  <option value="{{ format.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': idcomite ,'idtipologia':idtipologia, 'idformat':format.id}) }}" {{ idformat == format.id ? 'selected="selected"' : '' }}>{{ format.format }}</option>
+{% endfor %}
+ <option value="totsformats" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': idcomite, 'idtipologia':idtipologia, 'idformat':'0'}) }}" {{ idformat == '0' ? 'selected="selected"' : '' }}></option>
+</select></th>
+<th></th></tr>
+    <tr><th>Activitat</th><th>Formador</th><th>Comite</th><th>Tipologia</th><th>Format</th><th>Editar</th></tr>
+   {% for activitat in activitats %}
+    <tr><td>{{ activitat.activitat}}</td><td>{{ activitat.formador}}</td><td>{{ activitat.comite}}</td><td>{{ activitat.tipologia}}</td><td>{{ activitat.format}}</td><td><a href="{{ path('extranet_activitat_editar', {'id': activitat.id })}}" class="button_purple_small">Editar</a></td></tr>
+   {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,4 @@
+193.146.191.100 - - [22/May/2013:09:06:31 +0200] "GET /app.php/extranet/portada HTTP/1.1" 404 1451 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"
+193.146.191.100 - - [22/May/2013:09:06:32 +0200] "GET /favicon.ico HTTP/1.1" 200 1643 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"
+193.146.191.100 - - [22/May/2013:09:06:35 +0200] "GET /app.php/extranet/ HTTP/1.1" 404 1451 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"
+193.146.191.100 - - [22/May/2013:09:17:27 +0200] "GET /app.php/extranet/ HTTP/1.1" 404 3155 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"

@@ -1,0 +1,37 @@
+{% extends 'BackendBundle:Extranet:perfil.html.twig' %}
+{% block main %}
+<form action="{{ accion == 'crear' ? path('extranet_comite_nou') : path('extranet_comite_editar', {'id': comite.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nou comitè</h3>
+{% else %}
+<h3>Editar comitè</h3>
+{% endif %}
+</div>
+<div id="main_content_forms">
+<td>{{ form_widget(formulario.Nom , { 'attr': {'size' : 100, 'placeholder': "Nom"}})}}</td>
+<br>
+{% if accion == 'editar' %}
+<td>
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+</td>
+{% endif %}
+<br>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir" />
+{% else %}
+<input class="button_green" type="submit" value="Guardar" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Cancel·lar i sortir" onClick="location.href='{{ path('extranet_comite')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

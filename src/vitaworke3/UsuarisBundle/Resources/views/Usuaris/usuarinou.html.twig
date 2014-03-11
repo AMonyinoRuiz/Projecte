@@ -1,0 +1,90 @@
+{% extends 'BackendBundle:Extranet:frontend.html.twig' %}
+{% block main %}
+<form action="{{ accion == 'crear' ? path('extranet_usuaris_nou') : accion=='reset' ? path('extranet_usuaris_reset', {'id': usuari.id }) : path('extranet_usuaris_editar', {'id': usuari.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+
+{% if accion == 'crear' %}
+	<h3>Nou usuari</h3>
+{% else %}
+	{% if accion == 'editar' %}
+		<h3>Editar usuari</h3>
+	{% else %}
+		<h3>Restablir password</h3>
+
+	{% endif %}
+{% endif %}
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget(formulario.username , { 'attr': {'size' : 100, 'placeholder': "Nom"}})}}
+</div>
+<div id="main_content_secondcolumn">
+{{ form_widget(formulario.email , { 'attr': {'size' : 100, 'placeholder': "Correu electrònic"}})}}
+</div>
+<div id="main_content_thirdcolumn">
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% if accion == 'crear' or accion=='editar' %}
+{% set admin = 0 %}
+{% set user = 0 %}
+{% for item in usuari.roles %}
+	{% if item =='ROLE_ADMIN' %}
+  	{% set admin = 1 %}
+  {% endif %}
+  	{% if item =='ROLE_USER' %}
+  	{% set user = 1 %}
+  {% endif %}  
+{% endfor %}
+{% endif %}
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+<label for="Administrador">Administrador:</label>
+<input class="baixa" type="checkbox" id="Administrador" name="Administrador" value=1 {{ admin == 1 ? 'checked="checked"' : '' }}></input>
+</div>
+<div id="main_content_secondcolumn">
+<label for="Usuari">Usuari:</label>
+<input class="baixa" type="checkbox" id="Administrador" name="Usuari" value=2 {{ user == 1 ? 'checked="checked"' : '' }}></input>
+</div>
+<div id="main_content_thirdcolumn">
+{{ form_label(formulario.enabled, 'Activat') }}
+{{ form_widget(formulario.enabled, { 'attr': {'class' : 'baixa'}})}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% if accion == 'crear' or accion=='reset' %}
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget (formulario.plainPassword)}}  </td>
+</div>
+<div id="main_content_secondcolumn">
+{{ form_widget (formulario.plainPassword) }}
+</div>
+<div id="main_content_thirdcolumn">
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% endif %}
+<br>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir" />
+{% else %}
+<br>
+<input class="button_green" type="submit" value="Guardar" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_usuaris')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}
+

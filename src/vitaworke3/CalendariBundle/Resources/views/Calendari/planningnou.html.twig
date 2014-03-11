@@ -1,0 +1,132 @@
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+<form action="{{ path('extranet_calendari_nou_planning', {'accion': accion,'idempresa':idempresa,'id': client, 'idany':idany,'idmes':idmes ,'iddia': iddia,'idcalendari':idcalendari})}}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nou planning</h3>
+{% else %}
+<h3>Editar planning</h3>
+{% endif %}
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_label(formulario.Activitat, 'Client seleccionat:') }}
+{{nomclient}}
+</div>
+<div id="main_content_secondcolumnact">
+</div>
+<div id="main_content_thirdcolumnact">
+{{ form_label(formulario.Activitat, 'Dia seleccionat:') }}
+{{ dia|date("d/m/Y") }}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+
+<div id="main_content_forms">
+<div id="main_content_firstcolumnact">
+{{ form_widget(formulario.Activitat, { 'attr': {'placeholder': "Activitat"}})}}</div>
+<div id="main_content_secondcolumnact">
+</div>
+<div id="main_content_thirdcolumnact">
+{{ form_label(formulario.DiesCaducitat, 'Dies caducitat activitat') }}
+{{ form_widget(formulario.DiesCaducitat)}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{%if   (data  == avui )%}
+{{form_label(formulario.Enviar,'Enviar')}} 
+{{form_widget(formulario.Enviar, { 'attr': {'class' : 'baixa'}})}}
+{% endif %}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+</div>
+<div id="main_content_thirdcolumn">
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% if accion == 'editar' %}
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_label(formulario.Enviada,'Enviada:')}} 
+<br>
+{%if calendari.Enviada is defined %}
+{{ calendari.Enviada is empty ? "" : calendari.Enviada|date}}
+{% endif %}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.Oberta,'Oberta:')}} 
+<br>
+{%if calendari.Oberta is defined %}
+{{ calendari.Oberta is empty ? "" : calendari.Oberta|date}}
+{% endif %}
+
+</div>
+<div id="main_content_thirdcolumn">
+{{form_label(formulario.Valorada,'Valorada:')}} 
+<br>
+{%if calendari.Valorada is defined %}
+{{ calendari.Valorada is empty ? "" : calendari.Valorada|date}}
+{% endif %}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_label(formulario.Valoracio,'Valoracio:')}} 
+<br>
+{%if calendari.Valoracio is defined %}
+
+{{calendari.Valoracio}}
+{% endif %}
+
+</div>
+<div id="main_content_secondcolumn">
+</div>
+<div id="main_content_thirdcolumn"></div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% endif %}
+<p style="color:#609">PLANTILLA EMAIL (No obligatori)</p> 
+<br>
+{{form_widget(formulario.assumpte, { 'attr': {'placeholder': "Assumpte"}})}}
+<br>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget(formulario.titol1, { 'attr': {'placeholder': "Text títol abans de Nick"}})}}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.nick,'Incloure Nick')}} 
+{{form_widget(formulario.nick,{ 'attr': {'class' : 'baixa'}}) }}
+</div>
+<div id="main_content_thirdcolumn">
+{{ form_widget(formulario.titol2, { 'attr': {'placeholder': "Text títol després de Nick"}})}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{{ form_widget(formulario.contingut, { 'attr': {'placeholder': "Cos del mail"}})}}
+<br>
+<br>
+<br>
+
+<input class="button_green" type="submit" value="Afegir" />
+<INPUT class="button_red" type="button" value="Tornar a la llista" onClick="location.href='{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa':idempresa})}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

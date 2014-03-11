@@ -1,29 +1,21 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css" media="all">
+<title>Login</title>
+<link href="{{asset('css/style_login.css')}}" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
+ 
 <div id="content">
-<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="295" height="126" alt="logo"/></div>
+<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="221" height="95" alt="logo_vitawork" /></div>
 <form action="{{ path('extranet_login_check') }}" method="post">
-<div>
-<label for="username">Usuario:</label>
-<input type="text" id="username" name="_username" />
+
+<div id="inputs"><input id="username" name="_username" type="text" placeholder="Usuari" value="" /><br><input id="password" name="_password" type="text" placeholder="Contrassenya" value="" /></div>
+<input class="button_orange" type="submit" name="login" value="Inicia sessió" />
 </div>
-<div>
-<label for="password">Contraseña:</label>
-<input type="password" id="password" name="_password" />
-</div>
-<input class="boton" type="submit" name="login" value="Entrar" />
-<p>{{error}}
 </form>
-<div id="footer">
-	<img src="{{asset('uploads/images/hr_thick.png')}}" width="960" height="8" alt="separacion"/>
-  <p>Vitawork E3</p>
-</div>
-</div>
+
 </body>
 </html>

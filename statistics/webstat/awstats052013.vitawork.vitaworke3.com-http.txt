@@ -1,0 +1,523 @@
+AWSTATS DATA FILE 7.1.1 (build 1.989)
+# If you remove this file, all statistics for date 201305 will be lost/reset.
+# Last config file used to build this data file was /usr/local/psa/etc/awstats/awstats.vitawork.vitaworke3.com-http.conf.
+
+# Position (offset in bytes) in this file for beginning of each section for
+# direct I/O access. If you made changes somewhere in this file, you should
+# also remove completely the MAP section (AWStats will rewrite it at next
+# update).
+BEGIN_MAP 27
+POS_GENERAL 2024                
+POS_TIME 2697                
+POS_VISITOR 13065               
+POS_DAY 13860               
+POS_DOMAIN 3451                
+POS_LOGIN 3684                
+POS_ROBOT 3839                
+POS_WORMS 3971                
+POS_EMAILSENDER 4102                
+POS_EMAILRECEIVER 4245                
+POS_SESSION 14296               
+POS_SIDER 14502               
+POS_FILETYPES 4380                
+POS_DOWNLOADS 4637                
+POS_OS 5014                
+POS_BROWSER 5174                
+POS_SCREENSIZE 5456                
+POS_UNKNOWNREFERER 5530                
+POS_UNKNOWNREFERERBROWSER 5617                
+POS_ORIGIN 5699                
+POS_SEREFERRALS 5840                
+POS_PAGEREFS 5984                
+POS_SEARCHWORDS 7510                
+POS_KEYWORDS 7662                
+POS_MISC 2360                
+POS_ERRORS 7721                
+POS_CLUSTER 3540                
+POS_SIDER_404 7866                
+END_MAP
+
+# LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
+# FirstTime   = Date of first visit for history file
+# LastTime    = Date of last visit for history file
+# LastUpdate  = Date of last update - Nb of parsed records - Nb of parsed old records - Nb of parsed new records - Nb of parsed corrupted - Nb of parsed dropped
+# TotalVisits = Number of visits
+# TotalUnique = Number of unique visitors
+# MonthHostsKnown   = Number of hosts known
+# MonthHostsUnKnown = Number of hosts unknown
+BEGIN_GENERAL 8
+LastLine 20130602084710 1 0 11755646857235
+FirstTime 20130506002431
+LastTime 20130531180713
+LastUpdate 20130603040225 1 0 0 0 0
+TotalVisits 40                  
+TotalUnique 16                  
+MonthHostsKnown 0                   
+MonthHostsUnknown 18                  
+END_GENERAL
+
+# Misc ID - Pages - Hits - Bandwidth
+BEGIN_MISC 10
+QuickTimeSupport 0 0 0
+JavaEnabled 0 0 0
+JavascriptDisabled 0 0 0
+PDFSupport 0 0 0
+WindowsMediaPlayerSupport 0 0 0
+AddToFavourites 0 30 0
+RealPlayerSupport 0 0 0
+TotalMisc 0 0 0
+DirectorSupport 0 0 0
+FlashSupport 0 0 0
+END_MISC
+
+# Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
+BEGIN_TIME 24
+0 12 41 227050 10 35 803824
+1 0 0 0 0 0 0
+2 0 0 0 0 0 0
+3 0 0 0 0 0 0
+4 0 0 0 0 0 0
+5 0 0 0 0 0 0
+6 6 23 1073583 2 17 929265
+7 15 45 3286988 12 33 1625785
+8 1 4 22301 3 7 142264
+9 7 23 108458 26 29 29512
+10 18 77 2565738 24 32 732369
+11 33 40 181975 9 54 1461682
+12 8 17 59641 3 13 273954
+13 46 236 1420150 29 62 2601787
+14 46 134 2070831 18 63 2362777
+15 1 1 1008 1 2 938
+16 76 144 73918355 92 189 5071560
+17 214 377 31247817 68 310 13028783
+18 156 301 61361809 58 178 4774356
+19 93 210 44874232 46 143 2969409
+20 98 254 2522779 106 198 8934031
+21 54 120 3590850 75 152 5593745
+22 0 0 0 1 1 1240
+23 21 34 186225 20 46 1848290
+END_TIME
+
+# Domain - Pages - Hits - Bandwidth
+# The 10 first Pages must be first (order not required for others)
+BEGIN_DOMAIN 1
+ip 905 2081 133763184
+END_DOMAIN
+
+# Cluster ID - Pages - Hits - Bandwidth
+BEGIN_CLUSTER 0
+END_CLUSTER
+
+# Login - Pages - Hits - Bandwidth - Last visit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_LOGIN 0
+END_LOGIN
+
+# Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
+# The 10 first Hits must be first (order not required for others)
+BEGIN_ROBOT 0
+END_ROBOT
+
+# Worm ID - Hits - Bandwidth - Last visit
+# The 5 first Hits must be first (order not required for others)
+BEGIN_WORMS 0
+END_WORMS
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first Hits must be first (order not required for others)
+BEGIN_EMAILSENDER 0
+END_EMAILSENDER
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first hits must be first (order not required for others)
+BEGIN_EMAILRECEIVER 0
+END_EMAILRECEIVER
+
+# Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
+BEGIN_FILETYPES 10
+mp3 7 9904108 0 0
+css 274 2447316 0 0
+bmp 19 1941615 0 0
+png 525 1379685 0 0
+wma 2 239057 0 0
+php 27 47819 0 0
+js 91 9575618 0 0
+jpg 25 14608094 0 0
+Unknown 878 8633336 0 0
+gif 233 126759 0 0
+END_FILETYPES
+
+# Downloads - Hits - Bandwidth
+BEGIN_DOWNLOADS 5
+/uploads/multimedia/hola.wma 1 5 302721
+/uploads/multimedia/monografico_zona_cero_-_desaparicion_poblado_esquimal_en_canada.mp3 1 6 7177923
+/uploads/multimedia/Perfil%20alar%20Hele%20Shaw%20-%20YouTube.avi 0 3 4630710
+/uploads/multimedia/VITAWORK_ADMPOST_07.mp4 0 57 80165403
+/uploads/multimedia/018-C%C3%A1taros.mp3 0 1 2726185
+END_DOWNLOADS
+
+# OS ID - Hits
+BEGIN_OS ID - Hits - Pages 7
+macosx 51 17
+linuxandroid 23 6
+macosx6 38 7
+winxp 812 284
+win8 137 43
+winnt 30 0
+win7 1062 548
+END_OS
+
+# Browser ID - Hits - Pages
+BEGIN_BROWSER 13
+msie8.0 329 41
+chrome27.0.1453.94 761 403
+firefox20.0 62 28
+mozilla 13 0
+chrome26.0.1410.64 799 389
+msie7.0 19 0
+chrome18.0.1025.166 23 6
+firefox16.0 7 1
+ossproxy 30 0
+firefox21.0 40 11
+safari6.0 51 17
+msie9.0 13 8
+firefox19.0 6 1
+END_BROWSER
+
+# Screen size - Hits
+BEGIN_SCREENSIZE 0
+END_SCREENSIZE
+
+# Unknown referer OS - Last visit date
+BEGIN_UNKNOWNREFERER 0
+END_UNKNOWNREFERER
+
+# Unknown referer Browser - Last visit date
+BEGIN_UNKNOWNREFERERBROWSER 0
+END_UNKNOWNREFERERBROWSER
+
+# Origin - Pages - Hits 
+BEGIN_ORIGIN 6
+From0 226 319
+From1 0 0
+From2 0 0
+From3 51 73
+From4 628 1761
+From5 0 0
+END_ORIGIN
+
+# Search engine referers ID - Pages - Hits
+BEGIN_SEREFERRALS 0
+END_SEREFERRALS
+
+# External page referers - Pages - Hits
+# The 10 first Pages must be first (order not required for others)
+BEGIN_PAGEREFS 21
+http://193.146.191.101/gw/webacc/rn1qp5Uh2ttbnl1Nu0/GWAP/HREF/ 6 6
+http://193.146.191.101/gw/webacc/ijfpleYc0rw3oj9Guc/GWAP/HREF/ 6 6
+http://193.146.191.101/gw/webacc/et2hq2Xkauk7ln1Km1/GWAP/HREF/ 6 9
+http://193.146.191.101/gw/webacc/ek6qteZg6nlcdj2Fq5/GWAP/HREF/ 5 5
+http://193.146.191.101/gw/webacc/opdts7Xkdpm6qj8Hmb/GWAP/HREF/ 4 7
+http://193.146.191.101/gw/webacc/gtdgr9Ylflh8nj5Cm0/GWAP/HREF/ 3 3
+http://193.146.191.101/gw/webacc/lncmn8Zg5ps4bndFu5/GWAP/HREF/ 3 3
+http://193.146.191.101/gw/webacc/mp0qzeXh7pj1dn9Pm6/GWAP/HREF/ 2 2
+http://193.146.191.101/gw/webacc/fp5ikfZg0ol4cp6Lm3/GWAP/HREF/ 2 2
+http://193.146.191.101/gw/webacc/ny4mw6Yc3hk1nq1Ai1/GWAP/HREF/ 2 2
+http://193.146.191.101/gw/webacc/kv6hm9Xc8tw0ef0Pu7/GWAP/HREF/ 0 3
+http://193.146.191.101/gw/webacc/jkary6Ylbqreqj4Bqc/GWAP/HREF/ 1 2
+http://193.146.191.101/gw/webacc/rqcrk1Wdfii3gsbKi3/GWAP/HREF/ 2 5
+http://193.146.191.101/gw/webacc/mw2ok1Yc2nj8nfdGq0/GWAP/HREF/ 1 3
+http://193.146.191.101/gw/webacc/fmfiu0Xp6kl6pl4Pib/GWAP/HREF/ 1 3
+http://193.146.191.101/gw/webacc/ll2ks5Yc7kqbfd4Im6/GWAP/HREF/ 1 1
+http://193.146.191.101/gw/webacc/jo2us6Xh4uwecn8Mqd/GWAP/HREF/ 2 4
+http://193.146.191.101/gw/webacc/rq7no3Zgbmw7be5Ki8/GWAP/HREF/ 1 1
+http://193.146.191.101/gw/webacc 2 2
+http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/ 0 3
+http://193.146.191.101/gw/webacc/rx7kucYccisbem7Bmf/GWAP/HREF/ 1 1
+END_PAGEREFS
+
+# Search keyphrases - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_SEARCHWORDS 0
+END_SEARCHWORDS
+
+# Search keywords - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_KEYWORDS 0
+END_KEYWORDS
+
+# Errors - Hits - Bandwidth
+BEGIN_ERRORS 5
+403 1 266
+302 196 156849
+500 828 23813209
+301 6 4656
+404 503 29175455
+END_ERRORS
+
+# URL with 404 errors - Hits - Last URL referer
+BEGIN_SIDER_404 65
+/uploads/images/draw.png 23 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/116
+/app.php/extranet/calendari/visualitzar/('/uploads/images/logo.png') 7 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/141
+/ 2 -
+/app.php/extranet/calendari/visualitzar/117 1 -
+/app.php/uploads/images/shadow.png 24 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/app.php/extranet/client/editar/style.css 3 http://vitawork.vitaworke3.com/app.php/extranet/client/editar/10
+/app_dev.php/extranet/portada 1 -
+/app.php/extranet/calendari/visualitzar/138 1 http://193.146.191.101/gw/webacc/gtdgr9Ylflh8nj5Cm0/GWAP/HREF/
+/app.php/extranet/activitat/editar/32 1 -
+/app_dev.php/extranet/calendari/visualitzar/102 2 http://193.146.191.101/gw/webacc/pv9nteWncov2fg1Lub/GWAP/HREF/
+/app.php/extranet/calendari/style.css 4 http://vitawork.vitaworke3.com/app.php/extranet/calendari/nou
+/app.php/extranet/ 2 -
+/app.php/extranet/portada 21 -
+/app.php/app.php/extranet/calendari/visualitzar/110 1 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/extranet/client/ 1 -
+/app.php/extranet/client/editar/12345566778888/style.css 1 http://vitawork.vitaworke3.com/app.php/extranet/client/editar/12345566778888/1
+/app.php/extranet/calendari 1 -
+/app.php/extranet/calendari/visualitzar/136 1 -
+/app.php/extranet/calendari/visualitzar/images/star_on.png 3 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/137
+/js/jquery-1.9.1.min.js 1 http://vitawork.vitaworke3.com/app.php/extranet/activitat/nova
+/uploads/images/wattermark.png 4 http://193.146.191.101/gw/webacc/do7it6Wn5fi4lmbEq1/GWAP/HREF/
+/css/images/top_menu_separator.png 26 http://vitawork.vitaworke3.com/app.php/extranet/
+/app.php/extranet/calendari/visualitzar/118 1 -
+//app.php/extranet/calendari/visualitzar/114 1 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/app.php/uploads/images/logo.png 29 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/app.php/extranet/index.php 2 -
+/app.php/extranet/activitat 1 -
+/app.php/extranet/calendari/visualitzar/112 1 -
+/uploads/multimedia/ 6 -
+/app.php/app.php/extranet/calendari/visualitzar/111 1 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/app.php/extranet/calendari/ 2 -
+/app.php/extranet/calendari/visualitzar/images/star_off.png 14 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/140
+/app_dev.php/extranet/calendari/visualitzar/103 1 http://193.146.191.101/gw/webacc/do7it6Wn5fi4lmbEq1/GWAP/HREF/
+/app.php/extranet/calendari/email/134 1 -
+/app.php/calendari/visualitzar/110 1 -
+/app.php/extranet/calendari/visualitzar/108 1 -
+/app.php/calendari/visualitzar/1 1 -
+/app.php/calendari/visualitzar/129 1 -
+/css/images/pattern1.png 47 http://vitawork.vitaworke3.com/app.php/extranet/
+/extranet/client/editar/style.css 1 http://vitawork.vitaworke3.com/extranet/client/editar/1
+/uploads/imatges/Chrysanthemum.jpg 3 http://vitawork.vitaworke3.com/app.php/extranet/activitat
+/app.php/Extranet/portada 1 -
+/uploads/imatges/organigrama_vitawork.jpg 22 http://vitawork.vitaworke3.com/app.php/extranet/activitat/editar/21
+/app.php/login 2 -
+/app.php/extranet/style.css 7 http://vitawork.vitaworke3.com/app.php/extranet/client
+/app.php/extranet 1 -
+/uploads/imatges/ 23 http://vitawork.vitaworke3.com/app.php/extranet/activitat
+/uploads/images/shadow.png 4 http://193.146.191.101/gw/webacc/do7it6Wn5fi4lmbEq1/GWAP/HREF/
+/extranet/calendari/visualitzar/149 1 -
+/var/www/vhosts/vitawork.vitaworke3.com/web/uploads/images/logo.png 17 http://vitawork.vitaworke3.com/app.php/admin/vitaworke3/activitat/format/create
+/app_dev.php/extranet/calendari/visualitzar/101 1 http://193.146.191.101/gw/webacc/pv9nteWncov2fg1Lub/GWAP/HREF/
+/app.php/extranet/index.htm 2 -
+/app.php/uploads/images/wattermark.png 24 http://193.146.191.101/gw/webacc/nx7kx6Wd3rj3gkfBm2/GWAP/HREF/
+/apple-touch-icon-precomposed.png 8 -
+/app.php/extranet/calendari/visualitzar/images/logo.png 3 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/137
+/web/uploads/images/logo.png 83 http://vitawork.vitaworke3.com/app.php/admin/dashboard
+/app.php/extranet/calendari/visualitzar/images/button_valoraci0.png 14 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/140
+/app.php/extranet/calendari/visualitzar/1 1 -
+/css/images/bk_topmenu.png 29 http://vitawork.vitaworke3.com/app.php/extranet/
+/app_dev.ph/extranet/task 1 -
+/app.php/calendari/visualitzar/1110 1 -
+/app.php/ 3 http://vitawork.vitaworke3.com/app.php/login
+/app.php/extranet/calendari/editar/style.css 1 http://vitawork.vitaworke3.com/app.php/extranet/calendari/editar/160
+/uploads/images/logo.png 4 http://193.146.191.101/gw/webacc/do7it6Wn5fi4lmbEq1/GWAP/HREF/
+/app.php/extranet/calendari/visualitzar/('/uploads/images/logo_vitaworke3.png') 4 http://vitawork.vitaworke3.com/app.php/extranet/calendari/visualitzar/140
+END_SIDER_404
+
+# Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
+# [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
+# The 10 first Hits must be first (order not required for others)
+BEGIN_VISITOR 18
+80.102.116.65 279 608 10607594 20130527001200
+193.146.191.100 251 730 44872370 20130531140843
+92.57.20.175 153 313 64186824 20130530184809
+83.46.169.168 107 150 5195460 20130523182915
+83.50.163.106 33 98 125481 20130520233159
+62.57.139.169 32 77 3714856 20130529000047
+77.210.164.231 11 32 2481682 20130521072918
+85.50.90.93 10 26 85005 20130531180713
+217.125.180.144 7 34 883050 20130527201736
+31.4.186.223 6 23 1073583 20130523063341
+79.148.254.244 3 26 85132 20130530151822
+77.211.48.82 4 14 366015 20130531072958
+79.156.166.33 3 6 25699 20130506002442
+79.144.193.243 4 7 5274 20130523235709
+193.144.6.107 1 4 22301 20130506081646
+157.55.46.249 0 3 19256 
+157.55.43.24 0 1 12552 
+77.210.187.142 1 1 1050 20130531173902
+END_VISITOR
+
+# Date - Pages - Hits - Bandwidth - Visits
+BEGIN_DAY 15
+20130506 4 10 48000 2
+20130515 36 65 1407580 1
+20130516 0 13 0 0
+20130520 124 355 5101857 4
+20130521 118 229 38344152 4
+20130522 3 32 131802 2
+20130523 117 178 7242301 4
+20130524 37 62 1083053 2
+20130525 50 84 1089856 1
+20130526 61 116 3673977 5
+20130527 121 296 43975870 3
+20130528 21 63 56611720 2
+20130529 19 36 42359778 2
+20130530 150 271 26776293 4
+20130531 44 271 873551 4
+END_DAY
+
+# Session range - Number of visits
+BEGIN_SESSION 7
+1h+ 8
+5mn-15mn 3
+0s-30s 15
+15mn-30mn 5
+30s-2mn 3
+2mn-5mn 1
+30mn-1h 5
+END_SESSION
+
+# URL - Pages - Bandwidth - Entry - Exit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_SIDER 139
+/app.php/extranet/portada 118 130153 2 5
+/app.php/extranet/calendari 88 480438 0 2
+/app.php/login 78 98399 18 1
+/app.php/extranet/client 61 148159 0 1
+/app.php/extranet/calendari/nou 53 1022212 0 2
+/app.php/admin/dashboard 49 707033 0 0
+/app.php/extranet/activitat 43 187711 0 2
+/app.php/admin/vitaworke3/client/client/list 29 2245249 0 0
+/app.php/extranet/ 24 26851 4 5
+/app.php/extranet/activitat/editar/32 16 89595 0 1
+/extranet/calendari/email/189 2 7700 0 0
+/app.php/admin/vitaworke3/activitat/format/batch 1 8150 0 0
+/ 3 20968 2 2
+/app.php/extranet/calendari/visualitzar/180 3 14496 0 0
+/app.php/extranet/client/editar/6 1 5519 0 0
+/app.php/extranet/calendari/email/140 1 3920 0 0
+/app.php/extranet/calendari/email/146 4 13420 0 0
+/app.php/admin/vitaworke3/client/client/1/edit 2 31285 0 0
+/app.php/extranet/calendari/visualitzar/125 1 3136 0 0
+/app.php/extranet/calendari/email/142 1 3914 0 0
+/extranet/calendari/visualitzar/151 6 28498 1 1
+/app.php/extranet/calendari/visualitzar/177 1 4832 0 0
+/app.php/extranet/calendari/visualitzar/159 2 9722 0 0
+/app.php/extranet/calendari/visualitzar/45 1 4431 0 0
+/app.php/admin/vitaworke3/calendari/calendari/batch 6 103488 0 0
+/app.php/extranet/calendari/visualitzar/137 1 8259 0 0
+/app.php/admin/vitaworke3/activitat/tipologia/create 1 9087 0 0
+/app.php/extranet/calendari/visualitzar/161 4 19328 0 0
+/extranet/portada 5 5985 0 0
+/app.php/extranet/calendari/visualitzar/123 1 3136 0 0
+/extranet/calendari/email/191 1 3814 0 0
+/extranet/activitat/editar/33 6 31606 0 0
+/extranet/calendari/visualitzar/188 4 19296 0 0
+/app.php/extranet/client/editar/10 1 5873 0 0
+/app.php/admin/vitaworke3/activitat/format/list 8 202424 0 0
+/extranet/calendari/visualitzar/153 4 18960 0 0
+/app.php/admin/vitaworke3/client/campanya/create 1 15058 0 0
+/login 3 3034 2 1
+/app.php/extranet/calendari/visualitzar/128 1 3407 0 0
+/app.php/extranet/calendari/visualitzar/160 3 14554 0 1
+/app.php/extranet/calendari/email/145 1 3355 0 0
+/app.php/extranet/calendari/visualitzar/146 6 50116 0 0
+/app.php/admin/vitaworke3/activitat/format/1/edit 2 17144 0 0
+/app.php/extranet/calendari/visualitzar/134 2 6800 0 0
+/app.php/extranet/calendari/visualitzar/121 1 3136 0 0
+/extranet/calendari/visualitzar/152 2 5115 1 1
+/app.php/extranet/calendari/visualitzar/176 2 9664 0 0
+/app.php/extranet/calendari/visualitzar/133 1 3400 0 0
+/app.php/extranet/calendari/visualitzar/127 2 6543 0 0
+/extranet/calendari/visualitzar/178 4 19296 0 0
+/app.php/admin/vitaworke3/activitat/format/create 3 25099 0 0
+/app.php/extranet/calendari/visualitzar/181 3 14496 0 0
+/extranet/calendari/email/186 1 3542 0 0
+/app.php/extranet/calendari/editar/160 1 21869 0 0
+/app.php/admin/vitaworke3/client/client/batch 16 218717 0 0
+/extranet/calendari/visualitzar/183 1 4824 0 0
+/app.php/admin/vitaworke3/activitat/activitat/batch 1 16900 0 0
+/app.php/extranet/calendari/visualitzar/166 1 4832 0 0
+/app.php/admin/vitaworke3/client/tipusclient/create 1 9100 0 0
+/app.php/admin/vitaworke3/activitat/activitat/create 1 20352 0 0
+/app.php/extranet/calendari/visualitzar/170 1 4832 0 0
+/app.php/extranet/client/editar/23 2 11242 0 0
+/app.php/admin/vitaworke3/client/client/create 3 48876 0 0
+/app.php/extranet/calendari/email/181 5 17865 0 0
+/app.php/extranet/calendari/visualitzar/131 2 3691 1 1
+/app.php/extranet/calendari/visualitzar/158 2 9664 0 0
+/app.php/extranet/activitat/nova 11 63540 0 0
+/app.php/extranet/calendari/visualitzar/148 1 6750 0 0
+/extranet/calendari/visualitzar/155 4 19076 1 2
+/app.php/extranet/calendari/email/174 1 1547 0 0
+/app.php/admin/vitaworke3/activitat/activitat/21/edit 1 19745 0 0
+/app.php/extranet/activitat/editar/33 3 15570 0 0
+/app.php/extranet/calendari/visualitzar/169 1 4832 0 0
+/app.php/extranet/calendari/visualitzar/174 1 4832 0 0
+/app.php/extranet/calendari/visualitzar/164 1 4832 0 1
+/app.php/extranet/calendari/visualitzar/143 2 16686 1 1
+/app.php/admin/vitaworke3/client/campanya/batch 1 14233 0 0
+/app.php/extranet/calendari/editar/192 1 21669 0 1
+/extranet/client/nou 1 5400 0 0
+/app.php/extranet/calendari/editar/184 1 21669 0 0
+/app.php/extranet/calendari/visualitzar/117 1 4432 0 0
+/app.php/extranet/client/editar/9 1 5242 0 0
+/app.php/extranet/calendari/visualitzar/124 4 13086 0 0
+/app.php/extranet/calendari/visualitzar/147 1 6741 0 0
+/app.php/extranet/client/editar/15 2 10430 0 0
+/app.php/extranet/calendari/email/undefined 4 1472 0 0
+/app.php/extranet/calendari/visualitzar/130 2 6858 1 1
+/extranet/calendari/visualitzar/154 2 9480 0 0
+/extranet/calendari/email/188 3 11503 0 0
+/app.php/extranet/calendari/visualitzar/138 3 24870 0 0
+/extranet/calendari/visualitzar/150 8 37890 0 0
+/app.php/extranet/client/editar/12345566778888/1 1 5648 0 0
+/app.php/extranet/calendari/visualitzar/140 1 8333 0 0
+/app.php/admin/vitaworke3/client/campanya/list 3 72515 0 0
+/app.php/extranet/calendari/visualitzar/142 2 16666 0 0
+/app.php/extranet/calendari/visualitzar/136 2 16576 0 0
+/extranet/calendari/visualitzar/189 2 9648 0 0
+/app.php/extranet/activitat/editar/31 2 11842 0 0
+/app.php/extranet/activitat/editar/21 2 14509 1 2
+/extranet/client/editar/1 1 5572 0 0
+/extranet/calendari/visualitzar/156 3 9855 1 1
+/app.php/admin/vitaworke3/client/tipusclient/list 3 100593 0 0
+/app.php/admin/vitaworke3/activitat/activitat/list 10 627867 0 0
+/extranet/calendari 7 9937 0 0
+/app.php/extranet/calendari/email/134 3 8208 0 0
+/app.php/extranet/calendari/visualitzar/119 3 9408 1 0
+/extranet/calendari/nou 5 107700 0 0
+/extranet/activitat 4 6793 0 0
+/app.php/admin/vitaworke3/activitat/format/1/show 1 7147 0 0
+/app.php/extranet/client/editar/1 9 50797 0 0
+/extranet/calendari/visualitzar/191 1 4824 0 1
+/app.php/admin/vitaworke3/client/tipusclient/batch 1 8591 0 0
+/app.php/extranet/calendari/visualitzar/165 1 4832 0 0
+/app.php/extranet/calendari/email/133 1 3920 0 0
+/extranet/calendari/email/178 5 17796 0 0
+/app.php/extranet 6 1872 1 0
+/extranet/calendari/visualitzar/186 1 4824 0 0
+/app.php/extranet/calendari/visualitzar/157 1 4748 0 0
+/app.php/admin/vitaworke3/activitat/tipologia/list 1 27374 0 0
+/app.php/extranet/calendari/visualitzar/129 3 9672 0 1
+/app.php/extranet/client/editar/17 1 6002 0 0
+/app.php/extranet/calendari/visualitzar/120 1 3136 0 0
+/app.php/extranet/calendari/email/136 1 3920 0 0
+/app.php/extranet/calendari/visualitzar/116 2 4665 0 0
+/app.php/extranet/calendari/visualitzar/132 1 3458 1 1
+/app.php/extranet/calendari/email/138 2 7840 0 0
+/app.php/extranet/calendari/visualitzar/141 5 41551 1 1
+/app.php/extranet/calendari/visualitzar/122 1 3136 0 0
+/app.php/extranet/calendari/email/178 1 1547 0 0
+/app.php/extranet/calendari/email/180 4 14312 0 0
+/app.php/extranet/calendari/visualitzar/149 6 27454 0 0
+/app.php/extranet/calendari/editar/176 1 21887 0 0
+/app.php/extranet/client/nou 8 43493 0 0
+/app.php/extranet/calendari/visualitzar/145 1 8343 0 1
+/app.php/admin/vitaworke3/calendari/calendari/list 11 603250 0 0
+/extranet/calendari/email/190 1 3840 0 0
+/extranet/client 4 8858 0 0
+/extranet/calendari/email/183 1 3536 0 0
+/app.php/extranet/calendari/email/143 2 6905 0 0
+END_SIDER

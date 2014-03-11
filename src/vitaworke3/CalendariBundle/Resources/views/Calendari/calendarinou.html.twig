@@ -1,0 +1,109 @@
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+<form action="{{ accion == 'crear' ? path('extranet_calendari_nou') :
+path('extranet_calendari_editar', { 'id': calendari.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nou calendari</h3>
+{% else %}
+<h3>Editar calendari</h3>
+{% endif %}
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_widget(formulario.DiaActivitat)}}
+</div>
+<div id="main_content_secondcolumn">
+{{ form_widget(formulario.Client, { 'attr': {'placeholder': "Client"}})}}
+</div>
+<div id="main_content_fourthcolumn">
+{{ form_widget(formulario.Activitat, { 'attr': {'placeholder': "Activitat"}})}}
+</div>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_widget(formulario.DiesCaducitat, { 'attr': {'placeholder': "Dies caducitat activitat"}})}}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.Enviar,'Enviar')}} 
+{{form_widget(formulario.Enviar, { 'attr': {'class' : 'baixa'}})}}
+</div>
+<div id="main_content_thirdcolumn">
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% if accion == 'editar' %}
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_label(formulario.Enviada,'Enviada:')}} 
+<br>
+{{calendari.Enviada|date}}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.Oberta,'Oberta:')}} 
+<br>
+{{calendari.Oberta|date}}
+</div>
+<div id="main_content_thirdcolumn">
+{{form_label(formulario.Valorada,'Valorada:')}} 
+<br>
+{{calendari.Valorada|date}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{form_label(formulario.Valoracio,'Valoracio:')}} 
+<br>
+{{calendari.Valoracio}}
+</div>
+<div id="main_content_secondcolumn">
+</div>
+<div id="main_content_thirdcolumn">
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{% endif %}
+<br>
+<br>
+<p style="color:#609">PLANTILLA EMAIL (No obligatori)</p> 
+<br>
+{{form_widget(formulario.assumpte, { 'attr': {'placeholder': "Assumpte"}})}}
+<br>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+{{ form_widget(formulario.titol1, { 'attr': {'placeholder': "Text títol abans de Nick"}})}}
+</div>
+<div id="main_content_secondcolumn">
+{{form_label(formulario.nick,'Incloure Nick')}} 
+{{form_widget(formulario.nick,{ 'attr': {'class' : 'baixa'}}) }}
+</div>
+<div id="main_content_thirdcolumn">
+{{ form_widget(formulario.titol2, { 'attr': {'placeholder': "Text títol després de Nick"}})}}
+</div>
+<div id="main_content_fourthcolumn">
+</div>
+</div>
+{{ form_widget(formulario.contingut, { 'attr': {'placeholder': "Cos del mail"}})}}
+<br>
+<br>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir activitat a calendari" />
+{% else %}
+<input class="button_green" type="submit" value="Guardar  activitat a calendari" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_calendari')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

@@ -148,6 +148,12 @@ class Calendari
      */
     private $contingut;
 
+      /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Baixa", type="boolean", nullable=true)
+     */
+    private $Baixa;
 
     /**
      * Get id
@@ -633,8 +639,27 @@ class Calendari
         return $this->DiesCaducitat;
     }
 
-   
- 
+    /**
+     * Set Baixa
+     *
+     * @param boolean $baixa
+     * @return Baixa
+     */
+    public function setBaixa($baixa)
+    {
+        $this->Baixa = $baixa;
+    
+        return $this;
+    }
 
+    /**
+     * Get Baixa
+     *
+     * @return boolean 
+     */
+    public function getBaixa()
+    {
+        return $this->Baixa;
+    }
 
 }

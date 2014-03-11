@@ -1,0 +1,50 @@
+{% extends 'BackendBundle:Extranet:perfil.html.twig' %}
+{% block main %}
+ <form action="{{ accion == 'crear' ? path('extranet_client_nou') : path('extranet_client_editar', {'id': client.id }) }}" method="post" {{
+form_enctype(formulario) }}>
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+{% if accion == 'crear' %}
+<h3>Nou client</h3>
+{% else %}
+<h3>Editar client</h3>
+{% endif %}
+</div>
+<div id="main_content_forms">
+<br>
+<td style="padding-right:2cm;">{{ form_widget(formulario.Nom , { 'attr': {'size' : 100, 'placeholder': "Nom"}})}}</td>
+<td>{{ form_widget(formulario.Nick , { 'attr': {'size' : 100, 'placeholder': "Nick"}})}}</td>
+<td>{{ form_widget(formulario.Mail , { 'attr': {'size' : 100, 'placeholder': "Correu electrònic"}})}}</td>
+<br>
+<br>
+{{ form_widget(formulario.Associat)}}
+<br>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatInici, 'Data inici acces') }}</td>
+<td>{{ form_widget(formulario.DataAccesAutoritzatInici)}}</td>
+<br>
+<td>{{ form_label(formulario.DataAccesAutoritzatFi, 'Data fi acces') }}</td>
+<td>{{ form_widget(formulario.DataAccesAutoritzatFi)}}</td>
+<br>
+{% if accion == 'editar' %}
+<td>
+{{form_label(formulario.Baixa,'Baixa')}} 
+{{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+</td>
+{% endif %}
+<br>
+<td>{{ form_errors(formulario) }}</td>
+<td>{{ form_widget(formulario._token) }}</td>
+<br>
+{% if accion == 'crear' %}
+<input class="button_green" type="submit" value="Afegir" />
+{% else %}
+<input class="button_green" type="submit" value="Guardar" />
+{% endif %}
+<INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_client')}}'">
+</div>
+</div>
+</div>
+</form>
+{% endblock %}

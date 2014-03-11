@@ -88,6 +88,15 @@ body {
 .starspaces {
 	margin-left: 3px;
 }
+.button_orange{
+border:1px solid #ffad41; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:13px;font-family: helvetica, arial, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block; color: #FFFFFF;
+ background-color: #ffc579; background-image: -webkit-gradient(linear, left top, left bottom, from(#ffc579), to(#fb9d23));
+ background-image: -webkit-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -moz-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -ms-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: -o-linear-gradient(top, #ffc579, #fb9d23);
+ background-image: linear-gradient(to bottom, #ffc579, #fb9d23);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#ffc579, endColorstr=#fb9d23);
+}
 #divider {
 	float: left;
 	height: 10px;
@@ -209,17 +218,23 @@ ul {
 	float: left;
 	height: 100%;
 	width: 300px;
+	margin-right: 50px;
+	padding-right: 35px;
 }
+
 #text_center {
 	float: center;
 	height: 100%;
-	width: 300px;
+	width: 840px;
+	margin-left: 25px;
 }
+
 #text_right {
 	float: left;
 	height: 100%;
 	width: 300px;
 	margin-left: 50px;
+	padding-left: 35px;
 }
 
 #paginador li
@@ -228,3 +243,4 @@ display: inline;
 list-style-type: none;
 padding-right: 20px;
 }
+

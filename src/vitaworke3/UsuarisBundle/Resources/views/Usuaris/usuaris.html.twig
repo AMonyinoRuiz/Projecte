@@ -1,0 +1,50 @@
+
+{% extends 'BackendBundle:Extranet:frontend.html.twig' %}
+{% block main %}
+<div id="main">
+<div id="main_content">
+<div id="main_content_controls">
+<h1>USUARIS</h1>
+<div id="main_content_button"><a href="{{ path('extranet_usuaris_nou')}}" class="button_orange"><img src="{{asset('uploads/images/icon_plus.png')}}" width="16" height="16" alt="plus" />  Afegir usuari</a></div>
+<div id="main_content_pagination">
+{% if paginador.currentPage > 1 %}
+<a href="{{ path('extranet_usuaris', { 'page': paginador.firstPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('first','','{{asset('uploads/images/icon_first_activo.png')}}',1)"><img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<a href="{{ path('extranet_client', { 'page': paginador.previousPage}) }}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('previous','','{{asset('uploads/images/icon_previus_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_first_reposo.png')}}" alt="first" width="16" height="11" id="first" />
+<img src="{{asset('uploads/images/icon_previus_reposo.png')}}" alt="previous" width="9" height="11" id="previous" />
+{% endif %}
+{% for page in paginador.minPageInRange..paginador.maxPageInRange %}
+{% if page == paginador.currentPage %}
+{{ page }}
+{% else %}
+<a href="{{ path('extranet_usuaris', { 'page': page }) }}">{{ page
+}}</a>
+{% endif %}
+{% endfor %}
+{% if paginador.currentPage < paginador.lastPage %}
+<a href="{{ path('extranet_usuaris', { 'page': paginador.nextPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('next','','images/icon_next_activo.png',1)">
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" /></a> 
+<a href="{{ path('extranet_usuaris', { 'page': paginador.lastPage })}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('last','','{{asset('uploads/images/icon_last_activo.png')}}',1)">
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" /></a>
+{% else %}
+<img src="{{asset('uploads/images/icon_next_reposo.png')}}" alt="next" width="9" height="11" id="next" />
+<img src="{{asset('uploads/images/icon_last_reposo.png')}}" alt="last" width="16" height="11" id="last" />
+{% endif %}
+</div>
+</div>
+<br>
+<div id="main_content_tables">
+<br>
+<br>
+<table cellspacing="0">
+    <tr><th>Nom</th><th>Mail</th><th>Editar</th></tr>
+   {% for usuari in usuaris %}
+    <tr><td>{{ usuari.username}}</td><td>{{ usuari.email}}</td><td><a href="{{ path('extranet_usuaris_editar', {'id': usuari.id })}}" class="button_purple_small">Editar</a></td></tr>
+   {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}

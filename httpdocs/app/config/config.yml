@@ -1,0 +1,79 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    #translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: "%kernel.debug%"
+    form:            true
+    csrf_protection: true
+    validation:      { enable_annotations: true }
+    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    translator: { fallback: %locale% }
+    trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
+    trusted_proxies: ~
+    session:         ~
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    globals:
+        directori_imatges: c:/vitaworke3/web/uploads/images/
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: smtp
+    host:      smtp.1and1.es
+    encryption: tls
+    auth_mode: login
+    username: info@vitaworke3.com
+    password: sinergia2013
+    port : 25
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.block.service.text: ~
+        sonata.block.service.action: ~
+        sonata.block.service.rss: ~
+sonata_admin:
+    title: 'Vitaworke3 - Administració'
+    title_logo: "kernel.root_dir%/../web/uploads/images/logo.png"
+    templates:
+        layout: SonataAdminBundle::standard_layout.html.twig
+        ajax: SonataAdminBundle::ajax_layout.html.twig
+        list: SonataAdminBundle:CRUD:list.html.twig
+        show: SonataAdminBundle:CRUD:show.html.twig
+        edit: SonataAdminBundle:CRUD:edit.html.twig
+parameters:
+    vitaworke3.directori.imatges: %kernel.root_dir%/../web/uploads/images/
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: vitaworke3\UsuarisBundle\Entity\Usuari
+genemu_form:
+    select2: ~
+   
