@@ -13,7 +13,7 @@ class EmpresaController extends Controller
 
 	    public function EmpresaAction()
     {
-       	$em = $this->getDoctrine()->getEntityManager();
+       	$em = $this->getDoctrine()->getManager();
        	$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
        	$idiomas =$em->getRepository('ClientBundle:Client')->queryidiomas()->getResult();
     	$tipusComite = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Comite'));
@@ -38,7 +38,7 @@ class EmpresaController extends Controller
 
     public function EmpresaFiltreAction($ididioma,$idtemplate,$idresponsable)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
        	$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
        	$idiomas =$em->getRepository('ClientBundle:Client')->queryidiomas()->getResult();
        	$templates =$em->getRepository('ClientBundle:Client')->querytemplatesall()->getResult();
@@ -65,7 +65,7 @@ class EmpresaController extends Controller
         $peticion = $this->getRequest();
         $empresa = new Client();
         $formulario = $this->createForm(new EmpresaType(), $empresa);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
     	if ($peticion->getMethod() == 'POST') {
 				$formulario->bind($peticion);
 				if ($formulario->isValid()) {
@@ -74,20 +74,23 @@ class EmpresaController extends Controller
 					$em->persist($empresa);
 					$em->flush();
 					$id=$empresa->getId();
-					return $this->redirect($this->generateUrl('extranet_empresa_editar',  array( 'id'=> $id)));
+					$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+					return $this->redirect($this->generateUrl('extranet_empresa_editar',  array( 'id'=> $MyId)));
 				}
 			}
-        
-
         return $this->render('ClientBundle:Empresa:empresanova.html.twig', array('accion' =>'crear','formulario' => $formulario->createView()));
     }
 	public function EmpresaEditarAction($id)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$empresa = $em->getRepository('ClientBundle:Client')->find($id);
 	 	if (!$empresa) {
-			throw $this->createNotFoundException('empresa inexistent');
+	 		$MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+			$empresa = $em->getRepository('ClientBundle:Client')->find($MyId);
+			if (!$empresa) {
+	 			throw $this->createNotFoundException('empresa inexistent');
 			}
+		}
 		$formulario = $this->createForm(new EmpresaType(), $empresa);
 	    $peticion = $this->getRequest();
 		if ($peticion->getMethod() == 'POST') {
@@ -95,8 +98,9 @@ class EmpresaController extends Controller
 			if ($formulario->isValid()) {
 				$em->persist($empresa);
 				$em->flush();
-				return $this->redirect($this->generateUrl('extranet_empresa_editar',  array( 'id'=> $id)));
-				
+				$id=$empresa->getId();
+				$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+				return $this->redirect($this->generateUrl('extranet_empresa_editar',  array( 'id'=> $MyId)));
 			}
 		}
 		return $this->render('ClientBundle:Empresa:empresanova.html.twig',

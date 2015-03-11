@@ -24,6 +24,7 @@ class EmpresaType extends AbstractType
                             ->orwhere('l.TipusClient = 4')
                             ->andwhere('l.Baixa = 0');
                 },
+                'multiple'=>true,
                 'required' => false,
                 'configs' => array(
                       'placeholder' => 'Selecciona Cap de Projecte',

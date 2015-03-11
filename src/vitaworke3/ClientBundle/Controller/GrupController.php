@@ -13,7 +13,7 @@ class GrupController extends Controller
 	
     public function GrupAction()
     {
-       	$em = $this->getDoctrine()->getEntityManager();
+       	$em = $this->getDoctrine()->getManager();
        	$tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
 		$tipusEmpresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
 		$associats = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusGrup,$tipusEmpresa)->getResult();	
@@ -42,14 +42,13 @@ class GrupController extends Controller
 	
 	public function GrupFiltreAction($idassociat,$ididioma,$idtemplate,$idresponsable)
      {
-       	$em = $this->getDoctrine()->getEntityManager();
+       	$em = $this->getDoctrine()->getManager();
        	$paginador = $this->get('ideup.simple_paginator');
 		$paginador->setItemsPerPage(20);
 		$paginador->setMaxPagerItems(5);
 		$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
       	$tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
 		$tipusEmpresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
-
 	    $associats = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusGrup,$tipusEmpresa)->getResult();	
 	  	$idiomas =$em->getRepository('ClientBundle:Client')->queryidiomas()->getResult();
     	$tipusComite = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Comite'));
@@ -71,14 +70,13 @@ class GrupController extends Controller
 		));
 	   
 	  }
-
-
-    public function GrupNouAction()
+	
+	public function GrupNouAction()
     {
         $peticion = $this->getRequest();
         $grup = new Client();
         $formulario = $this->createForm(new GrupType(), $grup);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
        	if ($peticion->getMethod() == 'POST') 
 	   	{
 			$formulario->bind($peticion);
@@ -89,8 +87,8 @@ class GrupController extends Controller
 				$em->persist($grup);
 				$em->flush();
 				$id=$grup->getId();
-				return $this->redirect($this->generateUrl('extranet_grup_editar',  array( 'id'=> $id)));
-			
+				$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+				return $this->redirect($this->generateUrl('extranet_grup_editar',  array( 'id'=> $MyId)));
 			}
 		}
         
@@ -98,9 +96,15 @@ class GrupController extends Controller
     }
 	public function GrupEditarAction($id)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$grup = $em->getRepository('ClientBundle:Client')->find($id);
-		if (!$grup) {throw $this->createNotFoundException('grup inexistent');}
+		if (!$grup) {
+			$MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+			$grup = $em->getRepository('ClientBundle:Client')->find($MyId);
+			if (!$grup) {
+				throw $this->createNotFoundException('grup inexistent');
+			}
+		}
 		$formulario = $this->createForm(new GrupType(), $grup);
 		$peticion = $this->getRequest();
 		if ($peticion->getMethod() == 'POST') {
@@ -108,8 +112,9 @@ class GrupController extends Controller
 			if ($formulario->isValid()) {
 				$em->persist($grup);
 				$em->flush();
-				return $this->redirect($this->generateUrl('extranet_grup_editar',  array( 'id'=> $id)));
-		
+				$id=$grup->getId();
+				$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+				return $this->redirect($this->generateUrl('extranet_grup_editar',  array( 'id'=> $MyId)));
 			}
 		}
 		return $this->render('ClientBundle:Grup:grupnou.html.twig',

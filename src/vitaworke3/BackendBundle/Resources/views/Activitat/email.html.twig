@@ -74,7 +74,7 @@
       <br/>
       {{contingut | raw}}
       </td> 
-    <td width="161"><a href="{{host  ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id })}}"><img src="{{ host ~ '/uploads/images/button_gif_2.gif' }}" width="98" height="88" alt="button" /></a></td> 
+    <td width="161"><a href="{{host  ~  path('extranet_calendari_activitat_visualitzar',{ 'id': calendari.id  | urlencrypt })}}"><img src="{{ host ~ '/uploads/images/button_gif_2.gif' }}" width="98" height="88" alt="button" /></a></td> 
   </tr>
   </tbody>
   </table>

@@ -42,19 +42,20 @@ form_enctype(formulario) }}>
 {% if accion == 'editar' %}
 <div id="main_content_forms">
 <div id="main_content_firstcolumn">
+
 {{form_label(formulario.Enviada,'Enviada:')}} 
 <br>
-{{calendari.Enviada|date}}
+{{ calendari.Enviada is empty ? "" : calendari.Enviada|date }}
 </div>
 <div id="main_content_secondcolumn">
 {{form_label(formulario.Oberta,'Oberta:')}} 
 <br>
-{{calendari.Oberta|date}}
+{{ calendari.Oberta is empty ? "" : calendari.Oberta|date }}
 </div>
 <div id="main_content_thirdcolumn">
 {{form_label(formulario.Valorada,'Valorada:')}} 
 <br>
-{{calendari.Valorada|date}}
+{{ calendari.Valorada is empty ? "" : calendari.Valorada|date }}
 </div>
 <div id="main_content_fourthcolumn">
 </div>

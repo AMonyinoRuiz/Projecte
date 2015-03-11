@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Template Activitat</title>
+<link href="{{asset('css/stylevisualitzaractivitat.css')}}" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+</script>
+</head>
+  <body>
+  <div id="content">
+  <div id="maincontent">
+  <div id="logo"><img src="{{asset('uploads/images/logo.png')}}" width="181" height="75" alt="logo" /></div>
+  <div id="maintext">
+  <div id="header"><h1>{{activitat.Titol}}</h1><h2>{{activitat.Subtitol}}</h2></div>
+  <div id="divider"></div>
+  <div id="text">
+  {% if activitat.TipusCamp1 == 'Vimeo / Youtube'  %}
+  <div id="{{class1}}" align="{{align1}}"><iframe src="{{activitat.Text1 |striptags}}" width="{{llarg1}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Texte'  %}
+  <div id="{{class1}}" align="left">{{activitat.Text1}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Imatge' %}
+  <div id="{{class1}}" align="{{align1}}"><img src="/uploads/imatges/{{activitat.path |striptags}}" width="{{llarg1}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp1 == 'PDF' %}
+  <div id="{{class1}}"  align="{{align1}}">
+  <object data="/uploads/imatges/{{activitat.path |striptags}}" type="application/pdf" width="{{llarg1}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path |striptags}}" type="application/pdf" width="{{llarg1}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp1== 'Audio'%}
+  <div id="{{class1}}" align="{{align1}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text1 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text1 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Vimeo / Youtube'  %}
+  <div id="{{class2}}" align="{{align2}}"><iframe src="{{activitat.Text2 |striptags}}" width="{{llarg2}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Texte'  %}
+  <div id="{{class2}}" align="left">{{activitat.Text2 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp2== 'Imatge'  %}
+  <div id="{{class2}}" align="{{align2}}"><img src="/uploads/imatges/{{activitat.path2 |striptags}}" width="{{llarg2}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp2 == 'PDF'  %}
+  <div id="{{class2}}"  align="{{align2}}">
+  <object data="/uploads/imatges/{{activitat.path2 |striptags}}" type="application/pdf" width="{{llarg2}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path2 |striptags}}" type="application/pdf" width="{{llarg2}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+
+  {% if activitat.TipusCamp2== 'Audio' %}
+  <div id="{{class2}}" align="{{align2}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text2 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text2 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  </div>
+   
+  <div id="text">
+  {% if activitat.TipusCamp3== 'Vimeo / Youtube' %}
+  <div id="{{class3}}" align="{{align3}}"><p><iframe src="{{activitat.Text3 |striptags}}" width="{{llarg3}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Texte' %}
+  <div id="{{class3}}" align="left">{{activitat.Text3 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Imatge' %}
+  <div id="{{class3}}" align="{{align3}}"><img src="/uploads/imatges/{{activitat.path3 |striptags}}" width="{{llarg3}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp3 == 'PDF' %}
+  <div id="{{class3}}"  align="{{align3}}">
+  <object data="/uploads/imatges/{{activitat.path3 |striptags}}" type="application/pdf" width="{{llarg3}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path3 |striptags}}" type="application/pdf" width="{{llarg3}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp3== 'Audio' %}
+  <div id="{{class3}}" align="{{align3}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text3 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text3 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Vimeo / Youtube' %}
+  <div id="{{class4}}" align="{{align4}}"><iframe src="{{activitat.Text4 |striptags}}" width="{{llarg4}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Texte' %}
+  <div id="{{class4}}" align="left">{{activitat.Text4 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp4 == 'Imatge' %}
+  <div id="{{class4}}" align="{{align4}}"><img src="/uploads/imatges/{{activitat.path4 |striptags}}" width="{{llarg4}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp4 == 'PDF' %}
+  <div id="{{class4}}"  align="{{align4}}">
+  <object data="/uploads/imatges/{{activitat.path4 |striptags}}" type="application/pdf" width="{{llarg4}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path4 |striptags}}" type="application/pdf" width="{{llarg4}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+   {% if activitat.TipusCamp4 == 'Audio' %}
+  <div id="{{class4}}" align="{{align4}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text4 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text4 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  </div>
+  <div id="text">
+  {% if activitat.TipusCamp5 == 'Vimeo / Youtube' %}
+  <div id="{{class5}}" align="{{align5}}"><iframe src="{{activitat.Text5 |striptags}}" width="{{llarg5}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Texte' %}
+  <div id="{{class5}}" align="{{align5}}">{{activitat.Text5 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Imatge' %}
+  <div id="{{class5}}"  align="{{align5}}"><img src="/uploads/imatges/{{activitat.path5 |striptags}}" width="{{llarg5}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp5 == 'PDF' %}
+  <div id="{{class5}}"  align="{{align5}}">
+  <object data="/uploads/imatges/{{activitat.path5 |striptags}}" type="application/pdf" width="{{llarg5}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path5 |striptags}}" type="application/pdf" width="{{llarg5}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp5 == 'Audio' %}
+  <div id="{{class5}}" align="{{align5}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text5 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text5 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Vimeo / Youtube' %}
+  <div id="{{class6}}"  align="{{align6}}"><iframe src="{{activitat.Text6 |striptags}}" width="{{llarg6}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Texte' %}
+  <div id="{{class6}}" align="{{align6}}">{{activitat.Text6 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Imatge' %}
+  <div id="{{class6}}"  align="{{align6}}"><img src="/uploads/imatges/{{activitat.path6 |striptags}}" width="{{llarg6}}" height="281"></img></div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'Audio' %}
+  <div id="{{class6}}" align="{{align6}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text6 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text6 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp6 == 'PDF' %}
+  <div id="{{class6}}"  align="{{align6}}">
+  <object data="/uploads/imatges/{{activitat.path6 |striptags}}" type="application/pdf" width="{{llarg6}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path6 |striptags}}" type="application/pdf" width="{{llarg6}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  
+  </div>
+  <div id="text">
+  {% if activitat.TipusCamp7 == 'Vimeo / Youtube' %}
+  <div id="{{class7}}" align="{{align7}}"><iframe src="{{activitat.Text7 |striptags}}" width="{{llarg7}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Texte' %}
+  <div id="{{class7}}"  align="{{align7}}">{{activitat.Text7 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Imatge' %}
+  <div id="{{class7}}" align="{{align7}}"><img src="/uploads/imatges/{{activitat.path7 |striptags}}" width="{{llarg7}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp7 == 'PDF' %}
+  <div id="{{class7}}"  align="{{align7}}">
+  <object data="/uploads/imatges/{{activitat.path7 |striptags}}" type="application/pdf" width="{{llarg7}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path7 |striptags}}" type="application/pdf" width="{{llarg7}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp7 == 'Audio' %}
+  <div id="{{class7}}" align="{{align7}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text7 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text7 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Vimeo / Youtube' %}
+  <div id="{{class8}}" align="{{align8}}"><iframe src="{{activitat.Text8}}" width="{{llarg8}}" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Texte' %}
+  <div id="{{class8}}" align="{{align8}}">{{activitat.Text8 | raw}}</div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Imatge' %}
+  <div id="{{class8}}" align="{{align8}}"><img src="/uploads/imatges/{{activitat.path8 |striptags}}" width="{{llarg8}}" height="281"></img></div>
+  {% endif %}
+   {% if activitat.TipusCamp8 == 'PDF' %}
+  <div id="{{class8}}"  align="{{align8}}">
+  <object data="/uploads/imatges/{{activitat.path8 |striptags}}" type="application/pdf" width="{{llarg8}}" height="500">
+    <embed src="/uploads/imatges/{{activitat.path8 |striptags}}" type="application/pdf" width="{{llarg8}}" height="500"/>
+  </object> 
+  </div>
+  {% endif %}
+  {% if activitat.TipusCamp8 == 'Audio' %}
+  <div id="{{class8}}" align="{{align8}}">
+  <audio controls>
+  <source src="/uploads/multimedia/{{activitat.Text8 |striptags}}.mp3"  type="audio/mpeg">
+  <source src="/uploads/multimedia/{{activitat.Text8 |striptags}}.ogg" type="audio/ogg">
+  </audio>
+  </div>
+  {% endif %}
+ </div>
+  <div id="divider"></div>
+  <div id="text">
+  <p><h1>Enviada:</h1> <h2>{{ calendari.Enviada is empty ? "" : calendari.Enviada|date("d/m/Y") }}</h2></p>
+  <p><h1>Oberta:</h1> <h2>{{ calendari.Oberta is empty ? "" : calendari.Oberta|date }}</h2></p>
+  <p><h1>Valorada:</h1> <h2>{{ calendari.Valorada is empty ? "" : calendari.Valorada|date }}</h2></p>
+  <p><h1>Valoració (1 a 5):</h1> <h2>{{ calendari.Valoracio}}</h2></p>
+  </div>
+  </body>
+  </html>

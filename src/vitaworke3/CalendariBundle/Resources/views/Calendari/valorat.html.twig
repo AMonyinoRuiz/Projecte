@@ -90,7 +90,7 @@ function MM_swapImage() { //v3.0
 </head>
 
 <body onload="MM_preloadImages('{{asset('uploads/images/btn_mala_02.png')}}','{{asset('uploads/images/btn_regular_02.png')}}','{{asset('uploads/images/btn_buena_02.png')}}','{{asset('uploads/images/btn_muybuena_02.png')}}','{{asset('uploads/images/btn_excelente_02.png')}}')"  onunload="window.close()">
-<form action="{{path('extranet_calendari_valorar', { 'id': calendari.id })}}" method="post">
+<form action="{{path('extranet_calendari_valorar', { 'id': calendari.id | urlencrypt})}}" method="post">
 
 <div id="content">
 <div id="buttons">

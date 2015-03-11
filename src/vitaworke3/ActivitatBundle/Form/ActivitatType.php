@@ -51,40 +51,25 @@ class ActivitatType extends AbstractType
                  
                 )
               )
-            ->add('Comite', 'genemu_jqueryselect2_entity',
+            ->add('Responsable', 'genemu_jqueryselect2_entity',
             array('label' => 'Comite',
                 'class' => 'vitaworke3\ClientBundle\Entity\Client',
                  'required'    => false,
+                 'multiple'    => true,
                  'query_builder' => function (\Doctrine\ORM\EntityRepository $repository)
                  {
                      return $repository->createQueryBuilder('l')
-                            ->where('l.TipusClient = 3');
+                            ->where('l.TipusClient = 3')
+                            ->orwhere('l.TipusClient =4');
                             
                  },
                 'configs' => array(
-                      'placeholder' => 'Selecciona Comite',
+                      'placeholder' => 'Selecciona Responsable',
                     'allowClear' => true,
                     'width'=>'200')
                  
                 )
               )
-
-            ->add('Formador','genemu_jqueryselect2_entity',
-            array('label' => 'Formador',
-                'class' => 'vitaworke3\ClientBundle\Entity\Client',
-                 'query_builder' => function (\Doctrine\ORM\EntityRepository $repository)
-                 {
-                     return $repository->createQueryBuilder('l')
-                            ->where('l.TipusClient = 4');
-                            
-                 } ,
-                    'required'    => false,
-                    'configs' => array(
-                    'placeholder' => 'Selecciona Formador',
-                    'allowClear' => true,
-                    'width'=>'200')
-                 )
-               )
 
               ->add('Text1', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'), 'required' => false))
               ->add('Text2', 'textarea', array('attr' => array('cols' => '38', 'rows' => '10'),'required' => false))

@@ -1,0 +1,61 @@
+{% extends 'BackendBundle:Extranet:portada.html.twig' %}
+{% block main %}
+<script>
+</script>
+  <div id="main">
+  <div id="main_content">
+  <div id="main_content_controls">
+  <h1>PLANNING MULTIPLE</h1>
+  </div>
+    <a href="#" onclick="history.back(); return false;">Enrere</a>
+
+  <br>
+ <div id="main_content_forms">
+ <div id="main_content_tables">
+<table id="tableplanning" cellspacing="0">
+<tr>
+        <tr><th>Estat</th><th>Data</th><th>Client</th><th>Activitat</th><th>Enviada</th><th>Oberta</th><th>Valorada</th></tr>
+      {% for calendari in calendaris %}
+   <tr>
+         {% if sw == 1 %}
+
+          {%if calendari.enviada is not null %}
+          
+          <td><a href="{{ path('extranet_calendari_visualitzar', { 'id': calendari.id })}}"> <img src="/uploads/images/icon_enviada.png" width="20" height="20">
+          </a></td>
+         
+          {%elseif calendari.oberta is not null %}
+          <td><a href="{{ path('extranet_calendari_visualitzar', { 'id': calendari.id })}}"> <img src="/uploads/images/icon_consultada.png" width="20" height="20">
+          </a></td>
+          {% elseif calendari.valorada is not null %}
+          <td><a href="{{ path('extranet_calendari_visualitzar', { 'id': calendari.id })}}"> <img src="/uploads/images/icon_feta.png" width="20" height="20">{
+          </a></td>
+          
+          
+         
+      {%else%}
+
+    <td class="thplanning"><a href="{{ path('extranet_calendari_nou_planning', { 'accion':'editar' ,'idempresa': idempresa , 'id': calendari.Client.id , 'idany':any ,'idmes':mes , 'iddia': dia , 'idcalendari':calendari.id })}}">CR</a></td>
+      {% endif %}
+
+    <td>{{ calendari.DiaActivitat is empty ? "" : calendari.DiaActivitat|date("d/m/Y")    }}</td>
+    <td>{{ calendari.Client.Nom}}</td>
+    <td>{{ calendari.Activitat}}</td>
+    <td>{{ calendari.Enviada is empty ? "" : calendari.Enviada|date("d/m/Y") }}</td>
+    <td>{{ calendari.Oberta is empty ? "" : calendari.Oberta|date("d/m/Y") }}</td>
+    <td>{{ calendari.Valorada is empty ? "" : calendari.Oberta|date("d/m/Y") }}</td>
+        
+      </tr>
+       {% endif %}
+        {% endfor %}
+</table>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
+	
+ 
+ 
+ 
+ 

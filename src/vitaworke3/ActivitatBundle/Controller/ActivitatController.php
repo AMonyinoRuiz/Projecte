@@ -10,76 +10,54 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class ActivitatController extends Controller
 {
-
-
-  	public function ActivitatAction()
-    {
-       	$em = $this->getDoctrine()->getEntityManager();
+  public function ActivitatAction(){
+    $em = $this->getDoctrine()->getManager();
 	$paginador = $this->get('ideup.simple_paginator');
 	$paginador->setItemsPerPage(20);
 	$paginador->setMaxPagerItems(5);
-
 	$tipusformador = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Formador'));
-        $formadors = $em->getRepository('ClientBundle:Client')->queryclients($tipusformador)->getResult();
-        $tipusComite = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Comite'));
+    $formadors = $em->getRepository('ClientBundle:Client')->queryclients($tipusformador)->getResult();
+    $tipusComite = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Comite'));
 	$comites =$em->getRepository('ClientBundle:Client')->queryclients($tipusComite)->getResult();
 	$tipologies =$em->getRepository('ActivitatBundle:Activitat')->querytipologies()->getResult();
 	$formats =$em->getRepository('ActivitatBundle:Activitat')->queryformats()->getResult();
 	$user = $this->container->get('security.context')->getToken()->getUser();
-    	$mail=$user->getEmail();
+    $mail=$user->getEmail();
 	$rols=$user->getRoles();
-	$rolAdmin=0;
-	foreach ($rols as $rol)
-	 {
-            if ($rol=='ROLE_ADMIN')
-            {	
-		$rolAdmin=1;
-             }
-	 }
-		if ($rolAdmin==1)
-		{	
-			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitats())->getResult();
-                }else
-		{
-			$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-			if (!empty($responsable))
-			{
-                            $comite=$responsable->getAssociat();
-                            $activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsresponsablecomite($responsable,$comite))->getResult();
-			}else
-			{
-                            $activitats='';
-			}
-		}
-
-		
-		return $this->render('ActivitatBundle:Activitat:activitat.html.twig', array(
-		'activitats' => $activitats, 
-		'formadors'=>$formadors,
-		'idformador'=>'0',
-		'comites'=>$comites,
-		'idcomite'=>'0',
-		'tipologies'=>$tipologies,
-		'idtipologia'=>'0',
-		'formats'=>$formats,
-		'idformat'=>'0',
-		'paginador'=>$paginador
-		));   
+	$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+	$Associats=$responsable->getAssociat();
+	$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+	$rolAdmin=$AdminCapProjecte;
+	$activitats = $this->CercaActivitatAction($AdminCapProjecte,$responsable,$Associats);
+	return $this->render('ActivitatBundle:Activitat:activitat.html.twig', array(
+	'activitats' => $activitats, 
+	'formadors'=>$formadors,
+	'idformador'=>'0',
+	'comites'=>$comites,
+	'idcomite'=>'0',
+	'tipologies'=>$tipologies,
+	'idtipologia'=>'0',
+	'formats'=>$formats,
+	'idformat'=>'0',
+	'associats'=>$Associats,
+	'responsable'=>$responsable,
+	'paginador'=>$paginador
+	));   
     }
+
     public function ActivitatFiltreAction($idformador,$idcomite,$idtipologia,$idformat)
     {
-    	$em = $this->getDoctrine()->getEntityManager();
+    	$em = $this->getDoctrine()->getManager();
        	$paginador = $this->get('ideup.simple_paginator');
        	$paginador->setItemsPerPage(20);
-	$paginador->setMaxPagerItems(5);
+	    $paginador->setMaxPagerItems(5);
         $tipusformador = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Formador'));
         $formadors = $em->getRepository('ClientBundle:Client')->queryclients($tipusformador)->getResult();
         $tipusComite = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Comite'));
-	$comites =$em->getRepository('ClientBundle:Client')->queryclients($tipusComite)->getResult();
-	$tipologies =$em->getRepository('ActivitatBundle:Activitat')->querytipologies()->getResult();
-	$formats =$em->getRepository('ActivitatBundle:Activitat')->queryformats()->getResult();
-	$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsfiltre($idformador,$idcomite,$idtipologia,$idformat))->getResult();
-
+	    $comites =$em->getRepository('ClientBundle:Client')->queryclients($tipusComite)->getResult();
+	    $tipologies =$em->getRepository('ActivitatBundle:Activitat')->querytipologies()->getResult();
+	    $formats =$em->getRepository('ActivitatBundle:Activitat')->queryformats()->getResult();
+	   	$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsfiltre($idformador,$idcomite,$idtipologia,$idformat))->getResult();
 		return $this->render('ActivitatBundle:Activitat:activitat.html.twig', array(
 		'activitats' => $activitats, 
 		'formadors'=>$formadors,
@@ -93,38 +71,54 @@ class ActivitatController extends Controller
 		'paginador'=>$paginador
 		));   
     }
-   
-
    	
-
- public function ActivitatNovaAction()
+   	public function ActivitatNovaAction()
     {
+        $em = $this->getDoctrine()->getManager();
+	    $user = $this->container->get('security.context')->getToken()->getUser();
+    	$mail=$user->getEmail();
+		$rols=$user->getRoles();
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+        $Associats=$responsable->getAssociat();
+		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+		$rolAdmin=$AdminCapProjecte;
         $peticion = $this->getRequest();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $activitat = new Activitat();
         $formulario = $this->createForm(new ActivitatType(), $activitat);
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         if ($peticion->getMethod() == 'POST') {
 		$formulario->bind($peticion);
 		if ($formulario->isValid()) {
 			$em->persist($activitat);
 			$em->flush();
 			$id=$activitat->getId();
-                    return $this->redirect($this->generateUrl('extranet_activitat_editar',  array( 'id'=> $id)));
-				
-				}
+			$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+			return $this->redirect($this->generateUrl('extranet_activitat_editar',  array( 'id'=> $MyId,'capprojecte'=> $AdminCapProjecte,'rol'=>$rolAdmin)));
 			}
-        return $this->render('ActivitatBundle:Activitat:activitatnova.html.twig', array('activitat' => '','accion' =>'crear','formulario' => $formulario->createView()));
+		}
+        return $this->render('ActivitatBundle:Activitat:activitatnova.html.twig', array('capprojecte'=>'0','rol'=>$rolAdmin,'activitat' => '','accion' =>'crear','formulario' => $formulario->createView()));
     }
 
     public function ActivitatEditarAction($id)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		$mail=$user->getEmail();
+		$rols=$user->getRoles();
+		$em = $this->getDoctrine()->getManager();
 		$activitatentitat = $em->getRepository('ActivitatBundle:Activitat')->find($id);
 		if (!$activitatentitat) {
-			throw $this->createNotFoundException('Activitat inexistent');
+			$MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+			$activitatentitat = $em->getRepository('ActivitatBundle:Activitat')->find($MyId);
+			if (!$activitatentitat) {
+				throw $this->createNotFoundException('Activitat inexistent');
 			}
-		$formulario = $this->createForm(new ActivitatType(), $activitatentitat);
+		}
+	    $responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+        $Associats=$responsable->getAssociat();
+		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+		$rolAdmin=$AdminCapProjecte;
+  		$formulario = $this->createForm(new ActivitatType(), $activitatentitat);
 		$peticion = $this->getRequest();
 		if ($peticion->getMethod() == 'POST') {
 			$formulario->bind($peticion);
@@ -132,32 +126,40 @@ class ActivitatController extends Controller
 				$baixa=$formulario->getData()->getBaixa();
 				$em->persist($activitatentitat);
 				$em->flush();
-				if ($baixa=='true')
-				{
+				if ($baixa=='true'){
 					$LlistaCalendaris = $em->getRepository('ActivitatBundle:Activitat')->querycalendariactivitat($activitatentitat)->getResult();
-					foreach ($LlistaCalendaris as $calendariDia) 
-					{	
+					foreach ($LlistaCalendaris as $calendariDia) {	
 						$calendariDia->setBaixa($baixa);
 						$em->persist($calendariDia);
 						$em->flush();
 					}
 				}
-				return $this->redirect($this->generateUrl('extranet_activitat_editar',  array( 'id'=> $id)));
+				$MyId = $this->get('nzo_url_encryptor')->encrypt($id);
+				return $this->redirect($this->generateUrl('extranet_activitat_editar',  array( 'id'=> $MyId, 'capprojecte'=>$AdminCapProjecte, 'rol'=>$rolAdmin)));
 			}
 		}
 		return $this->render('ActivitatBundle:Activitat:activitatnova.html.twig',
 		array(
+		'capprojecte'=>$AdminCapProjecte,
+		'rol'=>$rolAdmin,
 		'accion' =>'editar',
 		'activitat' => $activitatentitat,
 		'formulario' => $formulario->createView()
 		)
 		);
 	}
+
+
+
+
 	public function ActivitatPreviewAction($id)
 	{
-
- 		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$activitat = $em->getRepository('ActivitatBundle:Activitat')->find($id);
+		if (!$activitat) {
+			$MyId = $this->get('nzo_url_encryptor')->decrypt($id);
+			$activitat = $em->getRepository('ActivitatBundle:Activitat')->find($MyId);
+		}
 		$camp1=$activitat->getTipusCamp1();
 		$camp2=$activitat->getTipusCamp2();
 		$camp3=$activitat->getTipusCamp3();
@@ -190,43 +192,43 @@ class ActivitatController extends Controller
 		$llarg6='425';
 		$llarg7='425';
 		$llarg8='425';
-                if (empty($camp1) or empty($camp2))
+        if (empty($camp1) or empty($camp2))
 		{
-                    $class1='text_center';
-                    $class2='text_center';
-                    $align1='center';
-                    $align2='center';
-                    $llarg1='600';
-                    $llarg2='600';
+            $class1='text_center';
+            $class2='text_center';
+            $align1='center';
+            $align2='center';
+            $llarg1='600';
+            $llarg2='600';
 		}
 		if (empty($camp3) or empty($camp4))
 		{
-                    $class3='text_center';
-                    $class4='text_center';
-                    $align3='center';
-                    $align4='center';
-                    $llarg3='600';
-                    $llarg4='600';
+            $class3='text_center';
+            $class4='text_center';
+            $align3='center';
+            $align4='center';
+            $llarg3='600';
+            $llarg4='600';
 		}
 		if (empty($camp5) or empty($camp6))
 		{
-                    $class5='text_center';
-                    $class6='text_center';
-                    $align5='center';
-                    $align6='center';
-                    $llarg5='600';
-                    $llarg6='600';
+            $class5='text_center';
+            $class6='text_center';
+            $align5='center';
+            $align6='center';
+            $llarg5='600';
+            $llarg6='600';
 		}
 		if (empty($camp7) or empty($camp8))
 		{
-                    $class7='text_center';
-                    $class8='text_center';
-                    $align7='center';
-                    $align8='center';
-                    $llarg7='600';
-                    $llarg8='600';
+            $class7='text_center';
+            $class8='text_center';
+            $align7='center';
+            $align8='center';
+            $llarg7='600';
+            $llarg8='600';
 		}
-		$host ='http://vitawork.vitaworke3.com' ;
+		$host ='http://desenvolupament.vitaworke3.com' ;
 		return $this->render('ActivitatBundle:Activitat:preview.html.twig',
 		array('host'=>$host,'activitat'=>$activitat, 
 			'class1'=>$class1,'align1'=>$align1,'llarg1'=>$llarg1,
@@ -238,8 +240,47 @@ class ActivitatController extends Controller
 			'class7'=>$class7,'align7'=>$align7,'llarg7'=>$llarg7,
 			'class8'=>$class8,'align8'=>$align8,'llarg8'=>$llarg8,
 			));
-		
-	}		
+		}		
 
 
+	public function EsAdminCapProjecte($Prols,$Presponsable,$Passociats)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$escapprojecte=0;
+		foreach ($Prols as $rol){
+    	    if ($rol=='ROLE_ADMIN'){	
+				//$escapprojecte=1;
+		}}
+		if (!empty($Presponsable)){
+    	    $tipusempresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
+    	    $tipusgrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
+    	    $elements = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusempresa,$tipusgrup)->getResult();	
+    	   	foreach ($elements as $element) {
+    	       	$ClientResps=$element->getResponsable();
+    	        foreach ($ClientResps as $ClientResp) {
+    	        	if ($ClientResp==$Presponsable) {$escapprojecte=1;}
+    	        	foreach ($Passociats as $Associat){
+            			if ($ClientResp==$Associat){$escapprojecte=1;}
+            		}
+            	}
+       		}
+    	}
+	return $escapprojecte;
+	}
+
+	public function CercaActivitatAction($PAdminEsCapProjecte,$PResponsable,$PAssociats)
+	{
+	    $em = $this->getDoctrine()->getManager();
+	    $paginador = $this->get('ideup.simple_paginator');
+		$paginador->setItemsPerPage(20);
+		$paginador->setMaxPagerItems(5);
+		$activitats='';
+		if ($PAdminEsCapProjecte==1)
+		{	
+			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitats())->getResult();
+    	}else{
+			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsresponsablecomite($PResponsable,$PAssociats))->getResult();
+		}	
+		return $activitats;
+	}
 }

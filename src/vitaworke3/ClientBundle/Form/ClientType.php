@@ -27,6 +27,7 @@ class ClientType extends AbstractType
                             ->orwhere('l.TipusClient = 8')
                             ->andwhere('l.Baixa = 0');
                 },
+                'multiple'=>true,
                 'required' => false,
                 'configs' => array(
                       'placeholder' => 'Selecciona Associat',

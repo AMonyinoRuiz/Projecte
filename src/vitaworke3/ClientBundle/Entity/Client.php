@@ -25,6 +25,15 @@ class Client implements UserInterface
      */
     private $id;
 
+   
+
+    /**
+    * @ORM\ManyToMany(targetEntity="vitaworke3\ClientBundle\Entity\Client")
+    **/
+
+    private $Associat;
+
+    
     /**
      * @var string
      *
@@ -52,17 +61,7 @@ class Client implements UserInterface
      *
      * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\TipusClient") */
      private $TipusClient;
-    /**
-     * @var string
-     * 
-     ** 
-     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
-     * @ORM\JoinColumn(nullable=true)
-     *
-     */
-
-    public $Associat;
-
+   
    
     /**
      * @var string
@@ -127,19 +126,22 @@ class Client implements UserInterface
    
     private $Template;
 
-     /**
-     * @var string
-     * 
-     ** 
-     * @ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
-     * @ORM\JoinColumn(nullable=true)
-     *
+    /**
+     * @ORM\ManyToMany(targetEntity="vitaworke3\ClientBundle\Entity\Client")
+     * @ORM\JoinTable(name="responsables",
+     * joinColumns={@ORM\JoinColumn(name="client_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="responsable_id", referencedColumnName="id")}
+     *      )
      */
 
     public $Responsable;
 
 
-
+    public function __construct()
+    {
+        $this->Associat = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Responsable = new \Doctrine\Common\Collections\ArrayCollection();
+    }
     public function getId()
     {
         return $this->id;
@@ -172,7 +174,7 @@ class Client implements UserInterface
     }
 
 
-/**
+    /**
      * Set Nick
      *
      * @param string $nick
@@ -241,16 +243,19 @@ class Client implements UserInterface
         return $this->TipusClient;
     }
 
+
+
+
     /**
-     * Set Associat
+     * Add associat
      *
-     * @param mixed $associat \vitaworke3\ClientBundle\Entity\Client or NULL
+     * @param mixed associat \vitaworke3\ClientBundle\Entity\Client or NULL
      * 
      * @return Client
      */
-    public function setAssociat(\vitaworke3\ClientBundle\Entity\Client $associat= null)
+    public function addAssociat(\vitaworke3\ClientBundle\Entity\Client $associat= null)
     {
-        $this->Associat = $associat;
+        $this->associat[] = $associat;
     
         return $this;
     }
@@ -258,13 +263,15 @@ class Client implements UserInterface
     /**
      * Get Associat
      *
-     * @return string 
+     * @return Doctrine\Common\Collections\Collection Associat
      */
     public function getAssociat()
     {
         return $this->Associat;
     }
 
+
+ 
     /**
      * Set DataAccesAutoritzatInici
      *
@@ -279,7 +286,7 @@ class Client implements UserInterface
     }
 
     
-       /**
+    /**
      * Get DataAccesAutoritzatInici
      *
      * @return string 
@@ -312,11 +319,7 @@ class Client implements UserInterface
     {
         return $this->DataAccesAutoritzatFi;
     }
-
-     
-
- 
-
+    
     /**
      * Set Mail
      *
@@ -349,7 +352,6 @@ class Client implements UserInterface
     public function setBaixa($baixa)
     {
         $this->Baixa = $baixa;
-    
         return $this;
     }
 
@@ -401,10 +403,9 @@ class Client implements UserInterface
     }
 
     
- public function setSalt($salt)
+    public function setSalt($salt)
     {
         $this->Salt= $salt;
-    
         return $this;
     }
 
@@ -457,26 +458,24 @@ class Client implements UserInterface
     {
         return $this->Template;
     }
-
-
+    
     /**
-     * Set Responsable
+     * Add Responsable
      *
      * @param mixed $responsable \vitaworke3\ClientBundle\Entity\Client or NULL
      * 
      * @return Client
      */
-    public function setResponsable(\vitaworke3\ClientBundle\Entity\Client $responsable= null)
+    public function addResponsable(\vitaworke3\ClientBundle\Entity\Client $responsable= null)
     {
-        $this->Responsable = $responsable;
-    
+        $this->Responsable[] = $responsable;
         return $this;
     }
 
     /**
      * Get Responsable
      *
-     * @return string 
+     * @return Doctrine\Common\Collections\Collection Responsable
      */
     public function getResponsable()
     {

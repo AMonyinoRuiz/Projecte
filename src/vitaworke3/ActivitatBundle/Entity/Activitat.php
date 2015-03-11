@@ -75,17 +75,10 @@ class Activitat
     /**
      * @var string
      *
-     *@ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
+     *@ORM\ManyToMany(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
      */
-    private $Comite;
+    private $Responsable;
 
-    /**
-     * @var string
-     *
-     *@ORM\ManyToOne(targetEntity="vitaworke3\ClientBundle\Entity\Client") 
-     */
-    private $Formador;
-    
     /**
      * @var \Date
      *
@@ -325,6 +318,12 @@ class Activitat
     public $file8;
 
 
+     public function __construct()
+    {
+        $this->Responsable = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
     /*
      * Get id
      *
@@ -508,50 +507,29 @@ class Activitat
         return $this->Format;
     }
 
+
+
     /**
-     * Set Comite
+     * Set responsable
      *
-     * @param string $comite
+     * @param mixed comite \vitaworke3\ClientBundle\Entity\Client or NULL
      * @return Comite
      */
-    public function setComite(\vitaworke3\ClientBundle\Entity\Client $comite)
+    public function addResponsable(\vitaworke3\ClientBundle\Entity\Client $responsable= null)
     {
-        $this->Comite = $comite;
+        $this->responsable[]  = $responsable;
     
         return $this;
     }
 
     /**
-     * Get Comite
+     * Get responsable
      *
-     * @return string 
+     * @return Doctrine\Common\Collections\Collection responsable
      */
-    public function getComite()
+    public function getResponsable()
     {
-        return $this->Comite;
-    }
-
-    /**
-     * Set Formador
-     *
-     * @param string $formador
-     * @return Formador
-     */
-    public function setFormador(\vitaworke3\ClientBundle\Entity\Client $formador)
-    {
-        $this->Formador = $formador;
-    
-        return $this;
-    }
-
-    /**
-     * Get Formador
-     *
-     * @return string 
-     */
-    public function getFormador()
-    {
-        return $this->Formador;
+        return $this->Responsable;
     }
 
     /**

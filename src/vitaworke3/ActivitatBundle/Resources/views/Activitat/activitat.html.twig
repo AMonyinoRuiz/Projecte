@@ -33,7 +33,6 @@
 <div id="main">
 <div id="main_content">
 <div id="main_content_controls">
-
 <h1>Llista activitats</h1>
 <div id="main_content_button"><a href="{{ path('extranet_activitat_nova')}}" class="button_orange"><img src="{{asset('uploads/images/icon_plus.png')}}" width="16" height="16" alt="plus" />  Afegir activitat</a></div>
 <div id="main_content_pagination">
@@ -103,9 +102,14 @@
  <option value="totsformats" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': idcomite, 'idtipologia':idtipologia, 'idformat':'0'}) }}" {{ idformat == '0' ? 'selected="selected"' : '' }}></option>
 </select></th>
 <th></th></tr>
-    <tr><th>Activitat</th><th>Formador</th><th>Comite</th><th>Tipologia</th><th>Format</th><th>Editar</th></tr>
+    <tr><th>Activitat</th><th>Responsables</th><th>Tipologia</th><th>Format</th><th>Editar</th></tr>
    {% for activitat in activitats %}
-    <tr><td>{{ activitat.activitat}}</td><td>{{ activitat.formador}}</td><td>{{ activitat.comite}}</td><td>{{ activitat.tipologia}}</td><td>{{ activitat.format}}</td><td><a href="{{ path('extranet_activitat_editar', {'id': activitat.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <tr><td>{{ activitat.activitat}}</td><td>
+       {% for master in activitat.Responsable %} 
+      {{master.Nom}}
+    {% endfor %}
+
+    </td><td>{{ activitat.tipologia}}</td><td>{{ activitat.format}}</td><td><a href="{{ path('extranet_activitat_editar', {'id': activitat.id | urlencrypt })}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

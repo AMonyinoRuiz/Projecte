@@ -7,7 +7,13 @@ form_enctype(formulario) }}>
 <div id="main">
 <div id="main_content">
 <div id="main_content_controls">
-<h3>REGISTRE ACTIVITAT</h3></div>
+<h3>REGISTRE ACTIVITAT</h3>
+
+
+</div>
+{% if accion == 'editar' %}
+<td>ID Activitat: {{activitat.id}}</td>
+{% endif %}
 <td>{{ form_errors(formulario) }}</td>
 <td>{{ form_widget(formulario._token) }}</td>
 
@@ -26,12 +32,17 @@ form_enctype(formulario) }}>
 </div>
 <div id="main_content_forms">
 <div id="main_content_firstcolumn">
+{% if capprojecte == '1' or rol == '1' %}
 {{form_label(formulario.Activada,'Activada')}} 
 {{form_widget(formulario.Activada, { 'attr': {'class' : 'baixa'}})}}
+{% endif %}
 </div>
 <div id="main_content_secondcolumn">
+{% if rol == '1' %}
 {{form_label(formulario.Baixa,'Baixa')}} 
 {{form_widget(formulario.Baixa, { 'attr': {'class' : 'baixa'}})}}
+
+{% endif %}
 </div>
 <div id="main_content_thirdcolumn">
 {{ form_widget(formulario.DiesCaducitat, { 'attr': {'placeholder': "Dies Caducitat"}})}}
@@ -47,14 +58,32 @@ form_enctype(formulario) }}>
 {{ form_widget(formulario.Format, { 'attr': {'placeholder': "Format"}})}}
 </div>
 <div id="main_content_thirdcolumn">
-{{ form_widget(formulario.Comite, { 'attr': {'placeholder': "Comité"}})}}
+{{ form_widget(formulario.Responsable, { 'attr': {'placeholder': "Responsable"}})}}
 </div>
 <div id="main_content_fourthcolumn_2">
-{{ form_widget(formulario.Formador, { 'attr': {'placeholder': "Formador"}})}}
 </div>
-<br>
-<p style="color:#609">PLANTILLA EMAIL</p> 
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
+<p style="color:#609">PLANTILLA EMAIL</p>
+</div>
+<div id="main_content_secondcolumn">
+</div>
+<div id="main_content_thirdcolumn">
+</div>
+<div id="main_content_fourthcolumn_2">
+</div>
+</div>
+<div id="main_content_forms">
+<div id="main_content_firstcolumn">
 {{form_widget(formulario.assumpte, { 'attr': {'placeholder': "Assumpte"}})}}
+</div>
+<div id="main_content_secondcolumn">
+</div>
+<div id="main_content_thirdcolumn">
+</div>
+<div id="main_content_fourthcolumn_2">
+</div>
+</div>
 <div id="main_content_forms">
 <div id="main_content_firstcolumn">
 {{ form_widget(formulario.titol1, { 'attr': {'placeholder': "Text títol abans de Nick"}})}}
@@ -112,15 +141,16 @@ form_enctype(formulario) }}>
 </div>
 </div>
 <div id="main_content_forms">
-<div id="main_content_firstcolumnact">
-{{form_widget(formulario.Text1) }}
+<div id="main_content_firstcolumnact" style="margin-right: 5px">
+{{form_widget(formulario.Text1)}}
 </div>
 <div id="main_content_secondcolumnact">
 </div>
 <div id="main_content_thirdcolumnact">
+{{ form_widget(formulario.Text2)}}
 </div>
 <div id="main_content_fourthcolumnact">
-{{ form_widget(formulario.Text2)}}
+
 </div>
 </div>
 
@@ -161,14 +191,14 @@ form_enctype(formulario) }}>
 </div>
 </div>
 <div id="main_content_forms">
-<div id="main_content_firstcolumnact">
-{{form_widget(formulario.Text3) }}</div>
+<div id="main_content_firstcolumnact" style="margin-right: 5px">
+{{form_widget(formulario.Text3|e('html')) }}</div>
 <div id="main_content_secondcolumnact">
 </div>
 <div id="main_content_thirdcolumnact">
+{{ form_widget(formulario.Text4)}}
 </div>
 <div id="main_content_fourthcolumnact">
-{{ form_widget(formulario.Text4)}}
 </div>
 </div>
 <div id="main_content_forms">
@@ -208,14 +238,16 @@ form_enctype(formulario) }}>
 </div>
 </div>
 <div id="main_content_forms">
-<div id="main_content_firstcolumnact">
-{{form_widget(formulario.Text5) }}</div>
+<div id="main_content_firstcolumnact" style="margin-right: 5px">
+{{form_widget(formulario.Text5)}}</div>
 <div id="main_content_secondcolumnact">
 </div>
 <div id="main_content_thirdcolumnact">
-</div>
-<div id="main_content_fourthcolumnact">
 {{ form_widget(formulario.Text6)}}
+</div>
+
+<div id="main_content_fourthcolumnact">
+
 </div>
 </div>
 
@@ -255,14 +287,15 @@ form_enctype(formulario) }}>
 </div>
 </div>
 <div id="main_content_forms">
-<div id="main_content_firstcolumnact">
-{{form_widget(formulario.Text7) }}</div>
+<div id="main_content_firstcolumnact" style="margin-right: 5px">
+{{form_widget(formulario.Text7|raw) }}</div>
 <div id="main_content_secondcolumnact">
 </div>
 <div id="main_content_thirdcolumnact">
+{{ form_widget(formulario.Text8)}}
+
 </div>
 <div id="main_content_fourthcolumnact">
-{{ form_widget(formulario.Text8)}}
 </div>
 </div>
 
@@ -271,12 +304,16 @@ form_enctype(formulario) }}>
 <input class="button_green" type="submit" value="Afegir activitat" />
 {% else %}
 <input class="button_green" type="submit" value="Guardar canvis activitat" />
-<INPUT class="button_orange" type="button" value="Preview" onClick="location.href='{{ path('extranet_preview', {'id': activitat.id })}}'">
+<INPUT class="button_orange" type="button" value="Preview" onClick="location.href='{{ path('extranet_preview', {'id': activitat.id | urlencrypt})}}'">
 {% endif %}
 <INPUT class="button_red" type="button" value="Sortir" onClick="location.href='{{ path('extranet_activitat')}}'">
 </div>
 </div>
 </div>
 </form>
+
+{{ tinymce_init() }}
+
+
 {% endblock %}
 

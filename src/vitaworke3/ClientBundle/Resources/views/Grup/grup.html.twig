@@ -103,8 +103,21 @@
 </th>
 <th></th></tr>
 <tr><th>Nom</th><th>Associat a</th><th>Idioma prefixat</th><th>Template</th><th>Cap de projecte</th><th></th></tr>
-   {% for grup in grups %}
-    <tr><td>{{ grup.Nom}}</td><td>{{ grup.Associat}}</td><td>{{ grup.Idioma}}</td><td>{{ grup.Template}}</td><td>{{ grup.Responsable}}</td><td><a href="{{ path('extranet_grup_editar', {'id': grup.id })}}" class="button_purple_small">Editar</a></td></tr>
+{% for grup in grups %}
+    <tr><td>{{ grup.Nom}}</td>
+    <td>
+      {% for master in grup.Associat %} 
+         {{master.Nom}}
+      {% endfor %}
+    </td>
+    <td>{{ grup.Idioma}}</td>
+    <td>{{ grup.Template}}</td>
+    <td>
+      {% for Resp in grup.Responsable %} 
+        {{Resp.Nom}}
+      {% endfor %}
+   </td>
+   <td><a href="{{ path('extranet_grup_editar', {'id': grup.id | urlencrypt})}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

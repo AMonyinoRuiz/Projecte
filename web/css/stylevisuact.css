@@ -4,7 +4,7 @@
 
 
 body {
-	background-image: url(web/uploads/images/bg.jpg);
+	background-image: url('../uploads/images/bg.jpg');
 	background-repeat: no-repeat;
 	background-position: center top;
 	background-color: #F2F2F2;

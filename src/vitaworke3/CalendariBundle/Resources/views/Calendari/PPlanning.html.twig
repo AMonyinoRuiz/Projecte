@@ -23,6 +23,7 @@
   </div>
   <br>
  <div id="main_content_forms">
+ {%if origen=='empresa'%}
   <div id="main_content_firstcolumn">
    <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
    {% for mes in mesos %} 
@@ -30,8 +31,19 @@
   {% endfor %}
   </select>
   </div>
+  {%else%}
+  <div id="main_content_firstcolumn">
+   <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
+   {% for mes in mesos %} 
+  <option value="{{ mes.NMes }}"  data-url="{{ url('extranet_planning_grup_filtre', { 'idany': idany ,'idmes':mes.NMes ,'idempresa': idempresa, 'idgrup':idgrup}) }}" {{ idmes == mes.NMes ? 'selected="selected"' : '' }}>{{ mes }}</option>
+  {% endfor %}
+  </select>
+  </div>
+  {% endif %}
+
   <div id="main_content_secondcolumn">
   </div>
+  {%if origen=='empresa'%}
   <div id="main_content_thirdcolumn">
   <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
    {% for any in anys %} 
@@ -39,9 +51,27 @@
   {% endfor %}
   </select> 
   </div>
-  <div id="main_content_fourthcolumn">
+   <div id="main_content_fourthcolumn">
   </div>
   </div>
+   {%else%}
+     <div id="main_content_thirdcolumn">
+    <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
+   {% for any in anys %} 
+  <option value="{{ any }}"  data-url="{{ url('extranet_planning_grup_filtre', { 'idany': any ,'idmes':idmes ,'idempresa': idempresa, 'idgrup':idgrup}) }}" {{ idany == any ? 'selected="selected"' : '' }}>{{ any }}</option>
+  {% endfor %}
+  </select>
+  </div>
+ 
+ <div id="main_content_fourthcolumn">
+  </div>
+  <a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': 'zzz'})}}" >Inici</a>
+   {%if origen !='grup'%}
+  <a href="#" onclick="history.back(); return false;">Enrere</a>
+   {% endif %}
+  </div>
+  {% endif %}
+ 
 
 <div id="main_content_tables">
 <table id="tableplanning" cellspacing="0">
@@ -49,6 +79,7 @@
 <th class="thplanning">Noms i cognoms</th>
   {% for dia in 1..dies %} 
          <th class="thplanning">{{dia}}</th>
+
         {% endfor %}
 </tr>
   <tr>
@@ -58,6 +89,8 @@
           {% if key.id =='0' %}
             {%if origen=='empresa'%}
             <tr><td class="thplanning"><a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': key.client})}}" > {{key.nom}}</a></td>
+              {%elseif origen=='grup' and key.tipus=='Grup'%}
+                <tr><td class="thplanning"><a  href="{{ path('extranet_planning_grup_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa':idempresa,'idgrup': key.client})}}" > {{key.nom}}</a></td>
               {%else%}
               <tr><th class="thplanning">{{key.nom}}</th>
               {% endif %}
@@ -71,11 +104,17 @@
               <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> <img src="/uploads/images/icon_consultada.png" width="20" height="20"></a></td>
               {% elseif key.descripcio=='VA' %}
               <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}"> <img src="/uploads/images/icon_feta.png" width="20" height="20"></a></td>
+              {% elseif key.descripcio=='MU' %}
+              <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar_multiple', { 'idclient': key.client,'idany': idany ,'idmes':idmes,'dia':key.dia ,'sw':key.sw, 'idempresa':idempresa})}}"> {{key.descripcio}}</a></td>
+              
               {%else%}
               <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar', { 'id': key.idcalendari })}}">{{key.descripcio}}</a></td>
               {% endif %}
           {% elseif key.descripcio=='NO' %}
                <td class="thplanning"><a href="{{ path('extranet_calendari_nou_planning', { 'accion':'crear' , 'idempresa': idempresa , 'id': key.client , 'idany':idany ,'idmes':idmes , 'iddia': key.dia ,  'idcalendari':'999999999999999'})}}">  {{key.descripcio}}</a></td>
+          {% elseif key.descripcio=='MU' %}
+             <td class="thplanning"><a href="{{ path('extranet_calendari_visualitzar_multiple', { 'idclient': key.client,'idany': idany ,'idmes':idmes,'dia':key.dia ,'sw':key.sw, 'idempresa':idempresa})}}"> {{key.descripcio}}</a></td>
+            
           {%else%}
                 <td class="thplanning"><a href="{{ path('extranet_calendari_nou_planning', { 'accion':'editar' ,'idempresa': idempresa , 'id': key.client , 'idany':idany ,'idmes':idmes , 'iddia': key.dia , 'idcalendari':key.idcalendari  })}}">{{key.descripcio}}</a></td>
         {% endif %}

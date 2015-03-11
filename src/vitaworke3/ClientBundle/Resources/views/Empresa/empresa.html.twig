@@ -88,7 +88,11 @@
 
     <tr><th>Nom empresa</th><th>Idioma prefixat</th><th>Template</th><th>Cap de projecte</th><th></th></tr>
    {% for empresa in empresas %}
-    <tr><td>{{ empresa.Nom}}</td><td>{{ empresa.Idioma}}</td><td>{{ empresa.Template}}</td><td>{{ empresa.Responsable}}</td><td><a href="{{ path('extranet_empresa_editar', {'id': empresa.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <tr><td>{{ empresa.Nom}}</td><td>{{ empresa.Idioma}}</td><td>{{ empresa.Template}}</td><td>
+   {% for master in empresa.Responsable %} 
+      {{master.Nom}}
+    {% endfor %}
+   </td><td><a href="{{ path('extranet_empresa_editar', {'id': empresa.id | urlencrypt})}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

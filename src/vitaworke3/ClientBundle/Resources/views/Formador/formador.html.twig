@@ -57,7 +57,11 @@
 </th><th></th><th></th></tr>
     <tr><th>Nom</th><th>Nick</th><th>Comite</th><th>Mail</th><th></th></tr>
    {% for formador in formadors %}
-    <tr><td>{{ formador.Nom}}</td><td>{{ formador.Nick}}</td><td>{{ formador.Associat}}</td><td>{{ formador.Mail}}</td><td><a href="{{ path('extranet_formador_editar', {'id': formador.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <tr><td>{{ formador.Nom}}</td><td>{{ formador.Nick}}</td><td>
+      {% for master in formador.Associat %} 
+      {{master.Nom}}
+    {% endfor %}
+  	</td><td>{{ formador.Mail}}</td><td><a href="{{ path('extranet_formador_editar', {'id': formador.id | urlencrypt})}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

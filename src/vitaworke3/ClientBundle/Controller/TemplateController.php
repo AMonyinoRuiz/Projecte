@@ -13,7 +13,7 @@ class TemplateController extends Controller
 {
 	public function TemplateAction()
     {
-       	$em = $this->getDoctrine()->getEntityManager();
+       	$em = $this->getDoctrine()->getManager();
        	$paginador = $this->get('ideup.simple_paginator');
 		$paginador->setItemsPerPage(20);
 		$paginador->setMaxPagerItems(5);
@@ -32,7 +32,7 @@ class TemplateController extends Controller
     }
     public function TemplateFiltreAction($idassociat,$ididioma)
     {
-       	$em = $this->getDoctrine()->getEntityManager();
+       	$em = $this->getDoctrine()->getManager();
        	$paginador = $this->get('ideup.simple_paginator');
 		$paginador->setItemsPerPage(20);
 		$paginador->setMaxPagerItems(5);
@@ -41,8 +41,7 @@ class TemplateController extends Controller
 	    $associats = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusGrup,$tipusEmpresa)->getResult();
        	$idiomas =$em->getRepository('ClientBundle:Client')->queryidiomas()->getResult();
    		$templates = $paginador->paginate($em->getRepository('ClientBundle:Client')->querytemplatesfiltre($idassociat,$ididioma))->getResult();
-	   	
-    	return $this->render('ClientBundle:Template:template.html.twig', array(
+	   	return $this->render('ClientBundle:Template:template.html.twig', array(
        		'templates' => $templates,
      		'associats'=>$associats,
      		'idassociat'=>$idassociat,
@@ -53,7 +52,7 @@ class TemplateController extends Controller
 
     public function TemplateNouAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $peticion = $this->getRequest();
         $template = new Template();
         $formulario = $this->createForm(new TemplateType(), $template);
@@ -66,15 +65,13 @@ class TemplateController extends Controller
 				$em->flush();
 				$id=$template->getId();
 				return $this->redirect($this->generateUrl('extranet_template_editar',  array( 'id'=> $id)));
-		
 			}
 		}
-        
         return $this->render('ClientBundle:Template:templatenou2.html.twig', array( 'accion' =>'crear','formulario' => $formulario->createView()));
     }
 	public function TemplateEditarAction($id)
 	{
-		$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getManager();
 		$template = $em->getRepository('ClientBundle:Template')->find($id);
 		if (!$template) {
 			throw $this->createNotFoundException('No hi ha template idioma per aquest/a Grup/Empresa');

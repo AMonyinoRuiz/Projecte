@@ -1,4 +1,0 @@
-193.146.191.100 - - [11/Mar/2014:10:21:57 +0100] "GET /app.php/extranet/portada HTTP/1.1" 302 744 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36"
-193.146.191.100 - - [11/Mar/2014:10:21:58 +0100] "GET /app.php/login HTTP/1.1" 200 1191 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36"
-193.146.191.100 - - [11/Mar/2014:10:21:59 +0100] "GET /css/images/bg.png HTTP/1.1" 404 66380 "http://vitawork.vitaworke3.com/app.php/login" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36"
-193.146.191.100 - - [11/Mar/2014:10:22:01 +0100] "GET /favicon.ico HTTP/1.1" 200 1430 "-" "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36"

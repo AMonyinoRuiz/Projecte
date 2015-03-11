@@ -1,4 +1,4 @@
-
+	
 {% extends 'BackendBundle:Extranet:perfil.html.twig' %}
 {% block main %}
    <script>
@@ -63,13 +63,23 @@
    
   {% if client.Baixa==1 %}
    
-   <tr><td style='background-color:green;'>{{ client.Nom}}</td><td>{{ client.Nick}}</td><td>{{ client.Associat}}</td><td>{{ client.Mail}}</td><td><a href="{{ path('extranet_client_editar', 
+   <tr><td style='background-color:green;'>{{ client.Nom}}</td><td>{{ client.Nick}}</td><td>
+     {% for master in client.Associat %} 
+      {{master.Nom}}
+    {% endfor %}
+  </td><td>{{ client.Mail}}</td><td><a href="{{ path('extranet_client_editar', 
 
    {'id': client.id })}}" class="button_purple_small">Editar</a></td></tr>
    
    {% else %}
    
-    <tr><td style='background-color:green;'>{{ client.Nom}}</td><td>{{ client.Nick}}</td><td>{{ client.Associat}}</td><td>{{ client.Mail}}</td><td><a href="{{ path('extranet_client_editar', {'id': client.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <tr><td style='background-color:green;'>{{ client.Nom}}</td><td>{{ client.Nick}}</td>
+    <td> 
+    {% for master in client.Associat %} 
+    	{{master.Nom}}
+    {% endfor %}
+    </td>
+    <td>{{ client.Mail}}</td><td><a href="{{ path('extranet_client_editar', {'id': client.id | urlencrypt })}}" class="button_purple_small">Editar</a></td></tr>
   
    {% endif  %}
    {% endfor %}

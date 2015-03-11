@@ -5,7 +5,7 @@ namespace vitaworke3\UsuarisBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use vitaworke3\UsuarisBundle\Entity\Usuari;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Security;
 use vitaworke3\UsuarisBundle\Form\RegistrationFormType;
 use vitaworke3\UsuarisBundle\Form\EditFormType;
 

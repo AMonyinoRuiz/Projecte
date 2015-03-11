@@ -49,8 +49,6 @@
 {% endif %}
 </div>
 </div>
-
-
 <div id="main_content_tables">
 <br>
 <br>
@@ -85,7 +83,7 @@
     <td>{{ calendari.Enviada is empty ? "" : calendari.Enviada|date("d/m/Y") }}</td>
     <td>{{ calendari.Oberta is empty ? "" : calendari.Oberta|date("d/m/Y") }}</td>
     <td>{{ calendari.Valoracio }}</td>
-    <td><a href="{{ path('extranet_calendari_editar', {'id': calendari.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <td><a href="{{ path('extranet_calendari_editar', {'id': calendari.id | urlencrypt})}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

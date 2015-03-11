@@ -40,7 +40,7 @@
 <table cellspacing="0">
     <tr><th>Nom</th><th></th></tr>
    {% for comite in comites %}
-    <tr><td>{{ comite.Nom}}</td><td><a href="{{ path('extranet_comite_editar', {'id': comite.id })}}" class="button_purple_small">Editar</a></td></tr>
+    <tr><td>{{ comite.Nom}}</td><td><a href="{{ path('extranet_comite_editar', {'id': comite.id | urlencrypt})}}" class="button_purple_small">Editar</a></td></tr>
    {% endfor %}
     </table>
 </div>

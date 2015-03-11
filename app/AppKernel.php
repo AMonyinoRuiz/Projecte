@@ -24,16 +24,18 @@ class AppKernel extends Kernel
             new vitaworke3\CalendariBundle\CalendariBundle(),
             new vitaworke3\UsuarisBundle\UsuarisBundle(),
             new vitaworke3\BackendBundle\BackendBundle(),
-            new Sonata\jQueryBundle\SonatajQueryBundle(),
+  	        new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\CacheBundle\SonataCacheBundle(),
-            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+	        new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
-            new Genemu\Bundle\FormBundle\GenemuFormBundle()
-
+            new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+	        new Nzo\UrlEncryptorBundle\NzoUrlEncryptorBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             
         );
 

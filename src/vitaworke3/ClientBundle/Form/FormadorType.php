@@ -25,6 +25,7 @@ class FormadorType extends AbstractType
                             ->where('l.TipusClient = 3')
                             ->andwhere('l.Baixa = 0');
                 },
+                'multiple'=>true,
                 'required' => false,
                 'configs' => array(
                     'placeholder' => 'Selecciona Comite',
