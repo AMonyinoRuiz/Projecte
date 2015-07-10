@@ -1,13 +1,11 @@
 {% extends 'BackendBundle:Extranet:portada.html.twig' %}
 {% block main %}
 <script>
-        $(document).ready(function() { $("#any").select2();$("#mes").select2();});
-
-        function llistaany() {
-    
-          var lista = document.getElementById('any');
-          var url = lista.options[lista.selectedIndex].getAttribute('data-url');
-          window.location = url;
+      $(document).ready(function() { $("#any").select2();$("#mes").select2();});
+      function llistaany() {
+      var lista = document.getElementById('any');
+      var url = lista.options[lista.selectedIndex].getAttribute('data-url');
+      window.location = url;
   };
      function llistames() {
     
@@ -23,7 +21,6 @@
   </div>
   <br>
  <div id="main_content_forms">
- {%if origen=='empresa'%}
   <div id="main_content_firstcolumn">
    <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
    {% for mes in mesos %} 
@@ -31,19 +28,9 @@
   {% endfor %}
   </select>
   </div>
-  {%else%}
-  <div id="main_content_firstcolumn">
-   <select  id="mes" name="mes"  style="width: 200px" onchange='llistames()'>
-   {% for mes in mesos %} 
-  <option value="{{ mes.NMes }}"  data-url="{{ url('extranet_planning_grup_filtre', { 'idany': idany ,'idmes':mes.NMes ,'idempresa': idempresa, 'idgrup':idgrup}) }}" {{ idmes == mes.NMes ? 'selected="selected"' : '' }}>{{ mes }}</option>
-  {% endfor %}
-  </select>
-  </div>
-  {% endif %}
-
+ 
   <div id="main_content_secondcolumn">
   </div>
-  {%if origen=='empresa'%}
   <div id="main_content_thirdcolumn">
   <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
    {% for any in anys %} 
@@ -51,47 +38,33 @@
   {% endfor %}
   </select> 
   </div>
-   <div id="main_content_fourthcolumn">
-  </div>
-  </div>
-   {%else%}
-     <div id="main_content_thirdcolumn">
-    <select  id="any" name="any"  style="width: 100px"  onchange='llistaany()'>
-   {% for any in anys %} 
-  <option value="{{ any }}"  data-url="{{ url('extranet_planning_grup_filtre', { 'idany': any ,'idmes':idmes ,'idempresa': idempresa, 'idgrup':idgrup}) }}" {{ idany == any ? 'selected="selected"' : '' }}>{{ any }}</option>
-  {% endfor %}
-  </select>
-  </div>
  
  <div id="main_content_fourthcolumn">
   </div>
+   </div>
+ 
   <a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': 'zzz'})}}" >Inici</a>
    {%if origen !='grup'%}
   <a href="#" onclick="history.back(); return false;">Enrere</a>
    {% endif %}
-  </div>
-  {% endif %}
  
 
 <div id="main_content_tables">
 <table id="tableplanning" cellspacing="0">
 <tr>
 <th class="thplanning">Noms i cognoms</th>
-  {% for dia in 1..dies %} 
-         <th class="thplanning">{{dia}}</th>
-
-        {% endfor %}
+{% for dia in 1..dies %} 
+  <th class="thplanning">{{dia}}</th>
+{% endfor %}
 </tr>
   <tr>
       {% set constant = ""  %}
       {% for planning in plannings %}
         {% for key in planning %}
           {% if key.id =='0' %}
-            {%if origen=='empresa'%}
+            {%if origen=='empresa' or key.tipus=='Grup'%}
             <tr><td class="thplanning"><a  href="{{ path('extranet_planning_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa': key.client})}}" > {{key.nom}}</a></td>
-              {%elseif origen=='grup' and key.tipus=='Grup'%}
-                <tr><td class="thplanning"><a  href="{{ path('extranet_planning_grup_filtre', { 'idany': idany ,'idmes':idmes ,'idempresa':idempresa,'idgrup': key.client})}}" > {{key.nom}}</a></td>
-              {%else%}
+               {%else%}
               <tr><th class="thplanning">{{key.nom}}</th>
               {% endif %}
           {%else%}

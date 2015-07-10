@@ -70,12 +70,7 @@
 <table cellspacing="0">
 <tr><th></th>
 <th>
-   <select id="associat" name="associat" onchange='lista()' width="150" style="width: 150px">
-   {% for associat in associats %} 
-  <option value="{{ associat.slug }}" data-url="{{ url('extranet_grup_filtre', { 'idassociat': associat.id , 'ididioma':ididioma, 'idtemplate':idtemplate,'idresponsable':idresponsable}) }}" {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom }}</option>
-  {% endfor %}
-  <option value="totsassociats" data-url="{{ url('extranet_grup_filtre', { 'idassociat':'0' , 'ididioma':ididioma, 'idtemplate':idtemplate,'idresponsable':idresponsable}) }}" {{ idassociat == '0' ? 'selected="selected"' : '' }}></option>
-</select>
+ 
 </th>
 <th>
 <select id="idioma" name="idioma" onchange='Idioma()' width="150" style="width: 150px">
@@ -94,12 +89,7 @@
 </select>
 </th>
 <th>
-<select id="responsable" name="responsable" onchange='Responsable()' width="200" style="width: 150px">
-   {% for responsable in responsables %} 
-  <option value="{{ responsable.slug }}" data-url="{{ url('extranet_grup_filtre', {'idassociat':idassociat , 'ididioma':ididioma, idtemplate: idtemplate , 'idresponsable': responsable.id }) }}" {{ idresponsable == responsable.id ? 'selected="selected"' : '' }}>{{ responsable.nom}}</option>
-  {% endfor %}
-  <option value="totsresponsables" data-url="{{ url('extranet_grup_filtre', {'idassociat':idassociat ,  'ididioma':ididioma, idtemplate: idtemplate , idresponsable: '0'}) }}" {{ idresponsable == '0' ? 'selected="selected"' : '' }}></option>
-</select>
+
 </th>
 <th></th></tr>
 <tr><th>Nom</th><th>Associat a</th><th>Idioma prefixat</th><th>Template</th><th>Cap de projecte</th><th></th></tr>

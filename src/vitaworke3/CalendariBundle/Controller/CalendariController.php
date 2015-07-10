@@ -15,6 +15,87 @@ use Symfony\Component\Security\Core\SecurityContext;
 class CalendariController extends Controller
 {
 
+	public function EsAdminCapProjecte($Prols,$Presponsable,$Passociats)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$escapprojecte=0;
+		foreach ($Prols as $rol){
+    	    if ($rol=='ROLE_ADMIN'){	
+				$escapprojecte=1;
+		}}
+		if (!empty($Presponsable)){
+    	    $tipusempresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
+    	    $tipusgrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
+    	    $elements = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusempresa,$tipusgrup)->getResult();	
+    	   	foreach ($elements as $element) {
+    	       	$ClientResps=$element->getResponsable();
+    	        foreach ($ClientResps as $ClientResp) {
+    	        	if ($ClientResp==$Presponsable) {$escapprojecte=1;}
+    	        	foreach ($Passociats as $Associat){
+            			if ($ClientResp==$Associat){$escapprojecte=1;}
+            		}
+            	}
+       		}
+    	}
+	return $escapprojecte;
+	}
+
+	public function CercaActivitatAction($PAdminEsCapProjecte,$PResponsable,$PAssociats)
+	{
+	    $em = $this->getDoctrine()->getManager();
+	    $paginador = $this->get('ideup.simple_paginator');
+		$paginador->setItemsPerPage(20);
+		$paginador->setMaxPagerItems(5);
+		$activitats='';
+		if ($PAdminEsCapProjecte==1)
+		{	
+			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitats())->getResult();
+    	}else{
+			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsresponsablecomite($PResponsable,$PAssociats))->getResult();
+		}	
+		return $activitats;
+	}
+	public function CercaClientsAction($pAdminEsCapProjecte,$pResponsable,$pTipusEmpresa)
+	{
+	    $em = $this->getDoctrine()->getManager();
+		$clients='';
+		//if ($pAdminEsCapProjecte==1){	
+			$clients =$em->getRepository('ClientBundle:Client')->queryempresa($pTipusEmpresa)->getResult();
+		//}else{
+		//	$clients =$em->getRepository('ClientBundle:Client')->queryplanningresponsable($pTipusGrup,$pTipusEmpresa,$pResponsable)->getResult();	
+		//}
+		return $clients;
+	}
+
+	public function CrearCalendari($pCalendari,$pClient,$pContenedor)
+    {
+   		$em = $this->getDoctrine()->getManager();
+		$activitatdeldia=$pCalendari->getActivitat();
+		$assumpte=$pCalendari->getassumpte();
+		$titol1=$pCalendari->gettitol1();
+		$titol2=$pCalendari->gettitol2();
+		$nick=$pCalendari->getnick();
+		$contingut=$pCalendari->getcontingut();
+		$calendariAfegit = new Calendari();
+		$calendariAfegit->setClient($pClient);
+		$calendariAfegit->setActivitat($activitatdeldia);
+		if (!empty($assumpte)){$calendariAfegit->setAssumpte($assumpte);}
+		if (!empty($titol1)){$calendariAfegit->setTitol1($titol1);}
+		if (!empty($titol2)){$calendariAfegit->setTitol2($titol2);}
+		if (!empty($nick)){$calendariAfegit->setNick($nick);}
+		if (!empty($contingut)){$calendariAfegit->setContingut($contingut);}
+		$dataActivitat=new \DateTime('today');
+		$calendariAfegit->setDiaActivitat($dataActivitat);
+		$em->persist($calendariAfegit);
+		$em->flush();
+		$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($calendariAfegit,'app',$pContenedor,$dataActivitat);
+		$em->persist($calendariAfegit);
+		// comentari
+		$em->flush();
+		return 1;		
+    }
+
+
 	public function CalendariAction()
     {
        	$em = $this->getDoctrine()->getManager();
@@ -28,35 +109,11 @@ class CalendariController extends Controller
 		$tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
 		$clients = $em->getRepository('ClientBundle:Client')->querygrupempresaclient($tipusGrup,$tipusEmpresa,$tipusClient)->getResult();
     	$rols=$user->getRoles();
-		$rolAdmin=0;
-		$escapprojecte=0;
-		foreach ($rols as $rol){
-        	if ($rol=='ROLE_ADMIN'){	
-				$rolAdmin=1;
-				$escapprojecte == 1;
-		}}
 		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-		$activitats='';
-		if (!empty($responsable)){
-    	    $tipusempresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
-    	    $tipusgrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
-    	    $elements = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusempresa,$tipusgrup)->getResult();	
-    	    $Associats=$responsable->getAssociat();
-    	    foreach ($elements as $element) {
-    	       	$ClientResps=$element->getResponsable();
-    	        foreach ($ClientResps as $ClientResp) {
-    	        	if ($ClientResp==$responsable) {$escapprojecte=1;}
-    	        	foreach ($Associats as $Associat){
-    	        		if ($ClientResp==$Associat){$escapprojecte=1;}
-    	        	}
-            	}
-        	}
-	    }
-	    if ($rolAdmin==1 || $escapprojecte == 1 ){	
-			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitats())->getResult();
-     	}else{
-			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsresponsablecomite($responsable,$Associats))->getResult();
-		}
+	    $Associats='0'; //$responsable->getAssociat();
+    	$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+    	$rolAdmin=$AdminCapProjecte;
+		$activitats = $this->CercaActivitatAction($AdminCapProjecte,$responsable,$Associats);
 		$calendaris = $paginador->paginate(
 		$em->getRepository('CalendariBundle:Calendari')->querycalendari()
 		)->getResult();
@@ -86,34 +143,11 @@ public function CalendariFiltreAction($idclient,$idactivitat)
 		$tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
 		$clients = $em->getRepository('ClientBundle:Client')->querygrupempresaclient($tipusGrup,$tipusEmpresa,$tipusClient)->getResult();
     	$rols=$user->getRoles();
-		$rolAdmin=0;
-		foreach ($rols as $rol){
-        	if ($rol=='ROLE_ADMIN'){	
-				$rolAdmin=1;
-				$escapprojecte == 1;
-		}}
 		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-		$activitats='';
-		if (!empty($responsable)){
-    	    $tipusempresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
-    	    $tipusgrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
-    	    $elements = $em->getRepository('ClientBundle:Client')->querygrupempresa($tipusempresa,$tipusgrup)->getResult();	
-    	    $Associats=$responsable->getAssociat();
-    	    foreach ($elements as $element) {
-    	       	$ClientResps=$element->getResponsable();
-    	        foreach ($ClientResps as $ClientResp) {
-    	        	if ($ClientResp==$responsable) {$escapprojecte=1;}
-    	        	foreach ($Associats as $Associat){
-    	        		if ($ClientResp==$Associat){$escapprojecte=1;}
-    	        	}
-            	}
-        	}
-	    }
-	    if ($rolAdmin==1 || $escapprojecte == 1 ){	
-			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitats())->getResult();
-     	}else{
-			$activitats = $paginador->paginate($em->getRepository('ActivitatBundle:Activitat')->queryactivitatsresponsablecomite($responsable,$Associats))->getResult();
-		}
+	    $Associats='0'; //$responsable->getAssociat();
+    	$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+    	$rolAdmin=$AdminCapProjecte;
+		$activitats = $this->CercaActivitatAction($AdminCapProjecte,$responsable,$Associats);
 		$calendaris = $paginador->paginate(
 		$em->getRepository('CalendariBundle:Calendari')->querycalendarifiltre($idclient,$idactivitat)
 		)->getResult();
@@ -143,7 +177,7 @@ public function CalendariFiltreAction($idclient,$idactivitat)
 				 $em = $this->getDoctrine()->getManager();
 				 $enviar=$formulario->getData()->getEnviar();
 				 $contenedor = $this;
-				if ($enviar=='true'){
+				 if ($enviar=='true'){
 					$diaactivitat=new \DateTime('today');
 					$calendari->setDiaActivitat($diaactivitat);
 					$em->persist($calendari);
@@ -178,34 +212,7 @@ public function CalendariFiltreAction($idclient,$idactivitat)
         return $this->render('CalendariBundle:Calendari:calendarinou.html.twig', array('accion' =>'crear','formulario' => $formulario->createView()));
     }
 	
-    public function CrearCalendari($pCalendari,$pClient,$pContenedor)
-    {
-   		$em = $this->getDoctrine()->getManager();
-		$activitatdeldia=$pCalendari->getActivitat();
-		$assumpte=$pCalendari->getassumpte();
-		$titol1=$pCalendari->gettitol1();
-		$titol2=$pCalendari->gettitol2();
-		$nick=$pCalendari->getnick();
-		$contingut=$pCalendari->getcontingut();
-		$calendariAfegit = new Calendari();
-		$calendariAfegit->setClient($pClient);
-		$calendariAfegit->setActivitat($activitatdeldia);
-		if (!empty($assumpte)){$calendariAfegit->setAssumpte($assumpte);}
-		if (!empty($titol1)){$calendariAfegit->setTitol1($titol1);}
-		if (!empty($titol2)){$calendariAfegit->setTitol2($titol2);}
-		if (!empty($nick)){$calendariAfegit->setNick($nick);}
-		if (!empty($contingut)){$calendariAfegit->setContingut($contingut);}
-		$dataActivitat=new \DateTime('today');
-		$calendariAfegit->setDiaActivitat($dataActivitat);
-		$em->persist($calendariAfegit);
-		$em->flush();
-		$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($calendariAfegit,'app',$pContenedor,$dataActivitat);
-		$em->persist($calendariAfegit);
-		// comentari
-		$em->flush();
-		return 1;		
-    }
-
+   
 
 	public function CalendariNouPlanningAction($accion,$idempresa,$id,$idany,$idmes,$iddia,$idcalendari)
     {
@@ -242,30 +249,16 @@ public function CalendariFiltreAction($idclient,$idactivitat)
 					$em->persist($calendari);
 					$em->flush();
 					$client=$calendari->getClient();
-					$activitatdeldia=$calendari->getActivitat();
-					$assumpte=$calendari->getassumpte();
-					$titol1=$calendari->gettitol1();
-					$titol2=$calendari->gettitol2();
-					$nick=$calendari->getnick();
-					$contingut=$calendari->getcontingut();
-					$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Client'));
-        			$LlistaAssociats = $em->getRepository('CalendariBundle:Calendari')->queryclientcalendarifiltre($tipusclient,$client)->getResult();
+					$LlistaAssociats = $em->getRepository('CalendariBundle:Calendari')->queryclientcalendarifiltre($client)->getResult();
 					foreach ($LlistaAssociats as $AssociatClient) {	
-						$calendariAfegit = new Calendari();
-						$calendariAfegit->setClient($AssociatClient);
-						$calendariAfegit->setActivitat($activitatdeldia);
-						if (!empty($assumpte)){$calendariAfegit->setAssumpte($assumpte);}
-						if (!empty($titol1)){$calendariAfegit->setTitol1($titol1);}
-						if (!empty($titol2)){$calendariAfegit->setTitol2($titol2);}
-						if (!empty($nick)){$calendariAfegit->setNick($nick);}
-						if (!empty($contingut)){$calendariAfegit->setContingut($contingut);}
-						$dataActivitat=new \DateTime('today');
-						$calendariAfegit->setDiaActivitat($dataActivitat);
-						$em->persist($calendariAfegit);
-						$em->flush();
-						$enviament = $em->getRepository('CalendariBundle:Calendari')->enviarmail($calendariAfegit,'app',$contenedor,$diaactivitat);
-						$em->persist($calendariAfegit);
-						$em->flush();
+						$CrearCalendari=$this->CrearCalendari($calendari,$AssociatClient,$contenedor);
+						$tipusClientAssociat=$AssociatClient->getTipusClient();
+						if ($tipusClientAssociat=='Grup' || $tipusClientAssociat=='Empresa'){
+							$LlistaAssociatsClient= $em->getRepository('CalendariBundle:Calendari')->queryclientcalendarifiltre($AssociatClient)->getResult();
+							foreach ($LlistaAssociatsClient as $AssociatClientNivell2) {
+								$CrearCalendari=$this->CrearCalendari($calendari,$AssociatClientNivell2,$contenedor);		
+							}	
+						}
 					}
 				}
 				else{						
@@ -277,7 +270,6 @@ public function CalendariFiltreAction($idclient,$idactivitat)
 		 		$idcalendari = $calendari->getId();
 		 	}
 		    $MyId = $this->get('nzo_url_encryptor')->encrypt($idcalendari);
-			 
 			return $this->redirect($this->generateUrl('extranet_calendari_nou_planning', array( 'accion'=>'editar' ,'idempresa'=> $idempresa , 'id'=>$id , 'idany'=>$idany ,'idmes'=>$idmes , 'iddia'=> $iddia , 'idcalendari'=>$MyId )));
 				
 			}
@@ -604,7 +596,7 @@ public function CalendariVisualitzarAction($id)
                     $llarg7='600';
                     $llarg8='600';
 		}
-		$host ='http://vitawork.vitaworke3.com' ;
+		$host ='http://desenvolupament.vitaworke3.com' ;
 		return $this->render('ActivitatBundle:Activitat:preview.html.twig',
 		array('host'=>$host,'activitat'=>$activitat, 
 			'class1'=>$class1,'align1'=>$align1,'llarg1'=>$llarg1,
@@ -628,7 +620,7 @@ public function CalendariEmailAction($id)
 		$activitat=$calendari->getActivitat();
 		$client=$calendari->getClient();
 		$nomClient=$client->getNom();
-		$host ='http://vitawork.vitaworke3.com' ;
+		$host ='http://desenvolupament.vitaworke3.com' ;
 		return $this->render('CalendariBundle:Calendari:email.html.twig',
 		array(
 		'usuari' => $client,'activitat'=>$activitat,'host'=>$host,'calendari'=>$calendari
@@ -636,10 +628,7 @@ public function CalendariEmailAction($id)
 		);
 		
 	}
- 
-  
-
-	public function PlanningEmpresaAction()
+ 	public function PlanningEmpresaAction()
     {
        	$em = $this->getDoctrine()->getManager();
        	$mesos = $em->getRepository('CalendariBundle:Mesos')->findAll();
@@ -650,58 +639,54 @@ public function CalendariEmailAction($id)
 		$tipusEmpresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
 		$user = $this->container->get('security.context')->getToken()->getUser();
        	$mail=$user->getEmail();
-		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
 		$plannings='';
 		$rols=$user->getRoles();
-		$rolAdmin=0;
-		foreach ($rols as $rol){
-			if ($rol=='ROLE_ADMIN'){$rolAdmin=1;}
-		 }
-		if ($rolAdmin==1){	
-			$clients =$em->getRepository('ClientBundle:Client')->querygrupempresa($tipusGrup,$tipusEmpresa)->getResult();
-		}else{
-			$clients = $em->getRepository('ClientBundle:Client')->queryplanningresponsable($tipusGrup,$tipusEmpresa,$responsable)->getResult();	
-		}
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+		$Associats='0'; //$responsable->getAssociat();
+		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+    	$rolAdmin=$AdminCapProjecte;
+    	$clients=$this->CercaClientsAction($rols,$responsable,$tipusEmpresa);
 		$dies=date("t",mktime(0,0,0,$idmes+1,0,$idany));
 		$planning = array();
      	foreach ($clients as $client) {
         	$id = $client->getId();
         	$nom = $client->getNom();
+        	$tipus=$client->getTipusClient();
         	for ($i=1; $i<=$dies; $i++)
         	{
     			$sweditar='0';
-    			$plannings[$id][0]=array('id'=>'0','nom'=>$nom ,'client'=>$id);
+    			$plannings[$id][0]=array('id'=>'0','nom'=>$nom ,'client'=>$id,'tipus'=>$tipus);
     			$dia=$i;
     			if (strlen($i)==1){$dia="0".$i;}
         		$source = $idany."-".$idmes."-".$dia;
         		$data=$idany.$idmes.$dia;
 				$diaactivitat = new \DateTime($source);
-				$calendari = $em->getRepository('CalendariBundle:Calendari')->findOneBy(array(
+				$calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array(
 				'Client' => $client,'DiaActivitat'=>$diaactivitat));
+        	
         		$idcalendari='';
         		$descripcio='NO';	
         		$avui = date("Ymd");
         		if ($data < $avui){$sweditar='1';}
-        		if (!empty($calendari)){
+        		if (!empty($calendaris)){
         			$descripcio='CR';	
-        			$idcalendari=$calendari->getId();
-        			$oberta=$calendari->getOberta();
-        			$enviada=$calendari->getEnviada();
-        			$valorada=$calendari->getValorada();
-        			if (!empty($enviada))
-        			{
-        					$descripcio='EV';
+        			$swmultiple=0;
+        			foreach ($calendaris as $calendari){
+        				$swmultiple++;	
         			}
-        			if (!empty($oberta))
-        			{
-        					$descripcio='OB';
-        			}
-        			if (!empty($valorada))
-        			{
-        					$descripcio='VA';
+        			if ($swmultiple>1) {
+        				$descripcio='MU';
+        			}else{
+						$idcalendari=$calendari->getId();
+        				$oberta=$calendari->getOberta();
+        				$enviada=$calendari->getEnviada();
+        				$valorada=$calendari->getValorada();
+        				if (!empty($enviada)){$descripcio='EV';}
+        				if (!empty($oberta)){$descripcio='OB';}
+        				if (!empty($valorada)){$descripcio='VA';}
         			}
         		}
-        		$plannings[$id][$i]=array('id'=>$i,'dia'=>$dia,'descripcio'=>$descripcio,'calendari'=>$calendari,'idcalendari'=>$idcalendari,'sw'=>$sweditar,'client'=>$id,'data'=>$data,'avui'=>$avui);
+        		$plannings[$id][$i]=array('id'=>$i,'dia'=>$dia,'descripcio'=>$descripcio,'calendari'=>$calendaris,'idcalendari'=>$idcalendari,'sw'=>$sweditar,'client'=>$id,'data'=>$data,'avui'=>$avui);
     		}
     	} 
 		return $this->render('CalendariBundle:Calendari:PPlanning.html.twig',array(
@@ -724,99 +709,73 @@ public function CalendariEmailAction($id)
        	$em = $this->getDoctrine()->getManager();
        	$mesos = $em->getRepository('CalendariBundle:Mesos')->findAll();
        	$anys = array('2013','2014','2015','2016','2017');
-       	$origen='client';
+        $tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
+		$tipusEmpresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
+	    $tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Client'));	
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+        $mail=$user->getEmail();
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+		$plannings='';
+		$rols=$user->getRoles();
+		$plannings='';
+		$rols=$user->getRoles();
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
+		$Associats='0'; //$responsable->getAssociat();
+		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
+    	$rolAdmin=$AdminCapProjecte;
       	if ($idempresa=='zzz')
       	{
       		$origen='empresa';
-      		$tipusGrup = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Grup'));
-			$tipusEmpresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
-			$user = $this->container->get('security.context')->getToken()->getUser();
-       		$mail=$user->getEmail();
-			$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-			$plannings='';
-			$rols=$user->getRoles();
-			$rolAdmin=0;
-			foreach ($rols as $rol)
-			 {
-				if ($rol=='ROLE_ADMIN')
-				{	
-					$rolAdmin=1;
-				}
-			 }
-			if ($rolAdmin==1)
-			{	
-				$clients =$em->getRepository('ClientBundle:Client')->querygrupempresa($tipusGrup,$tipusEmpresa)->getResult();
-
-			}else
-			{
-				$clients = $em->getRepository('ClientBundle:Client')->queryplanningresponsable($tipusGrup,$tipusEmpresa,$responsable)->getResult();	
-			}
-			
-      	}else
+      		$clients=$this->CercaClientsAction($rols,$responsable,$tipusEmpresa);
+		}else
       	{
       		$origen='client';
-      		$tipusclient = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Client'));	
-      		$clients = $em->getRepository('CalendariBundle:Calendari')->queryclientcalendarifiltre($tipusclient,$idempresa)->getResult();
+      		$clients = $em->getRepository('CalendariBundle:Calendari')->queryclientcalendarifiltre($idempresa)->getResult();
       	}
-      	
       	$dies=date("t",mktime(0,0,0,$idmes+1,0,$idany));
 	    $planning = array();
         foreach ($clients as $client) {
         	$id = $client->getId();
         	$nom = $client->getNom();
+        	$tipus=$client->getTipusClient();
         	for ($i=1; $i<=$dies; $i++)
         	{
     			$sweditar='0';
-    			$plannings[$id][0]=array('id'=>'0','nom'=>$nom,'client'=>$id);
+    			$plannings[$id][0]=array('id'=>'0','nom'=>$nom ,'client'=>$id,'tipus'=>$tipus);
     			$dia=$i;
-    			if (strlen($i)==1)
-    			{
-    				$dia="0".$i;
-    			}
-        	
+    			if (strlen($i)==1){$dia="0".$i;}
         		$source = $idany."-".$idmes."-".$dia;
 				$diaactivitat = new \DateTime($source);
-				$calendari = $em->getRepository('CalendariBundle:Calendari')->findOneBy(array('Client' => $client,'DiaActivitat'=>$diaactivitat));
+				$calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array(
+				'Client' => $client,'DiaActivitat'=>$diaactivitat));
         		$idcalendari='';
         		$descripcio='NO';	
         		$avui = date("Ymd");
         		$mes=$idmes;
-        		if (strlen($mes)==1)
-    			{
-    				$mes="0".$mes;
-    			}
+        		if (strlen($mes)==1){$mes="0".$mes;}
         		$data=$idany.$mes.$dia;
-        		
-        		if ($data < $avui)
-        		{
-        			$sweditar='1';
-        		}
-        		if (!empty($calendari))
-				{
+        		if ($data < $avui){$sweditar='1';}
+        		if (!empty($calendaris)){
         			$descripcio='CR';	
-        			$idcalendari=$calendari->getId();
-        			$oberta=$calendari->getOberta();
-        			$enviada=$calendari->getEnviada();
-        			$valorada=$calendari->getValorada();
-        			if (!empty($enviada))
-        			{
-        					$descripcio='EV';
+        			$swmultiple=0;
+        			foreach ($calendaris as $calendari){
+        				$swmultiple++;	
         			}
-        			if (!empty($oberta))
-        			{
-        					$descripcio='OB';
-        			}
-        			if (!empty($valorada))
-        			{
-        					$descripcio='VA';
+        			if ($swmultiple>1) {
+        				$descripcio='MU';
+        			}else{
+						$idcalendari=$calendari->getId();
+        				$oberta=$calendari->getOberta();
+        				$enviada=$calendari->getEnviada();
+        				$valorada=$calendari->getValorada();
+        				if (!empty($enviada)){$descripcio='EV';}
+        				if (!empty($oberta)){$descripcio='OB';}
+        				if (!empty($valorada)){$descripcio='VA';}
         			}
         		}
-        		$plannings[$id][$i]=array('id'=>$i,'dia'=>$dia,'descripcio'=>$descripcio,'calendari'=>$calendari,'idcalendari'=>$idcalendari,'sw'=>$sweditar,'client'=>$id);
-    			
-			}
-       
-		
-        } 
+        		$plannings[$id][$i]=array('id'=>$i,'dia'=>$dia,'descripcio'=>$descripcio,'calendari'=>$calendaris,'idcalendari'=>$idcalendari,'sw'=>$sweditar,'client'=>$id);
+ 			}
+      	} 
     	return $this->render('CalendariBundle:Calendari:PPlanning.html.twig',array(
 		'origen' =>$origen,
 		'anys' => $anys,
@@ -828,9 +787,30 @@ public function CalendariEmailAction($id)
 		'plannings'=>$plannings,
 		'idempresa'=>$idempresa)
 		); 
+	}
+public function PlanningMultipleAction($idclient,$idany,$idmes,$dia,$sw,$idempresa)
+	{
 
-        
-    }
+ 		$em = $this->getDoctrine()->getEntityManager();
+ 		$client = $em->getRepository('ClientBundle:Client')->find($idclient);
+ 		$source = $idany."-".$idmes."-".$dia;
+        $data=$idany.$idmes.$dia;
+		$diaactivitat = new \DateTime($source);
+ 		$host ='http://vitawork.vitaworke3.com' ;
+		$calendaris = $em->getRepository('CalendariBundle:Calendari')->findBy(array('Client' => $client,'DiaActivitat'=>$diaactivitat));
 
+		return $this->render('CalendariBundle:Calendari:planningmultiple.html.twig',
+		array(
+         'calendaris'=>$calendaris,
+         'host'=>$host,
+         'idclient'=>$idclient,
+         'any'=>$idany,
+         'mes'=>$idmes,
+         'dia'=>$dia,
+         'idempresa'=>$idempresa,
+         'sw'=>'1')
+		);
+		
+	} 
 
 }

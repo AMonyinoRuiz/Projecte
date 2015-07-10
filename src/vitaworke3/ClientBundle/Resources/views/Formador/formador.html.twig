@@ -47,14 +47,7 @@
 <br>
 <table cellspacing="0">
 
-<tr><th></th><th></th><th>
-<select id="Comite" name="Comite" onchange='lista()' width="200" style="width: 200px">
-{% for comite in comites %} 
-	<option value="{{ comite.slug }}" data-url="{{ url('extranet_formador_filtre', { 'idcomite': comite.id }) }}" {{ idcomite == comite.id ? 'selected="selected"' : '' }}>{{ comite.nom }}</option>
-{% endfor %}
-	<option value="Tots" data-url="{{ url('extranet_formador')}}" {{ idcomite == 'Tots' ? 'selected="selected"' : '' }}>Tots</option>
-</select>
-</th><th></th><th></th></tr>
+
     <tr><th>Nom</th><th>Nick</th><th>Comite</th><th>Mail</th><th></th></tr>
    {% for formador in formadors %}
     <tr><td>{{ formador.Nom}}</td><td>{{ formador.Nick}}</td><td>

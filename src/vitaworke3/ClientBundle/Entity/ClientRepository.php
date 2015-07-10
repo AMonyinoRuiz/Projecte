@@ -5,6 +5,17 @@ use Doctrine\ORM\EntityRepository;
 class ClientRepository extends EntityRepository
 {
 
+ public function queryempresa($empresa)
+  {
+	
+	$em = $this->getEntityManager();
+	$consulta = $em->createQuery('
+	SELECT o FROM ClientBundle:Client o
+	WHERE o.TipusClient=:empresa AND o.Baixa=0');
+	$consulta->setParameter('empresa', $empresa);
+	return $consulta;
+  
+  } 
   public function querygrupempresa($grup,$empresa)
   {
 	
@@ -45,18 +56,16 @@ public function querygrupempresaeditar($grup,$empresa,$id)
   
   }
 
-public function queryplanningresponsable($grup,$empresa,$responsable)
+public function queryplanningresponsable($empresa,$responsable)
   {
 	
 	$em = $this->getEntityManager();
 	$consulta = $em->createQuery('
 	SELECT o FROM ClientBundle:Client o
-	WHERE o.Responsable=:responsable AND (o.TipusClient=:grup OR o.TipusClient=:empresa ) AND o.Baixa=0 ');
+	WHERE :responsable MEMBER OF o.Responsable AND o.TipusClient=:empresa AND o.Baixa=0 ');
 	$consulta->setParameter('empresa', $empresa);
-	$consulta->setParameter('grup', $grup);
 	$consulta->setParameter('responsable', $responsable);
 	return $consulta;
-  
   }
 
  public function queryclientsfiltre($tipusclient,$idassociat,$ididioma,$idtemplate,$idresponsable)
@@ -131,24 +140,17 @@ public function querytemplatesfiltre($idassociat,$ididioma)
 	if (!empty($idassociat) ){$query.=' WHERE  o.Client=:idassociat';}
     if (!empty($ididioma))
     {
-    	if (empty($idassociat))
-    	{
-     		$query.=' WHERE  o.Idioma=:ididioma';
+    	if (empty($idassociat)){$query.=' WHERE  o.Idioma=:ididioma';
      	}else
-     	{
-     		$query.=' AND  o.Idioma=:ididioma';
-     	}
+     	{$query.=' AND  o.Idioma=:ididioma';}
  	}
 	
 	$em = $this->getEntityManager();
     $consulta = $em->createQuery($query);
-    
-	if (!empty($idassociat)){ $consulta->setParameter('idassociat', $idassociat);}
+    if (!empty($idassociat)){ $consulta->setParameter('idassociat', $idassociat);}
     if (!empty($ididioma)){$consulta->setParameter('ididioma', $ididioma);}
-	
-	return $consulta;
-  
-  }
+    return $consulta;
+}
 
 
   public function queryclientidioma()

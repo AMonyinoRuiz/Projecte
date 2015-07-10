@@ -16,8 +16,6 @@ class ActivitatAdmin extends Admin
 		->add('Subtitol')
 		->add('Tipologia')
         ->add('Format')
-        ->add('Comite')
-        ->add('Formador')
         ->add('Baixa')
 		->add('Activada')
 		->add('_action', 'actions', array(
@@ -38,8 +36,6 @@ class ActivitatAdmin extends Admin
 		->add('Subtitol')
 		->add('Tipologia')
         ->add('Format')
-        ->add('Comite')
-        ->add('Formador')
         ->add('Baixa')
 		->add('Activada')
 		;
@@ -52,8 +48,6 @@ class ActivitatAdmin extends Admin
 		->add('Subtitol')
 		->add('Tipologia')
         ->add('Format')
-        ->add('Comite')
-        ->add('Formador')
         ->add('Baixa')
 		->add('Activada')
 		;

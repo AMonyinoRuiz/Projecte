@@ -46,8 +46,11 @@ extranet_calendari_email:
     pattern: /calendari/email/{id}
     defaults: { _controller:CalendariBundle:Calendari:CalendariEmail }
 extranet_calendari_filtre:
-    pattern: /activitat/select/{idclient}/{idactivitat}
+    pattern: /calendari/select/{idclient}/{idactivitat}
     defaults: { _controller:CalendariBundle:Calendari:CalendariFiltre }    
+extranet_calendari_visualitzar_multiple:
+    pattern: /planning/multiple/select/{idclient}/{idany}/{idmes}/{dia}/{sw}/{idempresa}
+    defaults: { _controller:CalendariBundle:Calendari:PlanningMultiple }
 
 extranet_planning:
     pattern: /planning/client
@@ -143,18 +146,3 @@ extranet_template_editar:
 extranet_template_nou:
     pattern: /template2/nou
     defaults: { _controller:ClientBundle:Template:TemplateNou }
-
-
-
-extranet_usuaris:
-    pattern: /usuaris
-    defaults: { _controller:UsuarisBundle:Usuaris:Usuaris }
-extranet_usuaris_nou:
-    pattern: /usuaris/registre
-    defaults: { _controller:UsuarisBundle:Usuaris:UsuarisNou }
-extranet_usuaris_editar:
-    pattern: /usuaris/editar/{id}
-    defaults: { _controller:UsuarisBundle:Usuaris:UsuarisEditar }
-extranet_usuaris_reset:
-    pattern: /usuaris/reset/{id}
-    defaults: { _controller:UsuarisBundle:Usuaris:UsuarisReset}

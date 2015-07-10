@@ -41,15 +41,14 @@ function MM_swapImage() { //v3.0
 <div id="header_content">
 <div id="header_content_cabecera">
 <div id="header_content_logo"><img src="{{asset('uploads/images/icon_vitawork.png')}}" width="24" height="38" alt="icon_vitawork" /> </div>
-<div id="header_content_tittle">E3 Vitawork: Panell d'adminOOOOistració </div>
+<div id="header_content_tittle">E3 Vitawork: Panell d'administració </div>
 <div id="header_content_user">Benvingut, {{ app.user.username }}</div>
 <div id="header_content_logout"><a href="{{ path('fos_user_security_logout') }}"> <img src="{{asset('uploads/images/logout.png')}}" width="32" height="43" alt="logout" /></a></div>
 </div>
 <div id="header_content_menu">
 {% if is_granted('ROLE_ADMIN') %}
-<a target='_blank' href="http://vitawork.vitaworke3.com/app.php/admin/dashboard" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_escritori','','{{asset('uploads/images/menu_1_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_1_reposo.png')}}" alt="menu_escritori" width="109" height="91" id="menu_escritori" /></a>
+<a target='_blank' href="http://desenvolupament.vitaworke3.com/app.php/admin/dashboard" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_escritori','','{{asset('uploads/images/menu_1_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_1_reposo.png')}}" alt="menu_escritori" width="109" height="91" id="menu_escritori" /></a>
 <a href="{{ path('extranet_perfil')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_perfils','','{{asset('uploads/images/menu_2_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_2_reposo.png')}}" alt="menu_perfils" width="109" height="91" id="menu_perfils" /></a>
-<a href="{{ path('extranet_usuaris')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_usuaris','','{{asset('uploads/images/menu_3_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_3_reposo.png')}}" alt="menu_usuaris" width="109" height="91" id="menu_usuaris" /></a>
 {% endif %}
 <a href="{{ path('extranet_activitat')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_activitat','','{{asset('uploads/images/menu_4_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_4_reposo.png')}}" alt="menu_activitat" width="109" height="91" id="menu_activitat" /></a>
 <a href="{{ path('extranet_calendari')}}" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('menu_calendari','','{{asset('uploads/images/menu_5_activo.png')}}',1)"><img src="{{asset('uploads/images/menu_5_reposo.png')}}" alt="menu_calendari" width="109" height="91" id="menu_calendari" /></a>

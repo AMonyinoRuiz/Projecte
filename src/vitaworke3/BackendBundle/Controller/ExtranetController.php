@@ -8,7 +8,6 @@ use vitaworke3\ActivitatBundle\Entity\Activitat;
 use vitaworke3\ActivitatBundle\Entity\Tag;
 use vitaworke3\CalendariBundle\Entity\Calendari;
 use vitaworke3\CalendariBundle\Entity\Planning;
-use vitaworke3\UsuarisBundle\Entity\Usuari;
 
 use vitaworke3\BackendBundle\Form\Extranet\CalendariType;
 use vitaworke3\ClientBundle\Entity\Client;
@@ -76,43 +75,4 @@ class ExtranetController extends Controller
     }
 
 
-
-
-public function UsuarisAction()
-    {
-       	$em = $this->getDoctrine()->getEntityManager();
-       	$paginador = $this->get('ideup.simple_paginator');
-		$paginador->setItemsPerPage(20);
-		$paginador->setMaxPagerItems(5);
-
-       	 $usuaris =  $paginador->paginate($em->getRepository('UsuarisBundle:Usuari')->queryusuaris())->getResult();
-       	
-       	
-			return $this->render('BackendBundle:Extranet:usuaris.html.twig', array('usuaris' => $usuaris,'paginador'=>$paginador)); 
-    }
-
-
-
- public function UsuarisNouAction()
-    {
-        $peticion = $this->getRequest();
-      
-        $formulario = $this->createForm(new RegistrationFormType());
-        $em = $this->getDoctrine()->getEntityManager();
-        if ($peticion->getMethod() == 'POST') {
-				$formulario->bind($peticion);
-				if ($formulario->isValid()) {
-					$em->persist($usuari);
-					$em->flush();
-					$this->get('session')->setFlash('info',
-						'Los datos de tu perfil se han actualizado correctamente'
-					);
-					return $this->redirect(
-					$this->generateUrl('extranet_usuaris')
-					);
-				}
-			}
-        
-        return $this->render('BackendBundle:Extranet:usuarinou.html.twig', array( 'accion' =>'crear','formulario' => $formulario->createView()));
-    }
 }

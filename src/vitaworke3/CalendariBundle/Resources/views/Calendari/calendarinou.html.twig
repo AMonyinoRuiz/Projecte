@@ -30,8 +30,10 @@ form_enctype(formulario) }}>
 {{form_widget(formulario.DiesCaducitat, { 'attr': {'placeholder': "Dies caducitat activitat"}})}}
 </div>
 <div id="main_content_secondcolumn">
+{% if accion == 'crear' %}
 {{form_label(formulario.Enviar,'Enviar')}} 
 {{form_widget(formulario.Enviar, { 'attr': {'class' : 'baixa'}})}}
+{% endif %}
 </div>
 <div id="main_content_thirdcolumn">
 {{form_label(formulario.Baixa,'Baixa')}} 

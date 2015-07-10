@@ -67,41 +67,7 @@
 <br>
 </br>
 <table cellspacing="0">
-  <tr>
-  <th></th>
-  <th>
-  <select style="width: 150px" id="formador" onchange='listaformador()'>
-{% for formador in formadors %} 
-  <option value="{{ formador.nom }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador': formador.id , 'idcomite': idcomite,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idformador == formador.id ? 'selected="selected"' : '' }}>{{ formador.nom }}</option>
-{% endfor %}
-<option value="totsformadors" data-url="{{ url('extranet_activitat_filtre', { 'idformador': '0', 'idcomite': idcomite,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idformador == '0' ? 'selected="selected"' : '' }}></option>
-</select>
-</th>
-<th>
-<select id="Comite" name="Comite" onchange='Comite()' width="200" style="width: 150px">
-{% for comite in comites %} 
-  <option value="{{ comite.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': comite.id ,'idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idcomite == comite.id ? 'selected="selected"' : '' }}>{{ comite.nom }}</option>
-{% endfor %}
- <option value="totsformadors" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': '0','idtipologia':idtipologia ,'idformat':idformat}) }}" {{ idcomite == '0' ? 'selected="selected"' : '' }}></option>
-</select>
-</th>
-<th>
-<select id="Tipologia" name="Tipologia" onchange='Tipologia()' width="200" style="width: 150px">
-{% for tipologia in tipologies %} 
-  <option value="{{ tipologia.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': idcomite, 'idtipologia':tipologia.id ,'idformat':idformat}) }}" {{ idtipologia == tipologia.id ? 'selected="selected"' : '' }}>{{ tipologia.tipologia }}</option>
-{% endfor %}
- <option value="totestipolgies" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': idcomite,'idtipologia':'0','idformat':idformat}) }}" {{ idtipologia == '0' ? 'selected="selected"' : '' }}></option>
-</select>
-</th>
 
-<th>
-<select id="Format" name="Format" onchange='Format()' width="200" style="width: 150px">
-{% for format in formats %} 
-  <option value="{{ format.slug }}" data-url="{{ url('extranet_activitat_filtre', { 'idformador':idformador, 'idcomite': idcomite ,'idtipologia':idtipologia, 'idformat':format.id}) }}" {{ idformat == format.id ? 'selected="selected"' : '' }}>{{ format.format }}</option>
-{% endfor %}
- <option value="totsformats" data-url="{{ url('extranet_activitat_filtre', {  'idformador':idformador,'idcomite': idcomite, 'idtipologia':idtipologia, 'idformat':'0'}) }}" {{ idformat == '0' ? 'selected="selected"' : '' }}></option>
-</select></th>
-<th></th></tr>
     <tr><th>Activitat</th><th>Responsables</th><th>Tipologia</th><th>Format</th><th>Editar</th></tr>
    {% for activitat in activitats %}
     <tr><td>{{ activitat.activitat}}</td><td>

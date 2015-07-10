@@ -24,8 +24,8 @@ class ActivitatController extends Controller
 	$user = $this->container->get('security.context')->getToken()->getUser();
     $mail=$user->getEmail();
 	$rols=$user->getRoles();
-	$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-	$Associats=$responsable->getAssociat();
+	$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail, 'TipusClient' => $tipusformador));
+	$Associats='0'; //$responsable->getAssociat();
 	$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
 	$rolAdmin=$AdminCapProjecte;
 	$activitats = $this->CercaActivitatAction($AdminCapProjecte,$responsable,$Associats);
@@ -78,8 +78,10 @@ class ActivitatController extends Controller
 	    $user = $this->container->get('security.context')->getToken()->getUser();
     	$mail=$user->getEmail();
 		$rols=$user->getRoles();
-		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-        $Associats=$responsable->getAssociat();
+		$tipusformador = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Formador'));
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail, 'TipusClient' => $tipusformador));
+	
+		$Associats='0'; //$responsable->getAssociat();
 		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
 		$rolAdmin=$AdminCapProjecte;
         $peticion = $this->getRequest();
@@ -114,8 +116,9 @@ class ActivitatController extends Controller
 				throw $this->createNotFoundException('Activitat inexistent');
 			}
 		}
-	    $responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail));
-        $Associats=$responsable->getAssociat();
+		$tipusformador = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Formador'));
+		$responsable = $em->getRepository('ClientBundle:Client')->findOneBy(array('Mail' =>$mail, 'TipusClient' => $tipusformador));
+	     $Associats='0'; //$responsable->getAssociat();
 		$AdminCapProjecte=$this->EsAdminCapProjecte($rols,$responsable,$Associats);
 		$rolAdmin=$AdminCapProjecte;
   		$formulario = $this->createForm(new ActivitatType(), $activitatentitat);
@@ -249,7 +252,7 @@ class ActivitatController extends Controller
 		$escapprojecte=0;
 		foreach ($Prols as $rol){
     	    if ($rol=='ROLE_ADMIN'){	
-				//$escapprojecte=1;
+				$escapprojecte=1;
 		}}
 		if (!empty($Presponsable)){
     	    $tipusempresa = $em->getRepository('ClientBundle:TipusClient')->findOneBy(array('slug' => 'Empresa'));
@@ -265,6 +268,7 @@ class ActivitatController extends Controller
             	}
        		}
     	}
+    $escapprojecte=1;
 	return $escapprojecte;
 	}
 

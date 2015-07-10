@@ -1,0 +1,29 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+{% block fos_user_content %}
+{% if error %}
+    <div>Usuari i/o contrassenya erronis</div>
+{% endif %}
+<link href="{{asset('css/style_login.css')}}" rel="stylesheet" type="text/css" />
+<body>
+<div id="content">
+<div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="221" height="95" alt="logo"/></div>
+<form action="{{ path("fos_user_security_check") }}" method="post">
+<div id="inputs">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+    <label for="username">Usuari</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Usuari"/>
+
+    <label for="password">Contrassenya</label>
+    <input type="password" id="password" name="_password" required="required" placeholder="Contrassenya"/>
+	<div id="button">
+    <input class="button_orange" type="submit" id="_submit" name="_submit" value="Inicia sessió" />
+    </div>
+
+</form>
+</div>
+
+</div>
+</body>
+
+{% endblock fos_user_content %}

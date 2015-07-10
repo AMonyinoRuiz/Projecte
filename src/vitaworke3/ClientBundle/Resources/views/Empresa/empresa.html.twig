@@ -78,12 +78,6 @@
 </select>
 </th>
 <th>
-<select id="responsable" name="responsable" onchange='Responsable()' width="200" style="width: 200px">
-   {% for responsable in responsables %} 
-  <option value="{{ responsable.slug }}" data-url="{{ url('extranet_empresa_filtre', {'ididioma':ididioma, idtemplate: idtemplate , 'idresponsable': responsable.id }) }}" {{ idresponsable == responsable.id ? 'selected="selected"' : '' }}>{{ responsable.nom}}</option>
-  {% endfor %}
-  <option value="totsresponsables" data-url="{{ url('extranet_empresa_filtre', { 'ididioma':ididioma, idtemplate: idtemplate , idresponsable: '0'}) }}" {{ idresponsable == '0' ? 'selected="selected"' : '' }}></option>
-</select>
 </th><th></th></tr>
 
     <tr><th>Nom empresa</th><th>Idioma prefixat</th><th>Template</th><th>Cap de projecte</th><th></th></tr>

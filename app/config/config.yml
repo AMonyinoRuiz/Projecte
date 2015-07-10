@@ -1,6 +1,21 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+parameters:
+    sonata.user.form.type.security_roles.class: Sonata\UserBundle\Form\Type\SecurityRolesType
+    sonata.user.profile.form.type.class:            Sonata\UserBundle\Form\Type\ProfileType
+    sonata.user.profile.form.handler.default.class: Sonata\UserBundle\Form\Handler\ProfileFormHandler
+    sonata.user.admin.user.class:              Sonata\UserBundle\Admin\Entity\UserAdmin
+    sonata.user.admin.user.controller:         SonataAdminBundle:CRUD
+    sonata.user.admin.user.translation_domain: SonataUserBundle
+    sonata.user.admin.group.class:              Sonata\UserBundle\Admin\Entity\GroupAdmin
+    sonata.user.admin.group.controller:         SonataAdminBundle:CRUD
+    sonata.user.admin.group.translation_domain: %sonata.user.admin.user.translation_domain%
+    sonata.user.admin.groupname: sonata_user
+services:
+    sonata.user.admin.group:
+        abstract: true
+        public: false
 
 framework:
     #esi:             ~
@@ -17,6 +32,7 @@ framework:
     translator: { fallback: %locale% }
     trusted_proxies: false 
     session:         ~
+    translator: ~
 
 # Twig Configuration
 twig:
@@ -35,11 +51,22 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        entity_managers:
+            default:
+                mappings:
+                    ApplicationSonataUserBundle: ~
+                    SonataUserBundle: ~
+                    FOSUserBundle: ~  
+                    ClientBundle: ~
+                    ActivitatBundle: ~
+                auto_mapping:         true
 
+                    
 #swiftmailer:
 #    transport: smtp
 #    host:      smtp.1and1.es
@@ -61,31 +88,14 @@ swiftmailer:
     spool:
         type: file
         path: "%kernel.cache_dir%/swiftmailer/spool"
-parameters:
-    vitaworke3.directori.imatges: %kernel.root_dir%/../web/uploads/images/
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: vitaworke3\UsuarisBundle\Entity\Usuari
+
+doctrine:
+
+    dbal:
+        types:
+            json: Sonata\Doctrine\Types\JsonType    
 genemu_form:
     select2: ~
-sonata_admin:
-    title: 'Vitaworke3 - Administració'
-    title_logo: "kernel.root_dir%/../web/uploads/images/logo.png"
-    templates:
-        layout: SonataAdminBundle::standard_layout.html.twig
-        ajax: SonataAdminBundle::ajax_layout.html.twig
-        list: SonataAdminBundle:CRUD:list.html.twig
-        show: SonataAdminBundle:CRUD:show.html.twig
-        edit: SonataAdminBundle:CRUD:edit.html.twig
-sonata_block:
-    default_contexts: [cms]
-    blocks:
-        sonata.admin.block.admin_list:
-            contexts:   [admin]
-        sonata.block.service.text:   ~
-        sonata.block.service.action: ~
-        sonata.block.service.rss:    ~
 easy_admin:
     entities:
         - vitaworke3\ClientBundle\Entity\Campanya
@@ -95,3 +105,113 @@ easy_admin:
         - vitaworke3\ClientBundle\Entity\TipusClient
 nzo_url_encryptor:
     secret: VitaW0rkE3_Encrypt_W0rd_HS
+sonata_user:
+    security_acl: true
+    manager_type: orm # can be orm or mongodb
+    class:
+        user:               Application\Sonata\UserBundle\Entity\User
+        group:              Application\Sonata\UserBundle\Entity\Group
+
+    profile:  # Profile Form (firstname, lastname, etc ...)
+        form:
+            type:               sonata.user.profile
+            handler:            sonata.user.profile.form.handler.default
+            name:               sonata_user_profile_form
+            validation_groups:  [Profile]
+fos_user:
+    db_driver:      orm # can be orm or odm
+    firewall_name:  main
+    user_class:     Application\Sonata\UserBundle\Entity\User
+    group:
+        group_class:   Application\Sonata\UserBundle\Entity\Group
+        group_manager: sonata.user.orm.group_manager                    # If you're using doctrine orm (use sonata.user.mongodb.user_manager for mongodb)
+    service:
+        user_manager: sonata.user.orm.user_manager                      # If you're using doctrine orm (use sonata.user.mongodb.group_manager for mongodb)
+    profile:  # Authentication Form
+        form:
+            type:               fos_user_profile
+            handler:            fos_user.profile.form.handler.default
+            name:               fos_user_profile_form
+            validation_groups:  [Authentication] # Please note : this is not the default value
+
+sonata_admin:
+    title:      Admin Panel
+    title_logo: /bundles/sonataadmin/logo_title.png
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+    security:
+        handler: sonata.admin.security.handler.acl
+        # acl security information
+        information:
+            GUEST:    [VIEW, LIST]
+            STAFF:    [EDIT, LIST, CREATE]
+            EDITOR:   [OPERATOR, EXPORT]
+            ADMIN:    [MASTER]
+        # permissions not related to an object instance and also to be available when objects do not exist
+        # the DELETE admin permission means the user is allowed to batch delete objects
+        admin_permissions: [CREATE, LIST, DELETE, UNDELETE, EXPORT, OPERATOR, MASTER]
+        # permission related to the objects
+        object_permissions: [VIEW, EDIT, DELETE, UNDELETE, OPERATOR, MASTER, OWNER]
+
+
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+    # default value is null, so doctrine uses the value defined in the configuration
+    templates:
+        form:
+            - SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig
+        filter:
+            - SonataDoctrineORMAdminBundle:Form:filter_admin_fields.html.twig
+        types:
+            list:
+                array:      SonataAdminBundle:CRUD:list_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:list_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:list_date.html.twig
+                time:       SonataAdminBundle:CRUD:list_time.html.twig
+                datetime:   SonataAdminBundle:CRUD:list_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_list_field.html.twig
+                trans:      SonataAdminBundle:CRUD:list_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_list_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_list_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_list_field.html.twig
+                identifier: SonataAdminBundle:CRUD:base_list_field.html.twig
+            show:
+                array:      SonataAdminBundle:CRUD:show_array.html.twig
+                boolean:    SonataAdminBundle:CRUD:show_boolean.html.twig
+                date:       SonataAdminBundle:CRUD:show_date.html.twig
+                time:       SonataAdminBundle:CRUD:show_time.html.twig
+                datetime:   SonataAdminBundle:CRUD:show_datetime.html.twig
+                text:       SonataAdminBundle:CRUD:base_show_field.html.twig
+                trans:      SonataAdminBundle:CRUD:show_trans.html.twig
+                string:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                smallint:   SonataAdminBundle:CRUD:base_show_field.html.twig
+                bigint:     SonataAdminBundle:CRUD:base_show_field.html.twig
+                integer:    SonataAdminBundle:CRUD:base_show_field.html.twig
+                decimal:    SonataAdminBundle:CRUD:base_show_field.html.twig
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+       #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+        sonata.block.service.text:
+        sonata.block.service.action:
+        sonata.block.service.rss:
+        onata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+
+        # Some specific block from the SonataMediaBundle
+        #sonata.media.block.media:
+        #sonata.media.block.gallery:
+        #sonata.media.block.feature_media:

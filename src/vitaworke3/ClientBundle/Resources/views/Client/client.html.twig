@@ -50,14 +50,6 @@
 <br>
 </br>
 <table cellspacing="0">
-<tr><th></th><th></th><th>
-<select id="associat" name="associat" onchange='lista()' width="300" style="width: 300px">
-   {% for associat in associats %} 
-  <option value="{{ associat.slug }}" data-url="{{ url('extranet_client_filtre', { 'idassociat': associat.id }) }}" {{ idassociat == associat.id ? 'selected="selected"' : '' }}>{{ associat.nom }}</option>
-  {% endfor %}
-  <option value="Tots" data-url="{{ url('extranet_client_filtre', { 'idassociat': '0'}) }}" {{ idassociat == '0' ? 'selected="selected"' : '' }}></option>
-  select>
-</th><th></th><th></th></tr>
     <tr><th>Nom</th><th>Nick</th><th>Associat a</th><th>Mail</th><th></th></tr>
   {% for client in clients %}
    

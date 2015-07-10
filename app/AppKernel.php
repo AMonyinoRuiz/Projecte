@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new vitaworke3\ActivitatBundle\ActivitatBundle(),
             new vitaworke3\ClientBundle\ClientBundle(),
             new vitaworke3\CalendariBundle\CalendariBundle(),
-            new vitaworke3\UsuarisBundle\UsuarisBundle(),
             new vitaworke3\BackendBundle\BackendBundle(),
   	        new Ideup\SimplePaginatorBundle\IdeupSimplePaginatorBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -30,12 +29,15 @@ class AppKernel extends Kernel
             new Sonata\CoreBundle\SonataCoreBundle(),
 	        new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\EasyExtendsBundle\SonataEasyExtendsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
 	        new Nzo\UrlEncryptorBundle\NzoUrlEncryptorBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Sonata\UserBundle\SonataUserBundle(),
+            new Application\Sonata\UserBundle\ApplicationSonataUserBundle()
             
         );
 

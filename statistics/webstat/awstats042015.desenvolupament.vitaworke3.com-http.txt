@@ -1,0 +1,269 @@
+AWSTATS DATA FILE 7.1.1 (build 1.989)
+# If you remove this file, all statistics for date 201504 will be lost/reset.
+# Last config file used to build this data file was /usr/local/psa/etc/awstats/awstats.desenvolupament.vitaworke3.com-http.conf.
+
+# Position (offset in bytes) in this file for beginning of each section for
+# direct I/O access. If you made changes somewhere in this file, you should
+# also remove completely the MAP section (AWStats will rewrite it at next
+# update).
+BEGIN_MAP 27
+POS_GENERAL 2031                
+POS_TIME 2703                
+POS_VISITOR 6677                
+POS_DAY 6833                
+POS_DOMAIN 3241                
+POS_LOGIN 3470                
+POS_ROBOT 3625                
+POS_WORMS 3757                
+POS_EMAILSENDER 3888                
+POS_EMAILRECEIVER 4031                
+POS_SESSION 6964                
+POS_SIDER 7126                
+POS_FILETYPES 4166                
+POS_DOWNLOADS 4342                
+POS_OS 4390                
+POS_BROWSER 4468                
+POS_SCREENSIZE 4587                
+POS_UNKNOWNREFERER 4661                
+POS_UNKNOWNREFERERBROWSER 4748                
+POS_ORIGIN 4830                
+POS_SEREFERRALS 4965                
+POS_PAGEREFS 5109                
+POS_SEARCHWORDS 5257                
+POS_KEYWORDS 5409                
+POS_MISC 2367                
+POS_ERRORS 5468                
+POS_CLUSTER 3326                
+POS_SIDER_404 5584                
+END_MAP
+
+# LastLine    = Date of last record processed - Last record line number in last log - Last record offset in last log - Last record signature value
+# FirstTime   = Date of first visit for history file
+# LastTime    = Date of last visit for history file
+# LastUpdate  = Date of last update - Nb of parsed records - Nb of parsed old records - Nb of parsed new records - Nb of parsed corrupted - Nb of parsed dropped
+# TotalVisits = Number of visits
+# TotalUnique = Number of unique visitors
+# MonthHostsKnown   = Number of hosts known
+# MonthHostsUnKnown = Number of hosts unknown
+BEGIN_GENERAL 8
+LastLine 20150507174559 1 0 11622992091450
+FirstTime 20150410135652
+LastTime 20150429175456
+LastUpdate 20150508041048 1 0 0 0 0
+TotalVisits 4                   
+TotalUnique 2                   
+MonthHostsKnown 0                   
+MonthHostsUnknown 2                   
+END_GENERAL
+
+# Misc ID - Pages - Hits - Bandwidth
+BEGIN_MISC 10
+QuickTimeSupport 0 0 0
+JavaEnabled 0 0 0
+JavascriptDisabled 0 0 0
+PDFSupport 0 0 0
+WindowsMediaPlayerSupport 0 0 0
+AddToFavourites 0 3 0
+RealPlayerSupport 0 0 0
+TotalMisc 0 0 0
+DirectorSupport 0 0 0
+FlashSupport 0 0 0
+END_MISC
+
+# Hour - Pages - Hits - Bandwidth - Not viewed Pages - Not viewed Hits - Not viewed Bandwidth
+BEGIN_TIME 24
+0 0 0 0 0 0 0
+1 0 0 0 0 0 0
+2 0 0 0 0 0 0
+3 0 0 0 0 0 0
+4 0 0 0 0 0 0
+5 0 0 0 0 0 0
+6 0 0 0 0 0 0
+7 0 0 0 0 0 0
+8 0 0 0 0 0 0
+9 0 0 0 0 0 0
+10 0 0 0 0 0 0
+11 0 0 0 0 0 0
+12 0 0 0 0 0 0
+13 36 159 4310743 5 30 2550100
+14 17 17 532779 6 16 1497578
+15 0 0 0 0 0 0
+16 13 72 1960086 13 28 1300200
+17 27 27 616500 19 36 1566640
+18 0 0 0 0 0 0
+19 0 0 0 0 0 0
+20 0 0 0 0 0 0
+21 0 0 0 0 0 0
+22 0 0 0 0 0 0
+23 0 0 0 0 0 0
+END_TIME
+
+# Domain - Pages - Hits - Bandwidth
+# The 10 first Pages must be first (order not required for others)
+BEGIN_DOMAIN 1
+ip 93 275 7420108
+END_DOMAIN
+
+# Cluster ID - Pages - Hits - Bandwidth
+BEGIN_CLUSTER 0
+END_CLUSTER
+
+# Login - Pages - Hits - Bandwidth - Last visit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_LOGIN 0
+END_LOGIN
+
+# Robot ID - Hits - Bandwidth - Last visit - Hits on robots.txt
+# The 10 first Hits must be first (order not required for others)
+BEGIN_ROBOT 0
+END_ROBOT
+
+# Worm ID - Hits - Bandwidth - Last visit
+# The 5 first Hits must be first (order not required for others)
+BEGIN_WORMS 0
+END_WORMS
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first Hits must be first (order not required for others)
+BEGIN_EMAILSENDER 0
+END_EMAILSENDER
+
+# EMail - Hits - Bandwidth - Last visit
+# The 20 first hits must be first (order not required for others)
+BEGIN_EMAILRECEIVER 0
+END_EMAILRECEIVER
+
+# Files type - Hits - Bandwidth - Bandwidth without compression - Bandwidth after compression
+BEGIN_FILETYPES 6
+css 51 1253839 0 0
+png 72 194770 0 0
+js 57 3231126 0 0
+woff 21 267924 0 0
+Unknown 72 2468221 0 0
+gif 2 4228 0 0
+END_FILETYPES
+
+# Downloads - Hits - Bandwidth
+BEGIN_DOWNLOADS 0
+END_DOWNLOADS
+
+# OS ID - Hits
+BEGIN_OS ID - Hits - Pages 1
+winxp 275 93
+END_OS
+
+# Browser ID - Hits - Pages
+BEGIN_BROWSER 3
+chrome41.0.2272.118 65 8
+chrome42.0.2311.90 111 45
+firefox37.0 99 40
+END_BROWSER
+
+# Screen size - Hits
+BEGIN_SCREENSIZE 0
+END_SCREENSIZE
+
+# Unknown referer OS - Last visit date
+BEGIN_UNKNOWNREFERER 0
+END_UNKNOWNREFERER
+
+# Unknown referer Browser - Last visit date
+BEGIN_UNKNOWNREFERERBROWSER 0
+END_UNKNOWNREFERERBROWSER
+
+# Origin - Pages - Hits 
+BEGIN_ORIGIN 6
+From0 17 17
+From1 0 0
+From2 0 0
+From3 0 0
+From4 76 258
+From5 0 0
+END_ORIGIN
+
+# Search engine referers ID - Pages - Hits
+BEGIN_SEREFERRALS 0
+END_SEREFERRALS
+
+# External page referers - Pages - Hits
+# The 10 first Pages must be first (order not required for others)
+BEGIN_PAGEREFS 0
+END_PAGEREFS
+
+# Search keyphrases - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_SEARCHWORDS 0
+END_SEARCHWORDS
+
+# Search keywords - Number of search
+# The 10 first number of search must be first (order not required for others)
+BEGIN_KEYWORDS 0
+END_KEYWORDS
+
+# Errors - Hits - Bandwidth
+BEGIN_ERRORS 3
+302 6 4917
+500 65 3080243
+404 36 3825068
+END_ERRORS
+
+# URL with 404 errors - Hits - Last URL referer
+BEGIN_SIDER_404 8
+/css/images/bg_footer.png 2 http://desenvolupament.vitaworke3.com/css/style.css
+/css/images/bg.png 2 http://desenvolupament.vitaworke3.com/css/style_login.css
+/vitaworke3.directori.imatges/logo.png 10 http://desenvolupament.vitaworke3.com/app.php/admin/dashboard
+/app.php/admin/vitaworke3/client/client/list 1 http://desenvolupament.vitaworke3.com/app.php/admin/dashboard
+/var/www/vhosts/desenvolupament.vitaworke3.com/web/uploads/images/logo.png 16 http://desenvolupament.vitaworke3.com/app.php/admin/vitaworke3/client/client/1/edit
+/app.php/admin/vitaworke3%5CClientBundle%5CAdmin%5CEmpresaAdmin/list 2 http://desenvolupament.vitaworke3.com/app.php/admin/dashboard
+/app.php/admin/EmpresaAdmin/list 1 -
+/css/images/bg_header.png 2 http://desenvolupament.vitaworke3.com/css/style.css
+END_SIDER_404
+
+# Host - Pages - Hits - Bandwidth - Last visit date - [Start date of last visit] - [Last page of last visit]
+# [Start date of last visit] and [Last page of last visit] are saved only if session is not finished
+# The 10 first Hits must be first (order not required for others)
+BEGIN_VISITOR 2
+193.146.191.100 92 274 7418798 20150429175456
+81.47.178.240 1 1 1310 20150427141312
+END_VISITOR
+
+# Date - Pages - Hits - Bandwidth - Visits
+BEGIN_DAY 3
+20150410 8 65 1863495 1
+20150427 45 111 2980027 2
+20150429 40 99 2576586 1
+END_DAY
+
+# Session range - Number of visits
+BEGIN_SESSION 3
+1h+ 2
+0s-30s 1
+30s-2mn 1
+END_SESSION
+
+# URL - Pages - Bandwidth - Entry - Exit
+# The 10 first Pages must be first (order not required for others)
+BEGIN_SIDER 22
+/app.php/admin/dashboard 37 1336865 1 2
+/bundles/sonatacore/vendor/components-font-awesome/fonts/fontawesome-webfont.woff 18 197160 0 1
+/app.php/admin/vitaworke3/client/client/list 6 631654 0 0
+/app.php/login 3 3618 3 0
+/app.php/extranet/empresa 3 26493 0 0
+/bundles/sonatacore/vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff 3 70764 0 0
+/app.php/extranet/portada 3 13683 0 0
+/app.php/extranet/calendari 2 30376 0 0
+/app.php/admin/vitaworke3/client/client/1/edit 2 61762 0 1
+/app.php/extranet/perfil 2 10010 0 0
+/app.php/extranet/template2/editar/1 1 8734 0 0
+/app.php/extranet/template 1 7656 0 0
+/app.php/extranet/comite 1 6296 0 0
+/app.php/admin/vitaworke3/client/client/create 1 30525 0 0
+/app.php/admin/vitaworke3/client/tipusclient/list 2 102702 0 0
+/app.php/admin/vitaworke3/activitat/activitat/list 1 98144 0 0
+/app.php/extranet/empresa/editar/WvQVQhsMqCQ 1 12954 0 0
+/app.php/extranet/grup 1 8856 0 0
+/app.php/extranet/client 2 18644 0 0
+/app.php/admin/vitaworke3/client/campanya/list 1 29692 0 0
+/app.php/admin/vitaworke3/client/tipusclient/2/edit 1 22665 0 0
+/app.php/extranet/formador 1 6892 0 0
+END_SIDER

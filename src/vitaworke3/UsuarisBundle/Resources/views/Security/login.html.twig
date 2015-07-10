@@ -12,9 +12,6 @@
 <div id="logo"><img src="{{asset('uploads/images/logo_vitaworke3.png')}}" width="221" height="95" alt="logo"/></div>
 <form action="{{ path('login_check') }}" method="post">
 
- <input type="hidden" name="_csrf_token"
-        value="{{ csrf_token('authenticate') }}"
-    >
 <div id="inputs">
 <input id="username" name="_username" type="text" placeholder="Usuari" value="{{ last_username }}"/>
 <br>
@@ -24,7 +21,7 @@
 <input class="button_orange" type="submit" name="login" value="Inicia sessió" />
 </div>
 {% if error %}
-<div id="login-error">Usuari i/o contrassenya erronis {{error}}</div>
+<div id="login-error">Usuari i/o contrassenya erronis</div>
 {% endif %}
 </form>
 </div>
